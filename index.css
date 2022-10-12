@@ -1,0 +1,26 @@
+
+li{
+    display: inline;
+    float: left;
+    }
+a {
+    display: block;
+    background-color: none ;
+    color: rgb(7, 4, 4);
+    text-decoration: none;
+
+    }
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: none;
+    }
+.list {
+    display: inline;
+    text-align: center;
+    padding: 80px 16px;
+    margin: 1px;
+    }
+    /* to style my photo gallery & to learn gallery gridding (freecodecamp) */
