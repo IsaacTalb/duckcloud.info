@@ -1,5 +1,5 @@
 
-li{
+li {
     display: inline;
     float: left;
     }
@@ -17,10 +17,18 @@ ul {
     overflow: hidden;
     background-color: none;
     }
-.list {
+.list 1,2,3, {
     display: inline;
     text-align: center;
     padding: 80px 16px;
     margin: 1px;
     }
+.list 2 {
+    float: center;
+    }
+
+.list 3 {
+    float: right;
+    }
+
     /* to style my photo gallery & to learn gallery gridding (freecodecamp) */
