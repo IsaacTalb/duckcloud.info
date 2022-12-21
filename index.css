@@ -31,4 +31,10 @@ ul {
     float: right;
     }
 
+.allpage {
+    background-color: darkgrey;
+    text-color: white;
+    padding: 4px;
+    margin:2px;}
+
     /* to style my photo gallery & to learn gallery gridding (freecodecamp) */
