@@ -10,3 +10,5 @@ app.get('/', function(req, res) {
         res.send(JSON.stringify(docs))
     }))
 })
+
+item['title'] = response.css('.pt-title a::attr(title)').extract()
