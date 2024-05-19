@@ -13,13 +13,15 @@ class CreateHomeAboutsTable extends Migration
      */
     public function up()
     {
-        Schema::create('home_abouts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('short_dis');
-            $table->text('long_dis');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('home_abouts')) {
+            Schema::create('home_abouts', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->text('short_dis');
+                $table->text('long_dis');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

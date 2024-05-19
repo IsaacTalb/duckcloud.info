@@ -10,15 +10,17 @@ class CreateBrandsTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */ 
+     */
     public function up()
     {
-        Schema::create('brands', function (Blueprint $table) {
-            $table->id();
-            $table->string('brand_name');
-            $table->string('brand_image');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('brands')) {
+            Schema::create('brands', function (Blueprint $table) {
+                $table->id();
+                $table->string('brand_name');
+                $table->string('brand_image');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

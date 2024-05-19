@@ -13,11 +13,13 @@ class CreateMultipicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('multipics', function (Blueprint $table) {
-            $table->id();
-            $table->string('image');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('multipics')) {
+            Schema::create('multipics', function (Blueprint $table) {
+                $table->id();
+                $table->string('image');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

@@ -7,6 +7,8 @@ use App\Http\Controllers\ChangePass;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\SliderController;
+
 use App\Models\User;
 use App\Models\Multipic;
 use Illuminate\Support\Facades\DB;
@@ -52,9 +54,16 @@ Route::get('/multi/image', [BrandController::class, 'Multpic'])->name('multi.ima
 Route::post('/multi/add', [BrandController::class, 'StoreImg'])->name('store.image');
 
 // Home Slider Routes
-Route::get('/home/slider', [HomeController::class, 'HomeSlider'])->name('home.slider');
-Route::get('/add/slider', [HomeController::class, 'AddSlider'])->name('add.slider');
-Route::post('/store/slider', [HomeController::class, 'StoreSlider'])->name('store.slider');
+Route::get('/home/slider', [SliderController::class, 'HomeSlider'])->name('home.slider');
+Route::get('/add/slider', [SliderController::class, 'AddSlider'])->name('add.slider');
+Route::post('/store/slider', [SliderController::class, 'StoreSlider'])->name('store.slider');
+
+// edit by Isaac for the slider
+Route::get('slider/edit/{id}', [SliderController::class, 'edit'])->name('slider.edit');
+Route::post('slider/update/{id}', [SliderController::class, 'update'])->name('slider.update');
+Route::get('slider/delete/{id}', [SliderController::class, 'delete'])->name('slider.delete');
+
+
 
 // Home About Routes
 Route::get('/home/About', [AboutController::class, 'HomeAbout'])->name('home.about');
@@ -69,11 +78,15 @@ Route::get('/portfolio', [AboutController::class, 'Portfolio'])->name('portfolio
 Route::get('/contact', [ContactController::class, 'Contact'])->name('contact');
 Route::get('/home', [HomeController::class, 'Home'])->name('home');
 
-// Admin Contact Routes
+// Admin Contact Routes edit by Isaac
 Route::get('/admin/contact', [ContactController::class, 'AdminContact'])->name('admin.contact');
 Route::get('/admin/add/contact', [ContactController::class, 'AdminAddContact'])->name('add.contact');
 Route::post('/admin/store/contact', [ContactController::class, 'AdminStoreContact'])->name('store.contact');
+Route::get('/admin/contact/edit/{id}', [ContactController::class, 'AdminEditContact'])->name('contact.edit');
+Route::post('/admin/contact/update/{id}', [ContactController::class, 'AdminUpdateContact'])->name('contact.update');
+Route::get('/admin/contact/delete/{id}', [ContactController::class, 'AdminDeleteContact'])->name('contact.delete');
 Route::get('/admin/message', [ContactController::class, 'AdminMessage'])->name('admin.message');
+
 
 // Home Contact Page Routes
 Route::post('/contact/form', [ContactController::class, 'ContactForm'])->name('contact.form');

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class ContactController extends Controller
 {
-    
+
  public function AdminContact(){
      $contacts = Contact::all();
      return view('admin.contact.index',compact('contacts'));
@@ -21,7 +21,7 @@ class ContactController extends Controller
  }
 
  public function AdminStoreContact(Request $request){
-   
+
     Contact::insert([
         'email' => $request->email,
         'phone' => $request->phone,
@@ -32,7 +32,7 @@ class ContactController extends Controller
     return Redirect()->route('admin.contact')->with('success','Contact Inserted Successfully');
 
  }
- 
+
 
     public function Contact(){
         $contacts = DB::table('contacts')->first();
@@ -48,7 +48,7 @@ class ContactController extends Controller
             'message' => $request->message,
             'created_at' => Carbon::now()
         ]);
-    
+
         return Redirect()->route('contact')->with('success','Your Message Send Successfully');
 
     }
@@ -56,6 +56,40 @@ class ContactController extends Controller
     public function AdminMessage(){
         $messages = ContactForm::all();
         return view('admin.contact.message',compact('messages'));
+    }
+
+    public function AdminEditContact($id)
+    {
+        $contact = Contact::findOrFail($id);
+        return view('admin.contact.edit', compact('contact'));
+    }
+
+    public function AdminUpdateContact(Request $request, $id)
+    {
+        $contact = Contact::findOrFail($id);
+
+        $request->validate([
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+        ]);
+
+        $contact->update([
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'updated_at' => Carbon::now()
+        ]);
+
+        return redirect()->route('admin.contact')->with('success', 'Contact Updated Successfully');
+    }
+
+    public function AdminDeleteContact($id)
+    {
+        $contact = Contact::findOrFail($id);
+        $contact->delete();
+
+        return redirect()->route('admin.contact')->with('success', 'Contact Deleted Successfully');
     }
 
 
