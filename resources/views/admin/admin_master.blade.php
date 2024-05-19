@@ -7,6 +7,9 @@
 
   <title>DC-Dashboard</title>
 
+  {{-- favicon of DC --}}
+  <link rel="icon" href="{{ asset('frontend/assets/img/dc_logo.png') }}" sizes="32x32" type="image/png">
+
   <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet"/>
   <link href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css" rel="stylesheet" />
@@ -63,9 +66,9 @@
       <div class="page-wrapper">
                   <!-- Header -->
           <header class="main-header " id="header">
-            <nav class="navbar navbar-static-top navbar-expand-lg">
+            <nav class="navbar navbar-static-top navbar-expand-lg" style="background-color: #839399;">
               <!-- Sidebar toggle button -->
-              <button id="sidebar-toggler" class="sidebar-toggle">
+              <button id="sidebar-toggler" class="sidebar-toggle" style="color: #134352;">
                 <span class="sr-only">Toggle navigation</span>
               </button>
               <!-- search form -->
@@ -126,7 +129,7 @@
           </header>
 
 
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="background-color: #333637ab;">
           <div class="content">
 
 
@@ -134,29 +137,26 @@
 
 
 </div>
-        </div>
-
-                  <footer class="footer mt-auto">
+    </div>
+        <footer class="footer mt-auto">
             <div class="copyright bg-white">
-              <p>
-                &copy; <span id="copy-year"></span>. Developed by
+                <p>
+                &copy; <span id="copy-year"></span>. Adjusted & Supported by
                 <a
-                  class="text-primary"
-                  href="http://www.michaelogrady.net"
-                  target="_blank"
-                  >Michael O'Grady</a
-                > in Laravel 8.
-              </p>
+                    class="text-primary"
+                    href="https://github.com/IsaacTalb"
+                    target="_blank"> <span style="color: #067f95;text-decoration: underline;">Isaac Talb</span>
+                </a> in Laravel 8.1.5
+                </p>
             </div>
             <script>
                 var d = new Date();
                 var year = d.getFullYear();
                 document.getElementById("copy-year").innerHTML = year;
             </script>
-          </footer>
-
-      </div>
+        </footer>
     </div>
+</div>
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCn8TFXGg17HAUcNpkwtxxyT9Io9B_NcM" defer></script>

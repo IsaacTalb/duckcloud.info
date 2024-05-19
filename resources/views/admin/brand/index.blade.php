@@ -2,8 +2,9 @@
 
 @section('admin')
 
-    <div class="py-12"> 
+    <div class="py-12">
    <div class="container">
+    <h4 style="text-align:center; color:white; margin-bottom:2em;">Home — Brand Section </h4>
     <div class="row">
 
 
@@ -22,32 +23,32 @@
   </thead>
   <tbody>
           <!-- @php($i = 1) -->
-        @foreach($brands as $brand) 
+        @foreach($brands as $brand)
     <tr>
       <th scope="row"> {{ $brands->firstItem()+$loop->index  }} </th>
       <td> {{ $brand->brand_name }} </td>
-      <td> <img src="{{ asset($brand->brand_image) }}" style="height:40px; width:70px;" > </td> 
-      <td> 
+      <td> <img src="{{ asset($brand->brand_image) }}" style="height:40px; width:70px;" > </td>
+      <td>
           @if($brand->created_at ==  NULL)
-          <span class="text-danger"> No Date Set</span> 
+          <span class="text-danger"> No Date Set</span>
           @else
       {{ Carbon\Carbon::parse($brand->created_at)->diffForHumans() }}
           @endif
        </td>
-       <td> 
+       <td>
        <a href="{{ url('brand/edit/'.$brand->id) }}" class="btn btn-info">Edit</a>
        <a href="{{ url('brand/delete/'.$brand->id) }}" onclick="return confirm('Are you sure to delete')" class="btn btn-danger">Delete</a>
-        </td> 
+        </td>
 
 
-    </tr> 
+    </tr>
     @endforeach
 
 
   </tbody>
 </table>
 {{ $brands->links() }}
-  
+
        </div>
     </div>
 
@@ -56,9 +57,9 @@
      <div class="card">
           <div class="card-header"> Add Brand </div>
           <div class="card-body">
-          
-         
-         
+
+
+
           <form action="{{ route('store.brand') }}" method="POST" enctype="multipart/form-data">
           @csrf
   <div class="form-group">
@@ -84,21 +85,21 @@
 
 
 
-     
+
   <button type="submit" class="btn btn-primary">Add Brand</button>
 </form>
 
        </div>
 
     </div>
-  </div> 
- 
+  </div>
+
 
 
     </div>
-  </div> 
+  </div>
 
- 
+
 
 
     </div>

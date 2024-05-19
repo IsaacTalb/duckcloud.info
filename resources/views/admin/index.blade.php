@@ -1,13 +1,14 @@
 @extends('admin.admin_master')
 
+
 @section('admin')
 
- 
+
  <!-- Top Statistics -->
   <div class="row">
                     <div class="col-xl-3 col-sm-6">
                       <div class="card card-mini mb-4">
-                        <div class="card-body">
+                        <div class="card-body" style="background-color: #deebe9;">
                           <h2 class="mb-1">71,503</h2>
                           <p>Online Signups</p>
                           <div class="chartjs-wrapper">
@@ -18,7 +19,7 @@
                     </div>
                     <div class="col-xl-3 col-sm-6">
                       <div class="card card-mini  mb-4">
-                        <div class="card-body">
+                        <div class="card-body" style="background-color: #deebe9;">
                           <h2 class="mb-1">9,503</h2>
                           <p>New Visitors Today</p>
                           <div class="chartjs-wrapper">
@@ -29,7 +30,7 @@
                     </div>
                     <div class="col-xl-3 col-sm-6">
                       <div class="card card-mini mb-4">
-                        <div class="card-body">
+                        <div class="card-body" style="background-color: #deebe9;">
                           <h2 class="mb-1">71,503</h2>
                           <p>Monthly Total Order</p>
                           <div class="chartjs-wrapper">
@@ -40,7 +41,7 @@
                     </div>
                     <div class="col-xl-3 col-sm-6">
                       <div class="card card-mini mb-4">
-                        <div class="card-body">
+                        <div class="card-body" style="background-color: #deebe9;">
                           <h2 class="mb-1">9,503</h2>
                           <p>Total Revenue This Year</p>
                           <div class="chartjs-wrapper">
@@ -59,7 +60,7 @@
                         <div class="card-header">
                           <h2>Sales Of The Year</h2>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="background-color: #deebe9;">
                           <canvas id="linechart" class="chartjs"></canvas>
                         </div>
                         <div class="card-footer d-flex flex-wrap bg-white p-0">
@@ -84,7 +85,7 @@
                     <div class="card-header justify-content-center">
                       <h2>Orders Overview</h2>
                     </div>
-                    <div class="card-body" >
+                    <div class="card-body" style="background-color: #deebe9;" >
                       <canvas id="doChart" ></canvas>
                     </div>
                     <a href="#" class="pb-5 d-block text-center text-muted"><i class="mdi mdi-download mr-2"></i> Download overall report</a>
@@ -112,13 +113,13 @@
 
 						<div class="row">
 							<div class="col-xl-4 col-lg-6 col-12">
-								
+
                   <!-- Polar and Radar Chart -->
                   <div class="card card-default">
                     <div class="card-header justify-content-center">
                       <h2>Sales Overview</h2>
                     </div>
-                    <div class="card-body pt-0">
+                    <div class="card-body pt-0" style="background-color: #deebe9;">
                       <ul class="nav nav-pills mb-5 mt-5 nav-style-fill nav-justified" id="pills-tab" role="tablist">
                         <li class="nav-item">
                           <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Sales Status</a>
@@ -139,7 +140,7 @@
                   </div>
 
 							</div>
-							<div class="col-xl-4 col-lg-6 col-12"> 
+							<div class="col-xl-4 col-lg-6 col-12">
                   <!-- Top Sell Table -->
                   <div class="card card-table-border-none" data-scroll-height="550">
                     <div class="card-header justify-content-between">
@@ -156,7 +157,7 @@
                             </div>
                       </div>
                     </div>
-                    <div class="card-body slim-scroll py-0">
+                    <div class="card-body slim-scroll py-0" style="background-color: #deebe9;">
                       <table class="table ">
                         <tbody>
                           <tr>
@@ -221,7 +222,7 @@
                             </div>
 
                           </div>
-                          <div class="card-body slim-scroll">
+                          <div class="card-body slim-scroll" style="background-color: #deebe9;">
                             <div class="media pb-3 align-items-center justify-content-between">
                               <div class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-primary text-white">
                                 <i class="mdi mdi-cart-outline font-size-20"></i>
@@ -307,7 +308,7 @@
 						</div>
 
 						<div class="row">
-							<div class="col-12"> 
+							<div class="col-12">
                   <!-- Recent Order Table -->
                   <div class="card card-table-border-none" id="recent-orders">
                     <div class="card-header justify-content-between">
@@ -316,7 +317,7 @@
                         <span></span>
                       </div>
                     </div>
-                    <div class="card-body pt-0 pb-5">
+                    <div class="card-body pt-0 pb-5" style="background-color: #deebe9;">
                       <table class="table card-table table-responsive table-responsive-large" style="width:100%">
                         <thead>
                           <tr>
@@ -465,14 +466,14 @@
 						</div>
 
 						<div class="row">
-							<div class="col-xl-6"> 
+							<div class="col-xl-6">
                   <!-- To Do list -->
                   <div class="card card-default todo-table" id="todo" data-scroll-height="550">
                     <div class="card-header justify-content-between">
                       <h2>To Do List</h2>
                       <a class="btn btn-primary btn-pill" id="add-task" href="#" role="button"> Add task </a>
                     </div>
-                    <div class="card-body slim-scroll">
+                    <div class="card-body slim-scroll" style="background-color: #deebe9;">
                       <div class="todo-single-item d-none" id="todo-input">
                         <form >
                           <div class="form-group">
@@ -544,7 +545,7 @@
                         </ul>
                       </div>
                     </div>
-                    <div class="card-body vector-map-world">
+                    <div class="card-body vector-map-world" style="background-color: #deebe9;">
                       <div id="world" style="height: 100%; width: 100%;"></div>
                     </div>
                     <div class="card-footer d-flex flex-wrap bg-white p-0">
@@ -590,7 +591,7 @@
                             </div>
                       </div>
                     </div>
-                    <div class="card-body pt-0">
+                    <div class="card-body pt-0" style="background-color: #deebe9;">
                       <table class="table ">
                         <tbody>
                           <tr>
@@ -693,7 +694,7 @@
                       </div>
 
                     </div>
-                    <div class="card-body py-0">
+                    <div class="card-body py-0" style="background-color: #deebe9;">
                       <div class="media d-flex mb-5">
                         <div class="media-image align-self-center mr-3 rounded">
                           <a href="#"><img src="{{ asset('backend/assets/img/products/p1.jpg') }}" alt="customer image"></a>
@@ -742,5 +743,5 @@
                   </div>
 </div>
                               </div>
-                              
+
 @endsection

@@ -114,12 +114,12 @@
     width: 250px;
 
     @include transition(width 0.3s ease-in-out);
-    padding-left: 1.56rem;
+    padding-left: 1em;
     @include media-breakpoint-up(md){
       overflow: hidden;
     }
     img {
-      max-width: 80px;
+      max-width: 30px;
       vertical-align: middle;
     }
   }

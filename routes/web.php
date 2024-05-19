@@ -86,7 +86,7 @@ Route::get('/admin/contact/edit/{id}', [ContactController::class, 'AdminEditCont
 Route::post('/admin/contact/update/{id}', [ContactController::class, 'AdminUpdateContact'])->name('contact.update');
 Route::get('/admin/contact/delete/{id}', [ContactController::class, 'AdminDeleteContact'])->name('contact.delete');
 Route::get('/admin/message', [ContactController::class, 'AdminMessage'])->name('admin.message');
-
+Route::post('/admin/message/reply/{id}', [ContactController::class, 'AdminReplyMessage'])->name('admin.message.reply');
 
 // Home Contact Page Routes
 Route::post('/contact/form', [ContactController::class, 'ContactForm'])->name('contact.form');

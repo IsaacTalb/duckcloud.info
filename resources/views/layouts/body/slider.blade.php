@@ -1,4 +1,4 @@
-@php 
+@php
  $sliders = DB::table('sliders')->get();
 
 @endphp
@@ -24,9 +24,9 @@
         </div>
         @endforeach
 
-         
 
-        
+
+
 
       </div>
 

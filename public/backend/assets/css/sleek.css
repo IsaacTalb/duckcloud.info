@@ -1806,12 +1806,12 @@ fieldset:disabled a.btn {
 
 .btn-info {
   color: #ffffff;
-  background-color: #13cae1;
-  border-color: #13cae1; }
+  background-color: #225259;
+  border-color: #225259b4; }
   .btn-info:hover {
-    color: #ffffff;
-    background-color: #10aabe;
-    border-color: #0fa0b2; }
+    color: #09475c;
+    background-color: #ffffff;
+    border-color: #225259; }
   .btn-info:focus, .btn-info.focus {
     box-shadow: 0 0 0 0.2rem rgba(19, 202, 225, 0.5); }
   .btn-info.disabled, .btn-info:disabled {
@@ -1852,12 +1852,12 @@ fieldset:disabled a.btn {
 
 .btn-danger {
   color: #ffffff;
-  background-color: #fe5461;
-  border-color: #fe5461; }
+  background-color: #b81c29;
+  border-color: #b81c29de; }
   .btn-danger:hover {
-    color: #ffffff;
-    background-color: #fe2e3e;
-    border-color: #fe2132; }
+    color: #dd0909;
+    background-color: #fffefe;
+    border-color: #8c111c; }
   .btn-danger:focus, .btn-danger.focus {
     box-shadow: 0 0 0 0.2rem rgba(254, 84, 97, 0.5); }
   .btn-danger.disabled, .btn-danger:disabled {
@@ -4133,7 +4133,7 @@ button.close {
   .bs-popover-top .arrow::before, .bs-popover-auto[x-placement^="top"] .arrow::before {
     bottom: 0;
     border-top-color: rgba(0, 0, 0, 0.25); }
-  
+
   .bs-popover-top .arrow::after,
   .bs-popover-auto[x-placement^="top"] .arrow::after {
     bottom: 1px;
@@ -4153,7 +4153,7 @@ button.close {
   .bs-popover-right .arrow::before, .bs-popover-auto[x-placement^="right"] .arrow::before {
     left: 0;
     border-right-color: rgba(0, 0, 0, 0.25); }
-  
+
   .bs-popover-right .arrow::after,
   .bs-popover-auto[x-placement^="right"] .arrow::after {
     left: 1px;
@@ -4170,7 +4170,7 @@ button.close {
   .bs-popover-bottom .arrow::before, .bs-popover-auto[x-placement^="bottom"] .arrow::before {
     top: 0;
     border-bottom-color: rgba(0, 0, 0, 0.25); }
-  
+
   .bs-popover-bottom .arrow::after,
   .bs-popover-auto[x-placement^="bottom"] .arrow::after {
     top: 1px;
@@ -4199,7 +4199,7 @@ button.close {
   .bs-popover-left .arrow::before, .bs-popover-auto[x-placement^="left"] .arrow::before {
     right: 0;
     border-left-color: rgba(0, 0, 0, 0.25); }
-  
+
   .bs-popover-left .arrow::after,
   .bs-popover-auto[x-placement^="left"] .arrow::after {
     right: 1px;
