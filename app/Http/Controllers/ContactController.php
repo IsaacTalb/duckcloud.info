@@ -7,6 +7,8 @@ use App\Models\Contact;
 use App\Models\ContactForm;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReplyToContactForm;
 
 class ContactController extends Controller
 {
@@ -91,6 +93,24 @@ class ContactController extends Controller
 
         return redirect()->route('admin.contact')->with('success', 'Contact Deleted Successfully');
     }
+
+    public function AdminReplyMessage(Request $request, $id)
+    {
+        $request->validate([
+            'reply' => 'required|string',
+        ]);
+
+        $contactForm = ContactForm::findOrFail($id);
+        $contactForm->replies()->create([
+            'message' => $request->reply,
+        ]);
+
+        // Optionally, send the reply email
+        Mail::to($contactForm->email)->send(new ReplyToContactForm($request->reply));
+
+        return redirect()->route('admin.message')->with('success', 'Reply sent and saved successfully.');
+    }
+
 
 
 
