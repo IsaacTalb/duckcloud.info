@@ -1,8 +1,8 @@
-# duckcloud.info
+# Welcome to our Duck Cloud company portfolio
 
-## PHP 8.1.5 require (but this project's ver is 8.83.13) no worries you can use 8.1.5
+### PHP 8.1.5 require (but this project's ver is 8.83.13) no worries you can use 8.1.5
 
-## to check your php version you can also run command
+##### to check your php version you can also run command
 
 In your web.php;
 
