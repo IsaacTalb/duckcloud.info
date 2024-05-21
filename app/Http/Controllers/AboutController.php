@@ -19,7 +19,7 @@ class AboutController extends Controller
     }
 
     public function StoreAbout(Request $request){
-        
+
         HomeAbout::insert([
             'title' => $request->title,
             'short_dis' => $request->short_dis,
@@ -41,7 +41,7 @@ class AboutController extends Controller
             'title' => $request->title,
             'short_dis' => $request->short_dis,
             'long_dis' => $request->long_dis,
-            
+
         ]);
 
         return Redirect()->route('home.about')->with('success','About Updated Successfully');
@@ -57,6 +57,7 @@ class AboutController extends Controller
         return view('pages.portfolio',compact('images'));
     }
 
+    
 
 
 }

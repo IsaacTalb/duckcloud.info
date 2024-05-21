@@ -168,6 +168,9 @@
 
         @foreach($brands as $brand)
           <div class="col-lg-3 col-md-4 col-6">
+            <div style="text-align: center; padding-top:2rem;">
+                <h6> {{ $brand->brand_name }}</h6>
+            </div>
             <div class="client-logo">
               <img src="{{ $brand->brand_image  }}" class="img-fluid" alt="">
             </div>

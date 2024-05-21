@@ -27,20 +27,21 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware(['auth'])->name('verification.notice');
 
+// Home Route
 Route::get('/', function () {
     $brands = DB::table('brands')->get();
     $abouts = DB::table('home_abouts')->first();
     $images = Multipic::all();
     return view('home', compact('brands', 'abouts', 'images'));
-});
+})->name('home');
 
-Route::get('/home', function () {
-    echo " This is Home page ";
-});
+// Route::get('/home', function () {
+//     echo " This is Home page ";
+// });
 
 Route::get('/about', function () {
     return view('about');
-});
+})->name('about');
 
 // Admin Routes
 // Category Controller
@@ -86,7 +87,6 @@ Route::get('/about/delete/{id}', [AboutController::class, 'DeleteAbout']);
 // Public Routes
 Route::get('/portfolio', [AboutController::class, 'Portfolio'])->name('portfolio');
 Route::get('/contact', [ContactController::class, 'Contact'])->name('contact');
-Route::get('/home', [HomeController::class, 'Home'])->name('home');
 
 // Admin Contact Routes edit by Isaac
 Route::get('/admin/contact', [ContactController::class, 'AdminContact'])->name('admin.contact');
