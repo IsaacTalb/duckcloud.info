@@ -6,8 +6,9 @@
 
 In your web.php;
 
-Route::get('/version', function() {
-    return app()->version();
+
+Route::get('/version', function() { br
+    return app()->version(); br
 });
 
 then visit: http://your-app-url/version
