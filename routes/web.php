@@ -13,6 +13,16 @@ use App\Models\User;
 use App\Models\Multipic;
 use Illuminate\Support\Facades\DB;
 
+
+// for checking php version
+
+Route::get('/version', function() {
+    return app()->version();
+});
+
+// Then vist here: http://your-app-url/version
+
+
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware(['auth'])->name('verification.notice');
