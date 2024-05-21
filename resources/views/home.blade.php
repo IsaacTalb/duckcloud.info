@@ -30,8 +30,10 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Services</strong></h2>
-          <p>Laborum repudiandae omnis voluptatum consequatur mollitia ea est voluptas ut</p>
+          <h2>EMPOWERING GROWTH THROUGH INNOVATION</strong></h2>
+          <p>Unleashing Potential Through Cutting-Edge Digital Solutions
+            At Ducksea, we are dedicated to revolutionizing the digital landscape for our community
+             and clients. Our innovative approach drives growth and success.</p>
         </div>
 
         <div class="row">
