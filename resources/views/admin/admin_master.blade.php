@@ -32,7 +32,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 
   <!-- FAVICON -->
-  <link href="{{ asset('backend/assets/img/dc_logo.png') }}" rel="shortcut icon" />
+  {{-- <link href="{{ asset('backend/assets/img/dc_logo.png') }}" rel="shortcut icon" /> --}}
 
   <!--
     HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries

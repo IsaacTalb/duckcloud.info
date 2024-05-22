@@ -8,6 +8,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\AdminController;
 
 use App\Models\User;
 use App\Models\Multipic;
@@ -41,7 +42,7 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     return view('about');
-})->name('about');
+});
 
 // Admin Routes
 // Category Controller
@@ -100,7 +101,6 @@ Route::post('/admin/message/reply/{id}', [ContactController::class, 'AdminReplyM
 
 // Home Contact Page Routes
 Route::post('/contact/form', [ContactController::class, 'ContactForm'])->name('contact.form');
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('admin.index');
 })->name('dashboard');
@@ -114,3 +114,6 @@ Route::post('/password/update', [ChangePass::class, 'UpdatePassword'])->name('pa
 Route::get('/user/profile', [ChangePass::class, 'PUpdate'])->name('profile.update');
 Route::post('/user/profile/update', [ChangePass::class, 'UpdateProfile'])->name('update.user.profile');
 
+// subscribe
+Route::post('/subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
+Route::get('/admin/subscribers', [AdminController::class, 'showSubscribers'])->name('admin.subscribers');

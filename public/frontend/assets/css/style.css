@@ -2187,11 +2187,19 @@ section {
   text-align: left;
 }
 
-#footer .footer-newsletter form input[type="email"] {
-  border: 0;
-  padding: 4px 8px;
-  width: calc(100% - 100px);
+
+#footer .footer-newsletter form input[type="name"] {
+    border: 1;
+    padding: 4px 8px;
+    width: calc(100% - 160px);
 }
+
+#footer .footer-newsletter form input[type="email"] {
+  border: 1;
+  padding: 4px 8px;
+  width: calc(100% - 160px);
+}
+
 
 #footer .footer-newsletter form input[type="submit"] {
   position: absolute;

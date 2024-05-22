@@ -161,10 +161,28 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Brands</h2>
+          <h2>What we developed</h2>
         </div>
 
         <div class="row no-gutters clients-wrap clearfix" data-aos="fade-up">
+            {{-- this is for the Chnai & Success from front --}}
+            <div class="col-lg-3 col-md-4 col-6">
+                <div style="text-align: center; padding-top:2rem;">
+                    <h6> Success Menu</h6>
+                </div>
+                <div class="client-logo">
+                  <img src="{{ asset('frontend/assets/img/success_menu.png') }}" class="img-fluid" alt="">
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-6">
+                <div style="text-align: center; padding-top:2rem;">
+                    <h6> Chnai Menu </h6>
+                </div>
+                <div class="client-logo">
+                  <img src="{{ asset('frontend/assets/img/chnai_menu.png') }}" class="img-fluid" alt="">
+                </div>
+            </div>
 
         @foreach($brands as $brand)
           <div class="col-lg-3 col-md-4 col-6">

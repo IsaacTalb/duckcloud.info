@@ -55,6 +55,13 @@
     </a>
   </li>
 
+  <li  class="active" >
+    <a class="sidenav-item-link" href="{{ route('admin.subscribers') }}">
+      <span class="nav-text">Subscribers</span>
+
+    </a>
+  </li>
+
                       </div>
                     </ul>
                   </li>
