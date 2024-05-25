@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title></title>
+  <title>Duck Cloud: Admin Panel</title>
 
   <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet"/>
   <link href="https://cdn.materialdesignicons.com/3.0.39/css/materialdesignicons.min.css" rel="stylesheet" />
 
   <!-- PLUGINS CSS STYLE -->
-  
+
   <link href="{{ asset('backend/assets/plugins/toaster/toastr.min.css') }}" rel="stylesheet" />
   <link href="{{ asset('backend/assets/plugins/nprogress/nprogress.css') }}" rel="stylesheet" />
   <link href="{{ asset('backend/assets/plugins/flag-icons/css/flag-icon.min.css') }}" rel="stylesheet"/>
@@ -25,10 +25,10 @@
   <!-- SLEEK CSS -->
   <link id="sleek-css" rel="stylesheet" href="{{ asset('backend/assets/css/sleek.css') }}" />
 
-  
+
 
   <!-- FAVICON -->
-  <link href="assets/img/favicon.png" rel="shortcut icon" />
+  <link rel="icon" href="{{ asset('frontend/assets/img/dc_logo.png') }}" sizes="32x32" type="image/png">
 
   <!--
     HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
@@ -49,23 +49,17 @@
           <div class="card">
             <div class="card-header bg-primary">
               <div class="app-brand">
-                <a href="/index.html">
-                  <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="30" height="33"
-                    viewBox="0 0 30 33">
-                    <g fill="none" fill-rule="evenodd">
-                      <path class="logo-fill-blue" fill="#7DBCFF" d="M0 4v25l8 4V0zM22 4v25l8 4V0z" />
-                      <path class="logo-fill-white" fill="#FFF" d="M11 4v25l8 4V0z" />
-                    </g>
-                  </svg>
-                  <span class="brand-name">Easy Dashboard</span>
+                <a href="{{url('/login')}}">
+                  <img src="{{ asset('frontend/assets/img/dc_logo.png') }}" alt="DC-logo">
+                  <span class="brand-name">DC-Dashboard</span>
                 </a>
               </div>
-            </div> 
+            </div>
 
-            
+
             @if(session('success'))
      <div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>{{ session('success') }}</strong>  
+  <strong>{{ session('success') }}</strong>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -90,13 +84,13 @@
                           <input type="checkbox" />
                           <div class="control-indicator"></div>
                         </label>
-                
+
                       </div>
-     <p><a class="text-blue" href="{{ route('password.request') }}">Forgot Your Password?</a></p>
+     <p><a class="text-blue" href="{{ route('password.request') }}" style="color: rgb(165, 207, 221);">Forgot Your Password?</a></p>
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Sign In</button>
                     <p>Don't have an account yet ?
-       <a class="text-blue" href="{{ route('register') }}">Sign Up</a>
+       <a class="text-blue" href="{{ route('register') }}" style="color: rgb(165, 207, 221);">Sign Up</a>
                     </p>
                   </div>
                 </div>
@@ -106,8 +100,8 @@
         </div>
       </div>
       <div class="copyright pl-0">
-        <p class="text-center">&copy; 2018 Copyright easy Dashboard   by
-          <a class="text-primary" href="http://www.easylearningbd.com/" target="_blank">Easy</a>.
+        <p class="text-center">&copy; 2024 Copyright || Inspired by
+          <a class="text-primary" href="https://github.com/Duck-Cloud-Info" target="_blank">DC</a>.
         </p>
       </div>
     </div>
