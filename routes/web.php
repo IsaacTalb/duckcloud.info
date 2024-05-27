@@ -15,7 +15,7 @@ use App\Models\Multipic;
 use Illuminate\Support\Facades\DB;
 
 
-// for checking php version
+// for checking php version in local
 
 Route::get('/version', function() {
     return app()->version();
