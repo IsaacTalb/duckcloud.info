@@ -45,6 +45,7 @@
                                     <td> {{ $con->phone }} </td>
                                     <td>
                                         <a href="{{ route('contact.edit', $con->id) }}" class="btn btn-info">Edit</a>
+                                        {{-- <a href="{{ route('contact.delete', $con->id) }}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger">Delete</a> --}}
                                         <a href="{{ route('contact.delete', $con->id) }}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>

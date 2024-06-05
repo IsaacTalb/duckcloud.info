@@ -90,7 +90,6 @@ class ContactController extends Controller
     {
         $contact = Contact::findOrFail($id);
         $contact->delete();
-
         return redirect()->route('admin.contact')->with('success', 'Contact Deleted Successfully');
     }
 
@@ -109,6 +108,13 @@ class ContactController extends Controller
         Mail::to($contactForm->email)->send(new ReplyToContactForm($request->reply));
 
         return redirect()->route('admin.message')->with('success', 'Reply sent and saved successfully.');
+    }
+
+    public function AdminDeleteMessage($id)
+    {
+        $message = ContactForm::findOrFail($id);
+        $message->delete();
+        return redirect()->route('admin.message')->with('success', 'Message Deleted Successfully');
     }
 
 

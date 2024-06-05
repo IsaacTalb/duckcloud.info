@@ -4,6 +4,11 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+// document.addEventListener("contextmenu", function(event){
+//     alert("Yoo!! Curious? // Sorry, Inspect Elements Not Allowed");
+//     event.preventDefault();
+// })
+
 !(function($) {
   "use strict";
 

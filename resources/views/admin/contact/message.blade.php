@@ -44,7 +44,11 @@
                                 <td>
                                     <!-- Reply Button -->
                                     <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#replyModal-{{ $mess->id }}">Reply</button>
-                                    <a href="{{ url('message/delete/'.$mess->id) }}" onclick="return confirm('Are you sure to delete')" class="btn btn-danger mt-2">Delete</a>
+                                    <form action="{{ route('admin.message.delete', $mess->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger mt-2">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                             <tr>

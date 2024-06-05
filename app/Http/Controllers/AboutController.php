@@ -57,7 +57,5 @@ class AboutController extends Controller
         return view('pages.portfolio',compact('images'));
     }
 
-    
-
 
 }

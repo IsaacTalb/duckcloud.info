@@ -11,15 +11,19 @@
         </div>
 
         <div class="row content">
-          <div class="col-lg-6" data-aos="fade-right">
-            <h2> {{ $abouts->title }}</h2>
-            <h3>{{ $abouts->short_dis }}</h3>
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
-            <p>
-            {{ $abouts->long_dis }}
-            </p>
-          </div>
+            @if($abouts)
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h2>{{ $abouts->title }}</h2>
+                    <h3>{{ $abouts->short_dis }}</h3>
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
+                    <p>{{ $abouts->long_dis }}</p>
+                </div>
+            @else
+                <div class="col-lg-12">
+                    <p>No information available about About Us section.</p>
+                </div>
+            @endif
         </div>
 
       </div>
@@ -32,7 +36,7 @@
         <div class="section-title">
           <h2>EMPOWERING GROWTH THROUGH INNOVATION</strong></h2>
           <p>Unleashing Potential Through Cutting-Edge Digital Solutions
-            At Ducksea, we are dedicated to revolutionizing the digital landscape for our community
+            At Duck-Cloud, we are dedicated to revolutionizing the digital landscape for our community
              and clients. Our innovative approach drives growth and success.</p>
         </div>
 
@@ -45,8 +49,8 @@
                 </svg>
                 <i class="bx bxl-dribbble"></i>
               </div>
-              <h4><a href="">Lorem Ipsum</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+              <h4><a href="">Innovative Web Solutions</a></h4>
+              <p>At Duck Cloud, we're not just another web development company. We pride ourselves on offering innovative web solutions tailored to your specific needs. Whether it's building a sleek portfolio site or a robust e-commerce platform, our team of experts is dedicated to delivering cutting-edge web development services that set you apart from the competition.</p>
             </div>
           </div>
 
@@ -58,8 +62,8 @@
                 </svg>
                 <i class="bx bx-file"></i>
               </div>
-              <h4><a href="">Sed Perspiciatis</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+              <h4><a href="">Mobile App Excellence</a></h4>
+              <p>Duck Cloud doesn't just develop apps; we craft mobile experiences that engage and delight users. From iOS to Android, our talented team of developers leverages the latest technologies to create intuitive and high-performance mobile applications that bring your vision to life. With Duck Cloud, your app will stand out in the crowded marketplace.</p>
             </div>
           </div>
 
@@ -71,8 +75,8 @@
                 </svg>
                 <i class="bx bx-tachometer"></i>
               </div>
-              <h4><a href="">Magni Dolores</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+              <h4><a href="">CMS Mastery</a></h4>
+              <p>Managing content should be seamless, and that's where Duck Cloud's CMS services shine. Our expertise in Content Management Systems ensures that you have full control over your website's content without any hassle.</p>
             </div>
           </div>
 
@@ -84,8 +88,8 @@
                 </svg>
                 <i class="bx bx-layer"></i>
               </div>
-              <h4><a href="">Nemo Enim</a></h4>
-              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+              <h4><a href="">Youthful Energy</a></h4>
+              <p>At Duck Cloud, we bring together a diverse team of young and dynamic professionals from Myanmar, Cambodia, and Thailand. This unique blend of talent infuses our work with fresh perspectives and innovative ideas. With Duck Cloud, you get the best of both worlds – youthful energy combined with global expertise.</p>
             </div>
           </div>
 
@@ -97,8 +101,8 @@
                 </svg>
                 <i class="bx bx-slideshow"></i>
               </div>
-              <h4><a href="">Dele Cardo</a></h4>
-              <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
+              <h4><a href="">Client-Centric Approach</a></h4>
+              <p>We understand that every client is unique, which is why Duck Cloud takes a client-centric approach to every project. From the initial consultation to project delivery and beyond, we prioritize open communication, collaboration, and transparency. Your satisfaction is our top priority, and we're committed to exceeding your expectations every step of the way.</p>
             </div>
           </div>
 
@@ -110,8 +114,8 @@
                 </svg>
                 <i class="bx bx-arch"></i>
               </div>
-              <h4><a href="">Divera Don</a></h4>
-              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
+              <h4><a href="">Results-Driven Solutions</a></h4>
+              <p>At Duck Cloud, we don't just promise results – we deliver them. Whether it's increased website traffic, higher app downloads, or improved user engagement, our goal is to help you achieve measurable success. With our data-driven approach and focus on continuous improvement, you can trust Duck Cloud to drive real, tangible results for your business.</p>
             </div>
           </div>
 

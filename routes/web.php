@@ -44,6 +44,7 @@ Route::get('/about', function () {
     return view('about');
 });
 
+
 // Admin Routes
 // Category Controller
 Route::get('/category/all', [CategoryController::class, 'AllCat'])->name('all.category');
@@ -98,6 +99,7 @@ Route::post('/admin/contact/update/{id}', [ContactController::class, 'AdminUpdat
 Route::get('/admin/contact/delete/{id}', [ContactController::class, 'AdminDeleteContact'])->name('contact.delete');
 Route::get('/admin/message', [ContactController::class, 'AdminMessage'])->name('admin.message');
 Route::post('/admin/message/reply/{id}', [ContactController::class, 'AdminReplyMessage'])->name('admin.message.reply');
+Route::delete('/admin/message/delete/{id}', [ContactController::class, 'AdminDeleteMessage'])->name('admin.message.delete');
 
 // Home Contact Page Routes
 Route::post('/contact/form', [ContactController::class, 'ContactForm'])->name('contact.form');

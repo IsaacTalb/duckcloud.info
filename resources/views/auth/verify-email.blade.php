@@ -1,8 +1,12 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+        <a href="{{url('/login')}}" style="align-item: center;">
+            <x-slot name="logo">
+                <img src="{{ asset('frontend/assets/img/dc_logo.png') }}" alt="New Logo" style="height: 80px; width:auto;">
+            </x-slot>
+            {{-- <img src="{{ asset('frontend/assets/img/dc_logo.png') }}" alt="DC-logo" style="height: 60px; width:auto; display:inline-flex;"> --}}
+            <span class="brand-name">Welcome to our DC-Dashboard</span>
+        </a>
 
         <div class="mb-4 text-sm text-gray-600">
             {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
