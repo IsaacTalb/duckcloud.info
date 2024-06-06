@@ -140,7 +140,12 @@
 
     // Initiate venobox (lightbox feature used in portofilo)
     $(document).ready(function() {
-      $('.venobox').venobox();
+        $('.venobox').venobox({
+            titleattr: 'data-title',
+            numeratio: true,
+            infinigall: true,
+            share: ['facebook', 'twitter', 'download']
+        });
     });
   });
 

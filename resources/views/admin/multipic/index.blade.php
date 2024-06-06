@@ -34,11 +34,24 @@
                         <form action="{{ route('store.image') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Multi Image</label>
-                                <input type="file" name="image[]" class="form-control" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" multiple="">
+                                <label for="image">Multi Image</label>
+                                <input type="file" name="image[]" class="form-control" id="image" multiple>
                                 @error('image')
-                                <span class="text-danger"> {{ $message }}</span>
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" name="title[]" class="form-control" id="title">
+                                @error('title')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" name="description[]" class="form-control" id="description">
+                                @error('description')
+                                <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <button type="submit" class="btn btn-primary">Add Image</button>

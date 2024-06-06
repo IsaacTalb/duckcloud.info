@@ -73,26 +73,22 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 28px;
   margin: 0;
   padding: 0;
-  line-height: 1;
+  line-height: 0;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
-#header .logo a {
-  color: #111;
-  background-color: #b1cac98b;
-  padding:2px;
-  border-radius: 8px;
-}
+  #header .logo a {
+    color: #111;
+    text-decoration: dotted;
+    padding:2px;
+    border-radius: 8px;
+  }
 
-#header .logo a span {
-  color: rgb(32, 88, 97);
-}
-
-/* #header .logo img {
-  max-height: 30px;
-} */
+  #header .logo a span {
+    color: rgb(32, 88, 97);
+  }
 
 /*--------------------------------------------------------------
 # Navigation Menu
@@ -748,6 +744,9 @@ section {
     max-width: 400px; /* Set a maximum width for better control */
   }
 
+  .portfolio .portfolio-item-wrapper{
+    margin: 2em;
+  }
   .portfolio .portfolio-item img {
     width: 100%;
     height: auto;
@@ -756,11 +755,14 @@ section {
 
   .portfolio .portfolio-item:hover img {
     transform: scale(1.1);
+    opacity: 0.7; /* Reduce opacity */
+    filter: blur(10px); /* Reduce blur */
   }
 
   .portfolio .portfolio-info {
     position: absolute;
     bottom: 0;
+    text-align: center;
     left: 0;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.7);
@@ -769,9 +771,148 @@ section {
     transition: bottom 0.3s ease;
   }
 
-  .portfolio .portfolio-item:hover .portfolio-info {
-    bottom: -50px;
+  .portfolio .portfolio-info h4{
+    color: rgb(27, 82, 100);
+    background-color: #d5e2e1a7;
+    width: fit-content;
+    display: inline-flex;
+    padding: 3px 10px;
+    border-radius: 4px;
+    text-align: center;
   }
+
+  .portfolio .portfolio-info p{
+    color: rgb(219, 224, 225);
+  }
+
+  .portfolio .portfolio-info a i{
+    color: rgb(13, 76, 103);
+    background-color: white;
+    border-radius: 50%;
+
+  }
+
+  .portfolio .portfolio-info a{
+    color: rgb(13, 76, 103);
+    background-color: white;
+    border-radius: 2em;
+    padding: 2px 6px;
+    text-decoration: underline;
+  }
+
+  .portfolio .portfolio-info a i:hover{
+    color: rgb(9, 48, 220);
+    border-radius: 50%;
+
+  }
+  .portfolio .portfolio-item:hover .portfolio-info {
+    bottom: 40%;
+    border-radius: 1em;
+    background-color: #5e7d7ecb;
+    max-width: 300px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .portfolio .container-inside {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: #ecf4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(26, 23, 23, 0.3);
+    }
+
+    .portfolio .container-inside  #intro-text {
+        font-size: 1.2em;
+        color: #333;
+    }
+
+    .portfolio .container-inside  h3 {
+        color: #333;
+        margin-top: 20px;
+    }
+
+    .portfolio .container-inside  #services-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .portfolio .container-inside  #services-list li {
+        background: #0f5153cb;
+        margin: 5px 0;
+        padding: 10px;
+        display: inline-block;
+        border-radius: 4px;
+        color: #e5ecec;
+    }
+
+/* -------------------------------------------------------------
+# Privacy Policy
+----------------------------------------------------------------*/
+    .privacy-policy {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: #ecf4f4;
+        padding: 20px;
+        margin: 2rem 6rem;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(26, 23, 23, 0.3);
+    }
+
+    .privacy-policy .container{
+        padding: 2rem 2em;
+    }
+
+    .privacy-policy .container img {
+        width: 100px;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .privacy-policy .container p{
+        padding: 2rem 2em;
+    }
+
+    .inside {
+        max-width: 800px;
+        margin: 0 auto;
+        margin-bottom: 2rem;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .inside h1 {
+        font-size: 2em;
+        color: #06566c;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    .inside h2 {
+        color: #06566c;
+        margin-top: 1.5em;
+    }
+    .inside p, li {
+        margin-bottom: 1em;
+    }
+   .inside ul {
+        padding-left: 20px;
+    }
+    .inside .last-updated {
+        font-style: italic;
+        color: #888;
+        text-align: right;
+        margin-bottom: 1em;
+    }
+    .inside .contact-info {
+        font-weight: bold;
+    }
+    .inside .section-title {
+        color: #06566c;
+        margin-top: 1.5em;
+        font-size: 1.2em;
+    }
 
 /*--------------------------------------------------------------
 # Clients
@@ -810,41 +951,84 @@ section {
 /*--------------------------------------------------------------
 # About Us
 --------------------------------------------------------------*/
-.about-us .content h2 {
-  font-weight: 700;
-  font-size: 42px;
-  line-height: 60px;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
+    .about-us .content h2 {
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 60px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    }
 
-.about-us .content h3 {
-  font-weight: 500;
-  line-height: 32px;
-  font-size: 24px;
-}
+    .about-us .content h3 {
+    font-weight: 500;
+    line-height: 32px;
+    font-size: 24px;
+    }
 
-.about-us .content ul {
-  list-style: none;
-  padding: 0;
-}
+    .about-us .content ul {
+    list-style: none;
+    padding: 0;
+    }
 
-.about-us .content ul li {
-  padding: 10px 0 0 28px;
-  position: relative;
-}
+    .about-us .content ul li {
+    padding: 10px 0 0 28px;
+    position: relative;
+    }
 
-.about-us .content ul i {
-  left: 0;
-  top: 7px;
-  position: absolute;
-  font-size: 20px;
-  color: rgb(32, 88, 97);
-}
+    .about-us .content ul i {
+    left: 0;
+    top: 7px;
+    position: absolute;
+    font-size: 20px;
+    color: rgb(32, 88, 97);
+    }
 
-.about-us .content p:last-child {
-  margin-bottom: 0;
-}
+    .about-us .content p:last-child {
+    margin-bottom: 0;
+    }
+
+    .mission-section {
+    padding: 50px 0;
+  }
+
+  .mission-section .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .mission-section .container h2 {
+    color: #06566c;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .mission-section .container p {
+    color: #333;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  .mission-section .container .btn-contact-join{
+    background-color: #06566c;
+    color: white;
+    margin: 0 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .mission-section .container .btn-contact-join a{
+    color: white;
+  }
+
+
+  .mission-section .container .btn-contact-join:hover {
+    background-color: #044c5a;
+  }
 
 /*--------------------------------------------------------------
 # Our Team

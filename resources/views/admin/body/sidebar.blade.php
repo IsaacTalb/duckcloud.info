@@ -28,39 +28,39 @@
 
 
 
-  <li  class="active" >
-    <a class="sidenav-item-link" href="{{ route('home.slider') }}">
-      <span class="nav-text">Slider</span>
+                        <li  class="active" >
+                            <a class="sidenav-item-link" href="{{ route('home.slider') }}">
+                            <span class="nav-text">Slider</span>
 
-    </a>
-  </li>
-  <li  class="active" >
-    <a class="sidenav-item-link" href="{{ route('home.about') }}">
-      <span class="nav-text">Home About</span>
+                            </a>
+                        </li>
+                        <li  class="active" >
+                            <a class="sidenav-item-link" href="{{ route('home.about') }}">
+                            <span class="nav-text">Home About</span>
 
-    </a>
-  </li>
+                            </a>
+                        </li>
 
-  <li  class="active" >
-    <a class="sidenav-item-link" href="{{ route('multi.image') }}">
-      <span class="nav-text">Home Portfolio</span>
+                        <li  class="active" >
+                            <a class="sidenav-item-link" href="{{ route('multi.image') }}">
+                            <span class="nav-text">Home Portfolio</span>
 
-    </a>
-  </li>
+                            </a>
+                        </li>
 
-  <li  class="active" >
-    <a class="sidenav-item-link" href="{{ route('all.brand') }}">
-      <span class="nav-text">Home Brand</span>
+                        <li  class="active" >
+                            <a class="sidenav-item-link" href="{{ route('all.brand') }}">
+                            <span class="nav-text">Home Brand</span>
 
-    </a>
-  </li>
+                            </a>
+                        </li>
 
-  <li  class="active" >
-    <a class="sidenav-item-link" href="{{ route('admin.subscribers') }}">
-      <span class="nav-text">Subscribers</span>
+                        <li  class="active" >
+                            <a class="sidenav-item-link" href="{{ route('admin.subscribers') }}">
+                            <span class="nav-text">Subscribers</span>
 
-    </a>
-  </li>
+                            </a>
+                        </li>
 
                       </div>
                     </ul>
@@ -81,21 +81,45 @@
                       <div class="sub-menu">
 
                       <li  class="active" >
-    <a class="sidenav-item-link" href="{{ route('admin.contact') }}">
-      <span class="nav-text">Contact Profile</span>
+                            <a class="sidenav-item-link" href="{{ route('admin.contact') }}">
+                            <span class="nav-text">Contact Profile</span>
 
-    </a>
-  </li>
-  <li  class="active" >
-    <a class="sidenav-item-link" href="{{ route('admin.message') }}">
-      <span class="nav-text">Contact Message</span>
+                            </a>
+                        </li>
+                        <li  class="active" >
+                            <a class="sidenav-item-link" href="{{ route('admin.message') }}">
+                            <span class="nav-text">Contact Message</span>
 
-    </a>
-  </li>
+                            </a>
+                        </li>
 
                       </div>
                     </ul>
                   </li>
+
+                  <!-- Add Privacy Policy section -->
+                <li class="has-sub">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#privacy-policy"
+                        aria-expanded="false" aria-controls="privacy-policy">
+                        <i class="mdi mdi-lock-outline"></i>
+                        <span class="nav-text">Privacy Policy</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="privacy-policy" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="active">
+                                <a class="sidenav-item-link" href="{{ route('admin.privacy.policy') }}">
+                                    <span class="nav-text">Manage Privacy Policy</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a class="sidenav-item-link" href="{{ route('add.privacy.policy') }}">
+                                    <span class="nav-text">Add Privacy Policy</span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                <!-- End Privacy Policy section -->
 
               </ul>
 

@@ -31,11 +31,11 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="">Graphic Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Graphic Design</a></li>
             </ul>
           </div>
 
@@ -57,45 +57,7 @@
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
             <script>
-                document.getElementById('subscribe-form').addEventListener('submit', function(event) {
-                    event.preventDefault();
-
-                    // Create a FormData object to send the form data
-                    let formData = new FormData(this);
-
-                    fetch(this.action, {
-                        method: this.method,
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-                        },
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Show SweetAlert success message
-                            Swal.fire({
-                                title: 'Thank You!',
-                                text: 'You have successfully subscribed to our newsletter.',
-                                icon: 'success'
-                            });
-                        } else {
-                            // Handle validation errors or other issues
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'There was a problem with your subscription. Please try again.',
-                                icon: 'error'
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'There was a problem with your subscription. Please try again.',
-                            icon: 'error'
-                        });
-                    });
-                });
+                
             </script>
 
             {{-- need to fix the dialogue box --}}

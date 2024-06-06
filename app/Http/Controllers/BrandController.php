@@ -151,30 +151,30 @@ class BrandController extends Controller
      }
 
 
-     public function StoreImg(Request $request){
-
-        $image =  $request->file('image');
-
-        foreach($image as $multi_img){
-
-        $name_gen = hexdec(uniqid()).'.'.$multi_img->getClientOriginalExtension();
-        Image::make($multi_img)->resize(300,300)->save('image/multi/'.$name_gen);
-
-        $last_img = 'image/multi/'.$name_gen;
-
-        Multipic::insert([
-
-            'image' => $last_img,
-            'created_at' => Carbon::now()
+    public function StoreImg(Request $request)
+    {
+        $validatedData = $request->validate([
+            'image.*' => 'required|image',
+            'title.*' => 'nullable|string',
+            'description.*' => 'nullable|string',
         ]);
-            } // end of the foreach
 
+        foreach ($request->file('image') as $key => $multi_img) {
+            $name_gen = hexdec(uniqid()) . '.' . $multi_img->getClientOriginalExtension();
+            Image::make($multi_img)->resize(300, 300)->save('image/multi/' . $name_gen);
 
+            $last_img = 'image/multi/' . $name_gen;
 
-            return Redirect()->back()->with('success','Brand Inserted Successfully');
+            Multipic::create([
+                'image' => $last_img,
+                'title' => $request->title[$key] ?? null,
+                'description' => $request->description[$key] ?? null,
+            ]);
+        }
 
+        return redirect()->back()->with('success', 'Images uploaded successfully');
+    }
 
-     }
 
 
      public function Logout(){

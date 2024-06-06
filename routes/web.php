@@ -131,4 +131,5 @@ Route::get('/admin/privacy-policy/add', [PrivacyPolicyController::class, 'AddPri
 Route::post('/admin/privacy-policy/store', [PrivacyPolicyController::class, 'StorePrivacyPolicy'])->name('store.privacy.policy');
 Route::get('/admin/privacy-policy/edit/{id}', [PrivacyPolicyController::class, 'EditPrivacyPolicy']);
 Route::post('/admin/privacy-policy/update/{id}', [PrivacyPolicyController::class, 'UpdatePrivacyPolicy']);
-Route::get('/admin/privacy-policy/delete/{id}', [PrivacyPolicyController::class, 'DeletePrivacyPolicy']);
+Route::get('/admin/privacy-policy/delete/{id}', [PrivacyPolicyController::class, 'DeletePrivacyPolicy'])->name('delete.privacy.policy');
+

@@ -5,8 +5,12 @@
 
       <!-- Uncomment below if you prefer to use an image logo -->
       {{-- <a href="index.html" class="logo mr-auto"><img src="frontend/assets/img/dc_logo.png" alt="" class="img-fluid"></a> --}}
-      <h1 class="logo mr-auto"><a href="{{ route('home') }}"><span>Duck</span>Cloud</a></h1>
 
+      {{-- <div class="marquee-container">
+        <h1 class="logo marquee"><a href="{{ route('home') }}">ဒေါက်ကလပ်</a></h1>
+      </div> --}}
+
+      <h1 class="logo mr-auto"><a href="{{ route('home') }}">ဒေါက်ကလပ်</a></h1>
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class=""><a href="{{ route('home') }}">Home</a></li>
@@ -20,10 +24,8 @@
       </nav><!-- .nav-menu -->
 
       <div class="header-social-links">
-        <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
-        <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
-        <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="icofont-linkedin"></i></i></a>
+        <a href="https://x.com/2am_tech" class="twitter"><i class="icofont-twitter"></i></a>
+        <a href="https://www.facebook.com/duckcloudglobal" class="facebook"><i class="icofont-facebook"></i></a>
       </div>
 
     </div>

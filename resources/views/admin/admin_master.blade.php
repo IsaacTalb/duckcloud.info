@@ -31,6 +31,8 @@
 
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 
+
+
   <!-- FAVICON -->
   {{-- <link href="{{ asset('backend/assets/img/dc_logo.png') }}" rel="shortcut icon" /> --}}
 
@@ -43,6 +45,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
   <script src="{{ asset('backend/assets/plugins/nprogress/nprogress.js') }}"></script>
+
 
   <style>
     /* width */
@@ -173,7 +176,7 @@
                     class="text-primary"
                     href="https://github.com/IsaacTalb"
                     target="_blank"> <span style="color: #067f95;text-decoration: underline;">Isaac Talb</span>
-                </a> in Laravel 8.1.5
+                </a>
                 </p>
             </div>
             <script>
@@ -237,11 +240,6 @@
 
 <!-- Include Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-
-
-
 
 
   </body>

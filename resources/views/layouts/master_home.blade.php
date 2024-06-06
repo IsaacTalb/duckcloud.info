@@ -10,6 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
+
   <link rel="icon" href="{{ asset('frontend/assets/img/dc_logo.png') }}" sizes="32x32" type="image/png">
 
    <!-- SweetAlert CSS -->
@@ -33,6 +34,16 @@
 
   <!-- Main CSS File -->
   <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      -webkit-touch-callout: none; /* Disable long press on mobile */
+      -webkit-user-select: none; /* Disable text selection */
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -65,6 +76,83 @@
   <!-- Main JS File -->
   <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
+
+  @yield('scripts')
+  {{-- User can not inspect the website --}}
+  <script>
+    // Detect right-click event
+    document.addEventListener('contextmenu', function(event) {
+      event.preventDefault(); // Prevent default behavior
+      alert("Right-clicking is disabled on this website.");
+    });
+    // Detect keyboard shortcut for inspecting elements (Ctrl+Shift+I or F12)
+    document.onkeydown = function(e) {
+      if (e.ctrlKey && (e.shiftKey && e.keyCode === 73)) { // Ctrl+Shift+I
+        alert("Inspecting is disabled on this website.");
+        return false;
+      }
+      if (e.keyCode === 123) { // F12
+        alert("Inspecting is disabled on this website.");
+        return false;
+      }
+    };
+
+    // Prevent right-click context menu
+    document.addEventListener('contextmenu', function(event) {
+      // Check if the clicked element is not a button or a link
+      if (!event.target.matches('button, a')) {
+        event.preventDefault(); // Prevent default behavior
+      }
+    });
+
+    // function for the notify of newsletters
+    document.getElementById('subscribe-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Create a FormData object to send the form data
+        let formData = new FormData(this);
+
+        fetch(this.action, {
+            method: this.method,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show SweetAlert success message
+                Swal.fire({
+                    title: 'Thank You!',
+                    text: 'You have successfully subscribed to our newsletter.',
+                    icon: 'success',
+                    timer: 7000, // Specify duration in milliseconds (7 seconds)
+                    timerProgressBar: true, // Show a progress bar
+                    toast: true, // Display as a toast (positioned at the top)
+                    position: 'top-end', // Position the toast at the top-right
+                    showConfirmButton: false // Hide the "OK" button
+                });
+            } else {
+                // Handle validation errors or other issues
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was a problem with your subscription. Please try again.',
+                    icon: 'error'
+
+                });
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was a problem with your subscription. Please try again.',
+                icon: 'error'
+
+            });
+        });
+    });
+  </script>
 </body>
 
 </html>

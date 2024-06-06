@@ -122,18 +122,18 @@
 
         <div class="row portfolio-container" data-aos="fade-up">
 
-         @foreach($images as $img)
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="{{ $img->image  }}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 1</h4>
-              <p>App</p>
-              <a href="{{ $img->image  }}" data-gall="portfolioGallery" class="venobox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"> </a>
+            @foreach($images as $img)
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="margin: 1em 2em;">
+                <div class="portfolio-item-wrapper">
+                    <img src="{{ asset($img->image) }}" class="img-fluid" alt="">
+                    <div class="portfolio-info">
+                        <h4>{{ $img->title }}</h4>
+                        <p>{{ $img->description }}</p>
+                        <a href="{{  route('portfolio') }}">Check Out</a>
+                    </div>
+                </div>
             </div>
-          </div>
-          @endforeach
-
+            @endforeach
 
 
 
@@ -188,4 +188,56 @@
       </div>
     </section><!-- End Our Clients Section -->
 
-    @endsection
+@endsection
+
+@section('scripts')
+
+    <script>
+        $(document).ready(function() {
+            // Initiate Venobox
+            $('.venobox').venobox({
+                titleattr: 'title',
+                numeratio: true,
+                infinigall: true,
+                share: ['facebook', 'twitter', 'download']
+            });
+        });
+
+        $(window).on('load', function() {
+            // Portfolio isotope and filter
+            var portfolioIsotope = $('.portfolio-container').isotope({
+                itemSelector: '.portfolio-item'
+            });
+
+            $('#portfolio-flters li').on('click', function() {
+                $("#portfolio-flters li").removeClass('filter-active');
+                $(this).addClass('filter-active');
+
+                portfolioIsotope.isotope({
+                    filter: $(this).data('filter')
+                });
+                aos_init();
+            });
+        });
+
+        // Skills section
+        $('.skills-content').waypoint(function() {
+            $('.progress .progress-bar').each(function() {
+                $(this).css("width", $(this).attr("aria-valuenow") + '%');
+            });
+        }, {
+            offset: '80%'
+        });
+
+        // Portfolio details carousel
+        $(".portfolio-details-carousel").owlCarousel({
+            autoplay: true,
+            dots: true,
+            loop: true,
+            items: 1
+        });
+    </script>
+
+@endsection
+
+

@@ -9,8 +9,8 @@ class Multipic extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'image',        
-        
+        'image',
+        'title',
+        'description',
     ];
 }
- 

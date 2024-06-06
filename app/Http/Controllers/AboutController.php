@@ -58,9 +58,15 @@ class AboutController extends Controller
         return Redirect()->back()->with('success','About Deleted Successfully');
     }
 
+    // start of Portfolio controller
+
     public function Portfolio(){
         $images = Multipic::all();
-        return view('pages.portfolio',compact('images'));
+        // Debugging: Log the fetched images
+        foreach ($images as $image) {
+            \Log::info('Image ID: ' . $image->id . ', Title: ' . $image->title . ', Description: ' . $image->description);
+        }
+        return view('pages.portfolio', compact('images'));
     }
 
 
