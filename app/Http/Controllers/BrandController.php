@@ -19,7 +19,7 @@ class BrandController extends Controller
     }
 
 
-    
+
     public function AllBrand(){
 
         $brands = Brand::latest()->paginate(5);
@@ -31,11 +31,11 @@ class BrandController extends Controller
         $validatedData = $request->validate([
             'brand_name' => 'required|unique:brands|min:4',
             'brand_image' => 'required|mimes:jpg.jpeg,png',
-            
+
         ],
         [
             'brand_name.required' => 'Please Input Brand Name',
-            'brand_image.min' => 'Brand Longer then 4 Characters', 
+            'brand_image.min' => 'Brand Longer then 4 Characters',
         ]);
 
         $brand_image =  $request->file('brand_image');
@@ -51,13 +51,13 @@ class BrandController extends Controller
         Image::make($brand_image)->resize(300,200)->save('image/brand/'.$name_gen);
 
         $last_img = 'image/brand/'.$name_gen;
- 
+
         Brand::insert([
             'brand_name' => $request->brand_name,
             'brand_image' => $last_img,
             'created_at' => Carbon::now()
         ]);
-         
+
         $notification = array(
             'message' => 'Brand Inserted Successfully',
             'alert-type' => 'success'
@@ -73,17 +73,17 @@ class BrandController extends Controller
         return view('admin.brand.edit',compact('brands'));
 
     }
- 
+
 
     public function Update(Request $request, $id){
 
         $validatedData = $request->validate([
             'brand_name' => 'required|min:4',
-                       
+
         ],
         [
             'brand_name.required' => 'Please Input Brand Name',
-            'brand_image.min' => 'Brand Longer then 4 Characters', 
+            'brand_image.min' => 'Brand Longer then 4 Characters',
         ]);
 
         $old_image = $request->old_image;
@@ -91,7 +91,7 @@ class BrandController extends Controller
         $brand_image =  $request->file('brand_image');
 
         if($brand_image){
-        
+
         $name_gen = hexdec(uniqid());
         $img_ext = strtolower($brand_image->getClientOriginalExtension());
         $img_name = $name_gen.'.'.$img_ext;
@@ -109,7 +109,7 @@ class BrandController extends Controller
         $notification = array(
             'message' => 'Brand Updated Successfully',
             'alert-type' => 'info'
-        );         
+        );
         return Redirect()->back()->with($notification);
 
         }else{
@@ -120,11 +120,11 @@ class BrandController extends Controller
             $notification = array(
                 'message' => 'Brand Updated Successfully',
                 'alert-type' => 'warning'
-            );    
-             
+            );
+
             return Redirect()->back()->with($notification);
 
-        } 
+        }
     }
 
 
@@ -137,13 +137,13 @@ class BrandController extends Controller
         $notification = array(
             'message' => 'Brand Delete Successfully',
             'alert-type' => 'error'
-        );   
+        );
         return Redirect()->back()->with($notification);
 
      }
 
 
-     //// This is for Multi Image All Methods 
+     //// This is for Multi Image All Methods
 
      public function Multpic(){
          $images = Multipic::all();
@@ -155,15 +155,15 @@ class BrandController extends Controller
 
         $image =  $request->file('image');
 
-        foreach($image as $multi_img){ 
+        foreach($image as $multi_img){
 
         $name_gen = hexdec(uniqid()).'.'.$multi_img->getClientOriginalExtension();
         Image::make($multi_img)->resize(300,300)->save('image/multi/'.$name_gen);
 
         $last_img = 'image/multi/'.$name_gen;
- 
+
         Multipic::insert([
-           
+
             'image' => $last_img,
             'created_at' => Carbon::now()
         ]);
@@ -173,7 +173,7 @@ class BrandController extends Controller
 
             return Redirect()->back()->with('success','Brand Inserted Successfully');
 
- 
+
      }
 
 
@@ -181,6 +181,26 @@ class BrandController extends Controller
          Auth::logout();
          return Redirect()->route('login')->with('success','User Logout');
      }
+
+
+    //  this is for deleting multipics
+
+    public function deleteImage($id)
+    {
+        // Find the image by ID
+        $image = Multipic::findOrFail($id);
+
+        // Delete the image from storage
+        if ($image->image && file_exists(public_path($image->image))) {
+            unlink(public_path($image->image));
+        }
+
+        // Delete the image from the database
+        $image->delete();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Image deleted successfully');
+    }
 
 
 }

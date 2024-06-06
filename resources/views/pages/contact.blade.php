@@ -44,20 +44,32 @@
               <div class="row">
                 <div class="col-lg-4 info">
                   <i class="icofont-google-map"></i>
-                  <h4>Location:</h4>
-                  <p> {{ $contacts->address }}</p>
+                    @if($contacts)
+                        <h4>Location:</h4>
+                        <p> {{ $contacts->address }}</p>
+                    @else
+                    <p>Currently, there are no contact details available.</p>
+                    @endif
                 </div>
 
                 <div class="col-lg-4 info mt-4 mt-lg-0">
                   <i class="icofont-envelope"></i>
-                  <h4>Email:</h4>
-                  <p>{{ $contacts->email }}</p>
+                    @if($contacts)
+                        <h4>Email:</h4>
+                        <p>{{ $contacts->email }}</p>
+                    @else
+                        <p>not available now..</p>
+                    @endif
                 </div>
 
                 <div class="col-lg-4 info mt-4 mt-lg-0">
                   <i class="icofont-phone"></i>
-                  <h4>Call:</h4>
-                  <p>{{ $contacts->phone }}</p>
+                    @if($contacts)
+                        <h4>Call:</h4>
+                        <p>{{ $contacts->phone }}</p>
+                    @else
+                        <p>not available now..</p>
+                    @endif
                 </div>
               </div>
             </div>

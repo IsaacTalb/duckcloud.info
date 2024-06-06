@@ -14,6 +14,12 @@ class AboutController extends Controller
         return view('admin.home.index', compact('homeabout'));
     }
 
+    public function About(){
+        $about = HomeAbout::latest()->first(); // Adjust the query as needed
+        return view('pages.about', compact('about'));
+    }
+
+
     public function AddAbout(){
         return view('admin.home.create');
     }

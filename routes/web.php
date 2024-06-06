@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PrivacyPolicyController;
 
 use App\Models\User;
 use App\Models\Multipic;
@@ -65,6 +66,7 @@ Route::get('/brand/delete/{id}', [BrandController::class, 'Delete']);
 // Multi Image Routes
 Route::get('/multi/image', [BrandController::class, 'Multpic'])->name('multi.image');
 Route::post('/multi/add', [BrandController::class, 'StoreImg'])->name('store.image');
+Route::delete('/multi/image/{id}', [BrandController::class, 'deleteImage'])->name('delete.image');
 
 // Home Slider Routes
 Route::get('/home/slider', [SliderController::class, 'HomeSlider'])->name('home.slider');
@@ -89,6 +91,8 @@ Route::get('/about/delete/{id}', [AboutController::class, 'DeleteAbout']);
 // Public Routes
 Route::get('/portfolio', [AboutController::class, 'Portfolio'])->name('portfolio');
 Route::get('/contact', [ContactController::class, 'Contact'])->name('contact');
+Route::get('/about', [AboutController::class, 'About'])->name('about');
+Route::get('/privacy-policy', [PrivacyPolicyController::class, 'PrivacyPolicy'])->name('privacy.policy');
 
 // Admin Contact Routes edit by Isaac
 Route::get('/admin/contact', [ContactController::class, 'AdminContact'])->name('admin.contact');
@@ -119,3 +123,12 @@ Route::post('/user/profile/update', [ChangePass::class, 'UpdateProfile'])->name(
 // subscribe
 Route::post('/subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 Route::get('/admin/subscribers', [AdminController::class, 'showSubscribers'])->name('admin.subscribers');
+
+//Privacy of DuckCloud
+Route::get('/privacy-policy', [PrivacyPolicyController::class, 'PrivacyPolicy'])->name('privacy-policy');
+Route::get('/admin/privacy-policy', [PrivacyPolicyController::class, 'Index'])->name('admin.privacy.policy');
+Route::get('/admin/privacy-policy/add', [PrivacyPolicyController::class, 'AddPrivacyPolicy'])->name('add.privacy.policy');
+Route::post('/admin/privacy-policy/store', [PrivacyPolicyController::class, 'StorePrivacyPolicy'])->name('store.privacy.policy');
+Route::get('/admin/privacy-policy/edit/{id}', [PrivacyPolicyController::class, 'EditPrivacyPolicy']);
+Route::post('/admin/privacy-policy/update/{id}', [PrivacyPolicyController::class, 'UpdatePrivacyPolicy']);
+Route::get('/admin/privacy-policy/delete/{id}', [PrivacyPolicyController::class, 'DeletePrivacyPolicy']);

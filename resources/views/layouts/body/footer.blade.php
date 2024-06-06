@@ -12,7 +12,7 @@
                 Preah Ang Duong St. (110)<br>
                 Phnom Penh<br>
                 Cambodia <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Phone:</strong> +855 70 578 104<br>
               <strong>Email:</strong> &nbsp; <a href="mailto:admin@duckcloud.info" style="color: rgb(1, 229, 246);" target="_blank">admin@duckcloud.info</a><br>
             </p>
           </div>
@@ -20,11 +20,11 @@
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ url('/home') }}">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('home') }}">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('about') }}">About us</a></li>
+              {{-- <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li> --}}
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('privacy-policy')}}">Privacy policy</a></li>
             </ul>
           </div>
 
@@ -108,27 +108,25 @@
 
       <div class="mr-md-auto text-center text-md-left">
         <div class="copyright">
-          &copy; Copyright <strong><span>Company</span></strong>. All Rights Reserved
+           All Rights Reserved &copy; <strong><span>Duck-Cloud</span></strong>.
         </div>
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->
           <!-- You can delete the links only if you purchased the pro version. -->
           <!-- Licensing information: https://bootstrapmade.com/license/ -->
           <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/company-free-html-bootstrap-template/ -->
-          Developed by <a href="https://github.com/Duck-Cloud-Info">Duck_Cloud Team Members</a> in Laravel 8.1.5
+          Developed by <a href="https://github.com/Duck-Cloud-Info" style="color:rgb(20, 200, 206)">DC Team Members</a>
         </div>
       </div>
       <div class="social-links text-center text-md-right pt-3 pt-md-0">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        <a href="https://x.com/2am_tech" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="https://www.facebook.com/duckcloudglobal" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="https://github.com/Duck-Cloud-Info" class="github"><i class="bx bxl-github"></i></a>
       </div>
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  <a href="" class="back-to-top" style="border-radius: 50%;"><i class="icofont-simple-up"></i></a>
 
 
 
