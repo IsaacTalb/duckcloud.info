@@ -12,3 +12,6 @@ In your web.php;
 ###### });
 
 then visit: http://your-app-url/version
+
+##### for exporting SQL Cmd line
+mysqldump -u root -p [your_database_name] | gzip >  "Add\Your\Path\[your_desire_name].sql.gz"

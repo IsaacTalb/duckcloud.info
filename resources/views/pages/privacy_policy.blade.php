@@ -27,7 +27,7 @@
                 <h3>{{ $privacyPolicy->title }}</h3>
                 <img src="{{ $privacyPolicy->photo }}" class="img-fluid" alt="">
                 <p>{{ $privacyPolicy->text }}</p>
-                <span style="padding-left: 60%;"> - Duck Cloud Team</span>
+                <span style="padding-left: 50%;"> - Duck Cloud Team</span>
             @else
                 <p>No privacy policy found.</p>
             @endif

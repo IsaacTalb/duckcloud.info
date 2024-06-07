@@ -34,12 +34,19 @@
               <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Web Design</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Web Development</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Graphic Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Android/IOS Development</a></li>
             </ul>
           </div>
 
-            <div class="col-lg-4 col-md-6 footer-newsletter">
+          <div class="col-lg-4 col-md-6 footer-links">
+            <h4>Our Digital Product</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Online Menu Orders</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Software Applications</a></li>
+            </ul>
+          </div>
+
+            <div class="col-lg-5 col-md-6 footer-newsletter">
                 <h4>Join Our Newsletter</h4>
                 <p>For our recent updates & opportunities you can subscribe us by filling your name and mail address!</p>
                 <form action="{{ route('subscribe') }}" method="post">
@@ -57,7 +64,7 @@
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
             <script>
-                
+
             </script>
 
             {{-- need to fix the dialogue box --}}

@@ -2,14 +2,6 @@
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-
-      <!-- Uncomment below if you prefer to use an image logo -->
-      {{-- <a href="index.html" class="logo mr-auto"><img src="frontend/assets/img/dc_logo.png" alt="" class="img-fluid"></a> --}}
-
-      {{-- <div class="marquee-container">
-        <h1 class="logo marquee"><a href="{{ route('home') }}">ဒေါက်ကလပ်</a></h1>
-      </div> --}}
-
       <h1 class="logo mr-auto"><a href="{{ route('home') }}">ဒေါက်ကလပ်</a></h1>
       <nav class="nav-menu d-none d-lg-block">
         <ul>

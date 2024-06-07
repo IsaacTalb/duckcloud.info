@@ -106,41 +106,32 @@
       </div>
     </section><!-- End Services Section -->
 
-    <!-- ======= Portfolio Section ======= -->
+    <!-- home.blade.php // portfolio section -->
     <section id="portfolio" class="portfolio">
-      <div class="container">
-
+        <div class="container">
         <div class="section-title" data-aos="fade-up">
-          <h2>Portfolio</h2>
+            <h2>Portfolio</h2>
         </div>
-
         <div class="row" data-aos="fade-up">
-          <div class="col-lg-12 d-flex justify-content-center">
-
-          </div>
+            <div class="col-lg-12 d-flex justify-content-center"></div>
         </div>
-
         <div class="row portfolio-container" data-aos="fade-up">
-
             @foreach($images as $img)
-            <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="margin: 1em 2em;">
-                <div class="portfolio-item-wrapper">
-                    <img src="{{ asset($img->image) }}" class="img-fluid" alt="">
-                    <div class="portfolio-info">
-                        <h4>{{ $img->title }}</h4>
-                        <p>{{ $img->description }}</p>
-                        <a href="{{  route('portfolio') }}">Check Out</a>
-                    </div>
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-item-wrapper">
+                <img src="{{ asset($img->image) }}" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                <h4>{{ $img->title }}</h4>
+                <p>{{ $img->description }}</p>
+                <a href="{{  route('portfolio') }}">Check Out</a>
                 </div>
             </div>
+            </div>
             @endforeach
-
-
-
         </div>
-
-      </div>
-    </section><!-- End Portfolio Section -->
+        </div>
+    </section>
+    <!-- End Portfolio Section -->
 
     <!-- ======= Our Clients Section ======= -->
     <section id="clients" class="clients">
