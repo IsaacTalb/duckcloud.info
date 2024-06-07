@@ -89,9 +89,11 @@
      <p><a class="text-blue" href="{{ route('password.request') }}" style="color: rgb(165, 207, 221);">Forgot Your Password?</a></p>
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Sign In</button>
-                    <p>Don't have an account yet ?
+                    {{-- <p>Don't have an account yet ?
        <a class="text-blue" href="{{ route('register') }}" style="color: rgb(165, 207, 221);">Sign Up</a>
-                    </p>
+                    </p> --}}
+
+                    {{-- we can't give user to sign up if not, they can access our admin panel!! --}}
                   </div>
                 </div>
               </form>
