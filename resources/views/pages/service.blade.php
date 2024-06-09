@@ -2,8 +2,7 @@
 
 @push('style')
 <style>
-
-    .service-whole-section{
+    .service-whole-section {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
@@ -54,8 +53,7 @@
         }
     }
 
-    /* this is the form features and download plan sections */
-
+    /* Form and download plan sections */
     .quotation-form-section {
         padding: 20px;
         max-width: 600px;
@@ -162,25 +160,25 @@
     }
 
     .quotation-popup-content .close-popup {
-        background-color: white;
+        background-color: rgb(215, 228, 228);
         color: black;
         width: 2em;
-        height: 2em;
+        /* height: 2em; */
     }
 
     .quotation-popup-content .close-popup:hover {
         background-color: rgb(24, 116, 137);
         color: rgb(255, 251, 251);
         width: 2em;
-        height: 2em;
+        /* height: 2em; */
     }
 
     .blurred-background {
-        opacity: 0.5;
+        opacity: 0.1;
     }
 </style>
-
 @endpush
+
 @section('home_content')
 
 
@@ -284,100 +282,97 @@
 @section('scripts')
 <script>
     function generateQuotationForm() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const plan = document.querySelector('input[name="plan"]:checked');
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phoneNumber = document.getElementById('phoneNumber').value;
+        const plan = document.querySelector('input[name="plan"]:checked');
 
-            if (!name || !email || !phoneNumber || !plan) {
-                alert('Please fill in all fields before generating the quotation.');
-                return;
-            }
-
-            const selectedPlan = plan.value;
-            let cost;
-            let features;
-
-            switch (selectedPlan) {
-                case 'Foundation':
-                    cost = 29;
-                    features = `
-                        <ul>
-                            <li>Custom Domain: Free custom domain for one year.</li>
-                            <li>Website Builder: Easy-to-use drag-and-drop website builder.</li>
-                            <li>Hosting: Reliable web hosting with 99.9% uptime.</li>
-                            <li>Templates: Access to a variety of professional templates.</li>
-                            <li>SSL Certificate: Free SSL certificate for secure connections.</li>
-                            <li>Support: Email support with a 24-hour response time.</li>
-                            <li>Storage: 10 GB of storage space.</li>
-                            <li>Bandwidth: 50 GB of monthly bandwidth.</li>
-                        </ul>
-                    `;
-                    break;
-                case 'Standard':
-                    cost = 59;
-                    features = `
-                        <ul>
-                            <li>Everything in Foundation Plan, plus:</li>
-                            <li>Advanced Customization: More customization options for your website.</li>
-                            <li>SEO Tools: Basic SEO tools to improve your website's visibility.</li>
-                            <li>E-commerce: Integrated e-commerce functionality with up to 50 products.</li>
-                            <li>Marketing Tools: Email marketing tools and social media integration.</li>
-                            <li>Support: Priority email support with a 12-hour response time.</li>
-                            <li>Storage: 50 GB of storage space.</li>
-                            <li>Bandwidth: 200 GB of monthly bandwidth.</li>
-                        </ul>
-                    `;
-                    break;
-                case 'Advanced':
-                    cost = 99;
-                    features = `
-                        <ul>
-                            <li>Everything in Standard Plan, plus:</li>
-                            <li>Full Customization: Complete access to HTML/CSS for full customization.</li>
-                            <li>Advanced SEO: Advanced SEO tools and analytics.</li>
-                            <li>Enhanced E-commerce: Unlimited product listings and advanced e-commerce features.</li>
-                            <li>Advanced Performance Analytics: Detailed website performance analytics.</li>
-                            <li>Premium Support: 24/7 phone and chat support.</li>
-                            <li>Storage: Unlimited storage space.</li>
-                            <li>Bandwidth: Unlimited monthly bandwidth.</li>
-                            <li>Security: Advanced security features and daily backups.</li>
-                            <li>API Access: Access to APIs for integrating third-party services and creating custom functionalities.</li>
-                            <li>Team Collaboration: Tools for team collaboration, including user roles and permissions.</li>
-                        </ul>
-                    `;
-                    break;
-            }
-
-            const result = `
-                <h3>Quotation - ${selectedPlan} Plan</h3>
-                <p><strong>Customer Name:</strong> ${name}</p>
-                <p><strong>Customer Email:</strong> ${email}</p>
-                <p><strong>Contact Number:</strong> ${phoneNumber}</p>
-                <p><strong>Plan Cost:</strong> $${cost}/month</p>
-                <p><strong>Features:</strong></p>
-                ${features}
-                <p>Thank you for choosing Duck Cloud for your web service needs!</p>
-            `;
-
-            document.getElementById('quotationResult').innerHTML = result;
-            document.getElementById('quotationPopup').classList.add('show');
+        if (!name || !email || !phoneNumber || !plan) {
+            alert('Please fill in all fields before generating the quotation.');
+            return;
         }
 
-        function closePopup() {
-            document.getElementById('quotationPopup').classList.remove('show');
+        const selectedPlan = plan.value;
+        let cost;
+        let features;
+
+        switch (selectedPlan) {
+            case 'Foundation':
+                cost = 29;
+                features = `
+                    <ul>
+                        <li>Custom Domain: Free custom domain for one year.</li>
+                        <li>Website Builder: Easy-to-use drag-and-drop website builder.</li>
+                        <li>Hosting: Reliable web hosting with 99.9% uptime.</li>
+                        <li>Templates: Access to a variety of professional templates.</li>
+                        <li>SSL Certificate: Free SSL certificate for secure connections.</li>
+                        <li>Support: Email support with a 24-hour response time.</li>
+                        <li>Storage: 10 GB of storage space.</li>
+                        <li>Bandwidth: 50 GB of monthly bandwidth.</li>
+                    </ul>
+                `;
+                break;
+            case 'Standard':
+                cost = 59;
+                features = `
+                    <ul>
+                        <li>Everything in Foundation Plan, plus:</li>
+                        <li>Advanced Customization: More customization options for your website.</li>
+                        <li>SEO Tools: Basic SEO tools to improve your website's visibility.</li>
+                        <li>E-commerce: Integrated e-commerce functionality with up to 50 products.</li>
+                        <li>Marketing Tools: Email marketing tools and social media integration.</li>
+                        <li>Support: Priority email support with a 12-hour response time.</li>
+                        <li>Storage: 50 GB of storage space.</li>
+                        <li>Bandwidth: 200 GB of monthly bandwidth.</li>
+                    </ul>
+                `;
+                break;
+            case 'Advanced':
+                cost = 99;
+                features = `
+                    <ul>
+                        <li>Everything in Standard Plan, plus:</li>
+                        <li>Full Customization: Complete access to HTML/CSS for full customization.</li>
+                        <li>Advanced SEO: Advanced SEO tools and analytics.</li>
+                        <li>Enhanced E-commerce: Unlimited product listings and advanced e-commerce features.</li>
+                        <li>Advanced Performance Analytics: Detailed website performance analytics.</li>
+                        <li>Premium Support: 24/7 phone and chat support.</li>
+                        <li>Storage: Unlimited storage space.</li>
+                        <li>Bandwidth: Unlimited monthly bandwidth.</li>
+                        <li>Security: Advanced security features and daily backups.</li>
+                        <li>API Access: Access to APIs for integrating third-party services and creating custom functionalities.</li>
+                        <li>Team Collaboration: Tools for team collaboration, including user roles and permissions.</li>
+                    </ul>
+                `;
+                break;
         }
 
-        async function downloadQuotation() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const content = document.getElementById('quotationResult').innerHTML;
+        const result = `
+            <h3>Quotation - ${selectedPlan} Plan</h3>
+            <p><strong>Customer Name:</strong> ${name}</p>
+            <p><strong>Customer Email:</strong> ${email}</p>
+            <p><strong>Contact Number:</strong> ${phoneNumber}</p>
+            <p><strong>Plan Cost:</strong> $${cost}/month</p>
+            <p><strong>Features:</strong></p>
+            ${features}
+            <p>Thank you for choosing Duck Cloud for your web service needs!</p>
+        `;
 
-            doc.fromHTML(content, 15, 15, {
-                width: 170
-            });
+        document.getElementById('quotationResult').innerHTML = result;
+        const popup = document.getElementById('quotationPopup');
+        popup.classList.add('show');
 
-            doc.save('quotation.pdf');
-        }
+        document.querySelector('header').classList.add('blurred-background');
+        document.querySelector('footer').classList.add('blurred-background');
+    }
+
+    function closePopup() {
+        const popup = document.getElementById('quotationPopup');
+        popup.classList.remove('show');
+
+        document.querySelector('header').classList.remove('blurred-background');
+        document.querySelector('footer').classList.remove('blurred-background');
+    }
 </script>
 @endsection
+
