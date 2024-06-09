@@ -77,7 +77,7 @@
 
       <div class="mr-md-auto text-center text-md-left">
         <div class="copyright">
-           All Rights Reserved &copy; <strong><span>Duck-Cloud</span></strong>.
+          2024 // All Rights Reserved &copy; <strong><span>Duck-Cloud</span></strong>.
         </div>
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->
