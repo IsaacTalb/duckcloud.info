@@ -61,6 +61,7 @@
       user-select: none;
     }
   </style>
+  @stack('style')
 </head>
 
 <body>

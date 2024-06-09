@@ -117,7 +117,4 @@ class ContactController extends Controller
         return redirect()->route('admin.message')->with('success', 'Message Deleted Successfully');
     }
 
-
-
-
 }
