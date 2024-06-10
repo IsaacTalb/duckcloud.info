@@ -8,34 +8,26 @@
     <meta name="viewport" content="width=devico-width, initial-scale=1" />
   <!-- Title of the page -->
   <title>Duck Cloud</title>
-
   <!-- Meta description for the page -->
   <meta name="description" content="What sets Duck Cloud apart is our unwavering commitment to excellence and our relentless pursuit of innovation. We believe in pushing boundaries, challenging the status quo, and consistently raising the bar for ourselves and our clients.">
-
   <!-- Favicon for the website -->
   <link rel="icon" href="{{ asset('frontend/assets/img/dc_logo.ico') }}" type="image/x-icon">
-
-
   <!-- Additional favicons for other devices and sizes -->
   <link rel="icon" href="{{ asset('frontend/assets/img/dc_logo.ico') }}" sizes="16x16" type="image/x-icon">
   <link rel="apple-touch-icon" href="{{ asset('frontend/assets/img/dc_logo.ico') }}">
   <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('frontend/assets/img/dc_logo.ico') }}">
   <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('frontend/assets/img/dc_logo.ico') }}">
   <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('frontend/assets/img/dc_logo.ico') }}">
-
   <!-- Open Graph Meta Tags for better sharing on social media -->
   <meta property="og:title" content="Duck Cloud">
   <meta property="og:description" content="What sets Duck Cloud apart is our unwavering commitment to excellence and our relentless pursuit of innovation. We believe in pushing boundaries, challenging the status quo, and consistently raising the bar for ourselves and our clients.">
   <meta property="og:image" content="{{ asset('frontend/assets/img/dc_logo.ico') }}">
   <meta property="og:url" content="https://duckcloud.info/">
   <meta name="twitter:card" content="summary_large_image">
-
    <!-- SweetAlert CSS -->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
    <!-- SweetAlert JS -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 

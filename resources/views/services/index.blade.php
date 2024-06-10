@@ -180,80 +180,42 @@
 @endpush
 
 @section('home_content')
-
-
-
-    <!-- ======= Breadcrumbs ======= -->
-    <section id="breadcrumbs" class="breadcrumbs">
-      <div class="container">
-
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Service</h2>
-          <ol>
-            <li><a href="{{ route('home') }}">Home</a></li>
-            <li>Service</li>
-          </ol>
+            <h2>Service</h2>
+            <ol>
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li>Service</li>
+            </ol>
         </div>
-
-      </div>
-    </section><!-- End Breadcrumbs -->
-
-    {{-- Service Section Start --}}
+    </div>
+</section>
 
 <section class="service-whole-section">
-
-
-
+    @foreach($services as $service)
     <main class="whole-main-plan">
-        <section class="foundation-plan">
-            <h2>Foundation Plan</h2>
-            <p>Features:</p>
-            <ul>
-                <li>Custom Domain: Free custom domain for one year.</li>
-                <li>Website Builder: Easy-to-use drag-and-drop website builder.</li>
-                <li>Hosting: Reliable web hosting with 99.9% uptime.</li>
-                <li>Templates: Access to a variety of professional templates.</li>
-                <li>SSL Certificate: Free SSL certificate for secure connections.</li>
-                <li>Support: Email support with a 24-hour response time.</li>
-                <li>Storage: 10 GB of storage space.</li>
-                <li>Bandwidth: 50 GB of monthly bandwidth.</li>
-            </ul>
-        </section>
-
-        <section class="standard-plan">
-            <h2>Standard Plan</h2>
-            <p>Features:</p>
-            <ul>
-                <li>Custom Domain: Free custom domain for one year.</li>
-                <li>Website Builder: Easy-to-use drag-and-drop website builder.</li>
-                <li>Hosting: Reliable web hosting with 99.9% uptime.</li>
-                <li>Templates: Access to a variety of professional templates.</li>
-                <li>SSL Certificate: Free SSL certificate for secure connections.</li>
-                <li>Support: Email support with a 24-hour response time.</li>
-                <li>Storage: 10 GB of storage space.</li>
-                <li>Bandwidth: 50 GB of monthly bandwidth.</li>
-            </ul>
-        </section>
-
-        <section class="advancde-plan">
-            <h2>Advanced Plan</h2>
-            <p>Features:</p>
-            <ul>
-                <li>Custom Domain: Free custom domain for one year.</li>
-                <li>Website Builder: Easy-to-use drag-and-drop website builder.</li>
-                <li>Hosting: Reliable web hosting with 99.9% uptime.</li>
-                <li>Templates: Access to a variety of professional templates.</li>
-                <li>SSL Certificate: Free SSL certificate for secure connections.</li>
-                <li>Support: Email support with a 24-hour response time.</li>
-                <li>Storage: 10 GB of storage space.</li>
-                <li>Bandwidth: 50 GB of monthly bandwidth.</li>
-            </ul>
+        <section>
+            <h2>{{ $service->name }}</h2>
+            <p>{{ $service->description }}</p>
+            @foreach($service->plans as $plan)
+            <section class="{{ strtolower($plan->name) }}-plan">
+                <h2>{{ $plan->name }} Plan</h2>
+                <p>{{ $plan->description }}</p>
+                <ul>
+                    @foreach($plan->features as $feature)
+                    <li>{{ $feature->name }}</li>
+                    @endforeach
+                </ul>
+            </section>
+            @endforeach
         </section>
     </main>
-
+    @endforeach
 
     <section class="quotation-form-section">
-        <form id="QuotationForm">
+        <form id="QuotationForm" method="POST" action="{{ route('quotation.generate') }}">
+            @csrf
             <label for="name">Customer Name:</label>
             <input type="text" id="name" name="name" required>
             <label for="email">Customer Email:</label>
@@ -261,22 +223,23 @@
             <label for="phoneNumber">Contact Number:</label>
             <input type="number" id="phoneNumber" name="phoneNumber">
             <label for="plan">Plan:</label>
-            <label><input type="radio" name="plan" value="Foundation" required> Foundation Plan</label>
-            <label><input type="radio" name="plan" value="Standard" required> Standard Plan</label>
-            <label><input type="radio" name="plan" value="Advanced" required> Advanced Plan</label>
-            <input type="button" value="Generate Quotation" onclick="generateQuotationForm()">
+            @foreach($services as $service)
+            @foreach($service->plans as $plan)
+            <label><input type="radio" name="plan" value="{{ $plan->id }}" required> {{ $plan->name }} Plan</label>
+            @endforeach
+            @endforeach
+            <input type="submit" value="Generate Quotation">
         </form>
     </section>
-
-    <div id="quotationPopup" class="quotation-popup">
-        <div class="quotation-popup-content">
-            <button class="close-popup" onclick="closePopup()">×</button>
-            <div id="quotationResult"></div>
-            <button onclick="downloadQuotation()">Download Quotation</button>
-        </div>
-    </div>
-    {{-- Service Section end --}}
 </section>
+
+<!-- Quotation Popup -->
+<div id="quotationPopup" class="quotation-popup">
+    <div class="quotation-popup-content">
+        <button class="close-popup" onclick="closePopup()">×</button>
+        <div id="quotationResult"></div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')

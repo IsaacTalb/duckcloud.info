@@ -1,103 +1,102 @@
 <aside class="left-sidebar bg-sidebar">
-          <div id="sidebar" class="sidebar sidebar-with-footer">
-            <!-- Aplication Brand (you can adjust in backend/css/styles.css; source was from scss but does not work so try in styles.css) -->
-            <div class="app-brand" style="background-color: #9197a4;">
-              <a href="{{ route('dashboard') }}" style="padding-left: 1em;">
-
+    <div id="sidebar" class="sidebar sidebar-with-footer">
+        <!-- Aplication Brand (you can adjust in backend/css/styles.css; source was from scss but does not work so try in styles.css) -->
+        <div class="app-brand" style="background-color: #9197a4;">
+            <a href="{{ route('dashboard') }}" style="padding-left: 1em;">
                 <img src="{{ asset('frontend/assets/img/dc_logo.png') }}" style="width: 50px; height:auto;" type="image/png" alt="">
                 <span class="brand-name" style="text-shadow: 5px 3px 3px #305965;">Duck-Cloud Admin</span>
-              </a>
-            </div>
-            <!-- begin sidebar scrollbar -->
-            <div class="sidebar-scrollbar">
+            </a>
+        </div>
+        <!-- begin sidebar scrollbar -->
+        <div class="sidebar-scrollbar">
 
-              <!-- sidebar menu -->
-              <ul class="nav sidebar-inner" id="sidebar-menu">
-
-
-
-                  <li  class="has-sub active expand" >
+            <!-- sidebar menu -->
+            <ul class="nav sidebar-inner" id="sidebar-menu">
+                <li class="has-sub active expand">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#dashboard"
-                      aria-expanded="false" aria-controls="dashboard">
-                      <i class="mdi mdi-view-dashboard-outline"></i>
-                      <span class="nav-text">Home</span> <b class="caret"></b>
+                        aria-expanded="false" aria-controls="dashboard">
+                        <i class="mdi mdi-view-dashboard-outline"></i>
+                        <span class="nav-text">Home</span> <b class="caret"></b>
                     </a>
-                    <ul  class="collapse show"  id="dashboard"
-                      data-parent="#sidebar-menu">
-                      <div class="sub-menu">
-
-
-
-                        <li  class="active" >
-                            <a class="sidenav-item-link" href="{{ route('home.slider') }}">
-                            <span class="nav-text">Slider</span>
-
-                            </a>
-                        </li>
-                        <li  class="active" >
-                            <a class="sidenav-item-link" href="{{ route('home.about') }}">
-                            <span class="nav-text">Home About</span>
-
-                            </a>
-                        </li>
-
-                        <li  class="active" >
-                            <a class="sidenav-item-link" href="{{ route('multi.image') }}">
-                            <span class="nav-text">Home Portfolio</span>
-
-                            </a>
-                        </li>
-
-                        <li  class="active" >
-                            <a class="sidenav-item-link" href="{{ route('all.brand') }}">
-                            <span class="nav-text">Home Brand</span>
-
-                            </a>
-                        </li>
-
-                        <li  class="active" >
-                            <a class="sidenav-item-link" href="{{ route('admin.subscribers') }}">
-                            <span class="nav-text">Subscribers</span>
-
-                            </a>
-                        </li>
-
-                      </div>
+                    <ul class="collapse show" id="dashboard" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="active">
+                                <a class="sidenav-item-link" href="{{ route('home.slider') }}">
+                                    <span class="nav-text">Slider</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a class="sidenav-item-link" href="{{ route('home.about') }}">
+                                    <span class="nav-text">Home About</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a class="sidenav-item-link" href="{{ route('multi.image') }}">
+                                    <span class="nav-text">Home Portfolio</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a class="sidenav-item-link" href="{{ route('all.brand') }}">
+                                    <span class="nav-text">Home Brand</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a class="sidenav-item-link" href="{{ route('admin.subscribers') }}">
+                                    <span class="nav-text">Subscribers</span>
+                                </a>
+                            </li>
+                        </div>
                     </ul>
-                  </li>
+                </li>
 
+                {{-- this is for the Service --}}
+                <!-- Services menu item -->
+                <li class="has-sub">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#services"
+                        aria-expanded="false" aria-controls="services">
+                        <i class="mdi mdi-view-dashboard-outline"></i>
+                        <span class="nav-text">Services</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse" id="services" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li>
+                                <a class="sidenav-item-link" href="{{ route('admin.services.index') }}">
+                                    <span class="nav-text">All Services</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="sidenav-item-link" href="{{ route('admin.services.create') }}">
+                                    <span class="nav-text">Add New Service</span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                <!-- Other menu items -->
 
-
-
-
-                  <li  class="has-sub" >
+                <li class="has-sub">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#ui-elements"
-                      aria-expanded="false" aria-controls="ui-elements">
-                      <i class="mdi mdi-folder-multiple-outline"></i>
-                      <span class="nav-text">Contact Page</span> <b class="caret"></b>
+                        aria-expanded="false" aria-controls="ui-elements">
+                        <i class="mdi mdi-folder-multiple-outline"></i>
+                        <span class="nav-text">Contact Page</span> <b class="caret"></b>
                     </a>
-                    <ul  class="collapse"  id="ui-elements"
-                      data-parent="#sidebar-menu">
-                      <div class="sub-menu">
-
-                      <li  class="active" >
-                            <a class="sidenav-item-link" href="{{ route('admin.contact') }}">
-                            <span class="nav-text">Contact Profile</span>
-
-                            </a>
-                        </li>
-                        <li  class="active" >
-                            <a class="sidenav-item-link" href="{{ route('admin.message') }}">
-                            <span class="nav-text">Contact Message</span>
-
-                            </a>
-                        </li>
-
-                      </div>
+                    <ul class="collapse" id="ui-elements" data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="active">
+                                <a class="sidenav-item-link" href="{{ route('admin.contact') }}">
+                                    <span class="nav-text">Contact Profile</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a class="sidenav-item-link" href="{{ route('admin.message') }}">
+                                    <span class="nav-text">Contact Message</span>
+                                </a>
+                            </li>
+                        </div>
                     </ul>
-                  </li>
+                </li>
 
-                  <!-- Add Privacy Policy section -->
+                <!-- Add Privacy Policy section -->
                 <li class="has-sub">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#privacy-policy"
                         aria-expanded="false" aria-controls="privacy-policy">
@@ -120,13 +119,6 @@
                     </ul>
                 </li>
                 <!-- End Privacy Policy section -->
-
-              </ul>
-
-            </div>
-
-            <hr class="separator" />
-
-
-          </div>
-        </aside>
+            </ul>
+        </div>
+        <hr class="separator
