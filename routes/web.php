@@ -10,11 +10,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PrivacyPolicyController;
-use App\Http\Controllers\ServiceController as FrontServiceController;
-use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
-use App\Http\Controllers\Admin\PlanController;
-use App\Http\Controllers\Admin\FeatureController;
-use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\ServiceController;
 
 use App\Models\User;
 use App\Models\Multipic;
@@ -97,6 +93,7 @@ Route::get('/about/delete/{id}', [AboutController::class, 'DeleteAbout']);
 Route::get('/portfolio', [AboutController::class, 'Portfolio'])->name('portfolio');
 Route::get('/contact', [ContactController::class, 'Contact'])->name('contact');
 Route::get('/about', [AboutController::class, 'About'])->name('about');
+Route::get('/services', [ServiceController::class, 'showServices'])->name('services');
 
 // Admin Contact Routes edit by Isaac
 Route::get('/admin/contact', [ContactController::class, 'AdminContact'])->name('admin.contact');
@@ -136,19 +133,3 @@ Route::post('/admin/privacy-policy/store', [PrivacyPolicyController::class, 'Sto
 Route::get('/admin/privacy-policy/edit/{id}', [PrivacyPolicyController::class, 'EditPrivacyPolicy']);
 Route::post('/admin/privacy-policy/update/{id}', [PrivacyPolicyController::class, 'UpdatePrivacyPolicy']);
 Route::get('/admin/privacy-policy/delete/{id}', [PrivacyPolicyController::class, 'DeletePrivacyPolicy'])->name('delete.privacy.policy');
-
-//Services of DuckCloud
-    // Frontend Service Route
-Route::get('/service', [FrontServiceController::class, 'index'])->name('service');
-
-    // Admin Service Routes
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('services/index', [AdminServiceController::class, 'index'])->name('services.index');
-    Route::get('services/create', [AdminServiceController::class, 'create'])->name('services.create');
-    Route::resource('services', AdminServiceController::class);
-    Route::resource('plans', PlanController::class);
-    Route::resource('features', FeatureController::class);
-});
-
-    // Quotation Route
-Route::post('/quotation/generate', [QuotationController::class, 'generate'])->name('quotation.generate');
