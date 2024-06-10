@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=devico-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Title of the page -->
   <title>Duck Cloud</title>
   <!-- Meta description for the page -->
@@ -44,6 +45,7 @@
   <!-- Main CSS File -->
   <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <style>
     body {
       -webkit-touch-callout: none; /* Disable long press on mobile */

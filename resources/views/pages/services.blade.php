@@ -26,10 +26,14 @@
         padding: 20px;
     }
 
-    .whole-main-plan h2 {
+    .whole-main-plan h4 {
         color: #333;
         font-size: 1.5em;
-        margin-bottom: 10px;
+        text-align: center;
+        background-color: rgba(12, 127, 156, 0.141);
+        border-radius: 6px;
+        margin:0 2em 1rem 2em;
+        padding: 1rem 0 1rem 0;
     }
 
     .whole-main-plan ul {
@@ -195,47 +199,55 @@
 
     <main class="whole-main-plan">
         <section class="foundation-plan">
-            <h2>Foundation Plan</h2>
+            <h4>Foundation Plan</h4>
             <p>Features:</p>
             <ul>
-                <li>Custom Domain: Free custom domain for one year.</li>
-                <li>Website Builder: Easy-to-use drag-and-drop website builder.</li>
-                <li>Hosting: Reliable web hosting with 99.9% uptime.</li>
-                <li>Templates: Access to a variety of professional templates.</li>
-                <li>SSL Certificate: Free SSL certificate for secure connections.</li>
-                <li>Support: Email support with a 24-hour response time.</li>
-                <li>Storage: 10 GB of storage space.</li>
-                <li>Bandwidth: 50 GB of monthly bandwidth.</li>
+                <li>Single Page</li>
+                <li>Free Web Design</li>
+                <li>Limited Emails</li>
+                <li>Free Custom Domain for 1 year</li>
+                <li>SSL Certificate for secure connections</li>
+                <li>Social Media Integration</li>
+                <li>Storage: 5GB of Cloud SSD for 1 year</li>
+                <li>2X Performance</li>
             </ul>
         </section>
 
         <section class="standard-plan">
-            <h2>Standard Plan</h2>
+            <h4>Standard Plan</h4>
             <p>Features:</p>
             <ul>
-                <li>Custom Domain: Free custom domain for one year.</li>
-                <li>Website Builder: Easy-to-use drag-and-drop website builder.</li>
-                <li>Hosting: Reliable web hosting with 99.9% uptime.</li>
-                <li>Templates: Access to a variety of professional templates.</li>
-                <li>SSL Certificate: Free SSL certificate for secure connections.</li>
-                <li>Support: Email support with a 24-hour response time.</li>
-                <li>Storage: 10 GB of storage space.</li>
-                <li>Bandwidth: 50 GB of monthly bandwidth.</li>
+                <li>Multi-Page</li>
+                <li>Free Web Design</li>
+                <li>1 sub-domain</li>
+                <li>Unlimited Emails</li>
+                <li>Unlimited Bandwith</li>
+                <li>Free Custom Domain for 1 year</li>
+                <li>SSL Certificate for secure connections</li>
+                <li>Social Media Integration</li>
+                <li>Content Management System</li>
+                <li>Storage: 12GB of Cloud SSD for 1 year</li>
+                <li>4X Performance</li>
             </ul>
         </section>
 
         <section class="advanced-plan">
-            <h2>Advanced Plan</h2>
+            <h4>Advanced Plan</h4>
             <p>Features:</p>
             <ul>
-                <li>Custom Domain: Free custom domain for one year.</li>
-                <li>Website Builder: Easy-to-use drag-and-drop website builder.</li>
-                <li>Hosting: Reliable web hosting with 99.9% uptime.</li>
-                <li>Templates: Access to a variety of professional templates.</li>
-                <li>SSL Certificate: Free SSL certificate for secure connections.</li>
-                <li>Support: Email support with a 24-hour response time.</li>
-                <li>Storage: 10 GB of storage space.</li>
-                <li>Bandwidth: 50 GB of monthly bandwidth.</li>
+                <li>Multi-Page</li>
+                <li>Free Web Design</li>
+                <li>2 sub-domain</li>
+                <li>Unlimited Emails</li>
+                <li>Unlimited Bandwith</li>
+                <li>Free Custom Domain for 1 year</li>
+                <li>SSL Certificate for secure connections</li>
+                <li>Social Media Integration</li>
+                <li>Content Management System</li>
+                <li>Storage: 60GB of Cloud SSD for 1 year</li>
+                <li>7X Performance</li>
+                <li>Pro+ Features</li>
+                <li>Advance Features</li>
             </ul>
         </section>
     </main>
@@ -243,17 +255,20 @@
 
     <section class="quotation-form-section">
         <form id="QuotationForm">
+            @csrf
+            <label for="company">Company Name:</label>
+            <input type="text" id="company" name="company" required>
             <label for="name">Customer Name:</label>
             <input type="text" id="name" name="name" required>
             <label for="email">Customer Email:</label>
             <input type="email" id="email" name="email" required>
             <label for="phoneNumber">Contact Number:</label>
-            <input type="number" id="phoneNumber" name="phoneNumber">
+            <input type="number" id="phoneNumber" name="phoneNumber" required>
             <label for="plan">Plan:</label>
             <label><input type="radio" name="plan" value="Foundation" required> Foundation Plan</label>
             <label><input type="radio" name="plan" value="Standard" required> Standard Plan</label>
             <label><input type="radio" name="plan" value="Advanced" required> Advanced Plan</label>
-            <input type="button" value="Generate Quotation" onclick="generateQuotationForm()">
+            <input type="button" value="Generate Quotation" onclick="submitForm()">
         </form>
     </section>
 
@@ -269,68 +284,91 @@
 
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script>
-        function generateQuotationForm() {
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const phoneNumber = document.getElementById('phoneNumber').value;
-        const plan = document.querySelector('input[name="plan"]:checked');
+        function submitForm() {
+                const form = document.getElementById('QuotationForm');
+                const formData = new FormData(form);
 
-        if (!name || !email || !phoneNumber || !plan) {
-            alert('Please fill in all fields before generating the quotation.');
-            return;
-        }
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        const selectedPlan = plan.value;
+                fetch('{{ route('quotation.store') }}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        generateQuotationForm(data);
+                    } else {
+                        alert('Error saving data. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error saving data. Please try again.');
+                });
+            }
+
+        function generateQuotationForm(data) {
+        const selectedPlan = data.plan;
         let cost;
         let features;
 
         switch (selectedPlan) {
             case 'Foundation':
-                cost = 29;
+                cost = 299;
                 features = `
                     <ul>
-                        <li>Custom Domain: Free custom domain for one year.</li>
-                        <li>Website Builder: Easy-to-use drag-and-drop website builder.</li>
-                        <li>Hosting: Reliable web hosting with 99.9% uptime.</li>
-                        <li>Templates: Access to a variety of professional templates.</li>
-                        <li>SSL Certificate: Free SSL certificate for secure connections.</li>
-                        <li>Support: Email support with a 24-hour response time.</li>
-                        <li>Storage: 10 GB of storage space.</li>
-                        <li>Bandwidth: 50 GB of monthly bandwidth.</li>
+                        <li>Single Page</li>
+                        <li>Free Web Design</li>
+                        <li>Limited Emails</li>
+                        <li>Free Custom Domain for 1 year</li>
+                        <li>SSL Certificate for secure connections</li>
+                        <li>Social Media Integration</li>
+                        <li>Storage: 5GB of Cloud SSD for 1 year</li>
+                        <li>2X Performance</li>
                     </ul>
                 `;
                 break;
             case 'Standard':
-                cost = 59;
+                cost = 599;
                 features = `
                     <ul>
-                        <li>Everything in Foundation Plan, plus:</li>
-                        <li>Advanced Customization: More customization options for your website.</li>
-                        <li>SEO Tools: Basic SEO tools to improve your website's visibility.</li>
-                        <li>E-commerce: Integrated e-commerce functionality with up to 50 products.</li>
-                        <li>Marketing Tools: Email marketing tools and social media integration.</li>
-                        <li>Support: Priority email support with a 12-hour response time.</li>
-                        <li>Storage: 50 GB of storage space.</li>
-                        <li>Bandwidth: 200 GB of monthly bandwidth.</li>
+                        <li>Multi-Page</li>
+                        <li>Free Web Design</li>
+                        <li>1 sub-domain</li>
+                        <li>Unlimited Emails</li>
+                        <li>Unlimited Bandwidth</li>
+                        <li>Free Custom Domain for 1 year</li>
+                        <li>SSL Certificate for secure connections</li>
+                        <li>Social Media Integration</li>
+                        <li>Content Management System</li>
+                        <li>Storage: 12GB of Cloud SSD for 1 year</li>
+                        <li>4X Performance</li>
                     </ul>
                 `;
                 break;
             case 'Advanced':
-                cost = 99;
+                cost = 899;
                 features = `
                     <ul>
-                        <li>Everything in Standard Plan, plus:</li>
-                        <li>Full Customization: Complete access to HTML/CSS for full customization.</li>
-                        <li>Advanced SEO: Advanced SEO tools and analytics.</li>
-                        <li>Enhanced E-commerce: Unlimited product listings and advanced e-commerce features.</li>
-                        <li>Advanced Performance Analytics: Detailed website performance analytics.</li>
-                        <li>Premium Support: 24/7 phone and chat support.</li>
-                        <li>Storage: Unlimited storage space.</li>
-                        <li>Bandwidth: Unlimited monthly bandwidth.</li>
-                        <li>Security: Advanced security features and daily backups.</li>
-                        <li>API Access: Access to APIs for integrating third-party services and creating custom functionalities.</li>
-                        <li>Team Collaboration: Tools for team collaboration, including user roles and permissions.</li>
+                        <li>Multi-Page</li>
+                        <li>Free Web Design</li>
+                        <li>2 sub-domain</li>
+                        <li>Unlimited Emails</li>
+                        <li>Unlimited Bandwidth</li>
+                        <li>Free Custom Domain for 1 year</li>
+                        <li>SSL Certificate for secure connections</li>
+                        <li>Social Media Integration</li>
+                        <li>Content Management System</li>
+                        <li>Storage: 60GB of Cloud SSD for 1 year</li>
+                        <li>7X Performance</li>
+                        <li>Pro+ Features</li>
+                        <li>Advanced Features</li>
                     </ul>
                 `;
                 break;
@@ -338,10 +376,11 @@
 
         const result = `
             <h3>Quotation - ${selectedPlan} Plan</h3>
-            <p><strong>Customer Name:</strong> ${name}</p>
-            <p><strong>Customer Email:</strong> ${email}</p>
-            <p><strong>Contact Number:</strong> ${phoneNumber}</p>
-            <p><strong>Plan Cost:</strong> $${cost}/month</p>
+            <p><strong>Customer Name:</strong> ${data.name}</p>
+            <p><strong>Customer Email:</strong> ${data.email}</p>
+            <p><strong>Contact Number:</strong> ${data.phoneNumber}</p>
+            <p><strong>Company:</strong> ${data.company}</p>
+            <p><strong>Plan Cost:</strong> $${cost}/per-project</p>
             <p><strong>Features:</strong></p>
             ${features}
             <p>Thank you for choosing Duck Cloud for your web service needs!</p>
@@ -362,5 +401,18 @@
         document.querySelector('header').classList.remove('blurred-background');
         document.querySelector('footer').classList.remove('blurred-background');
     }
+
+    function downloadQuotation() {
+        const quotationContent = document.getElementById('quotationResult').innerHTML;
+        const opt = {
+            margin: 1,
+            filename: 'quotation.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().from(quotationContent).set(opt).save();
+    }
+
     </script>
 @endsection

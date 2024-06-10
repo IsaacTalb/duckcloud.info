@@ -11,7 +11,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\ServiceController;
-
+use App\Http\Controllers\QuotationController;
 use App\Models\User;
 use App\Models\Multipic;
 use Illuminate\Support\Facades\DB;
@@ -133,3 +133,9 @@ Route::post('/admin/privacy-policy/store', [PrivacyPolicyController::class, 'Sto
 Route::get('/admin/privacy-policy/edit/{id}', [PrivacyPolicyController::class, 'EditPrivacyPolicy']);
 Route::post('/admin/privacy-policy/update/{id}', [PrivacyPolicyController::class, 'UpdatePrivacyPolicy']);
 Route::get('/admin/privacy-policy/delete/{id}', [PrivacyPolicyController::class, 'DeletePrivacyPolicy'])->name('delete.privacy.policy');
+
+//Quotation
+// Route::post('/submit-quotation', [QuotationController::class, 'store'])->name('submit.quotation');
+// Route::get('/admin/quotations', [QuotationController::class, 'index'])->name('admin.quotations');
+
+Route::post('/quotation/store', [QuotationController::class, 'store'])->name('quotation.store');
