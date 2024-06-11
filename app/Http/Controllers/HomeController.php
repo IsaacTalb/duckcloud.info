@@ -10,6 +10,8 @@ use App\Models\Multipic;
 use Image;
 use Auth;
 use App\Models\NewsletterSubscriber;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
 
 class HomeController extends Controller
 {
@@ -22,12 +24,16 @@ class HomeController extends Controller
     }
 
     // for the newsletters subscribers
-    public function subscribe(Request $request)
+    public function subscribe(Request $request): JsonResponse
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:newsletter_subscribers,email',
             'name' => 'required|string|max:255',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        }
 
         // Create a new subscriber
         $subscriber = new NewsletterSubscriber();
@@ -35,9 +41,6 @@ class HomeController extends Controller
         $subscriber->email = $request->email;
         $subscriber->save();
 
-        return redirect()->back()->with('success', 'You have successfully subscribed to our newsletter!');
+        return response()->json(['success' => true, 'message' => 'You have successfully subscribed to our newsletter!']);
     }
-
 }
-
-

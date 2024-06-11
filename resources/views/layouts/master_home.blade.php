@@ -118,8 +118,13 @@
     });
 
     // function for the notify of newsletters
+
     document.getElementById('subscribe-form').addEventListener('submit', function(event) {
-        event.preventDefault();
+        event.preventDefault(); // Prevent the default form submission
+
+        // Disable the submit button to prevent multiple submissions
+        let submitButton = this.querySelector('input[type="submit"]');
+        submitButton.disabled = true;
 
         // Create a FormData object to send the form data
         let formData = new FormData(this);
@@ -127,43 +132,58 @@
         fetch(this.action, {
             method: this.method,
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                'Accept': 'application/json' // Ensure JSON response is expected
             },
             body: formData
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
+        .then(response => {
+            return response.json().then(data => ({
+                status: response.status,
+                body: data
+            }));
+        })
+        .then(({ status, body }) => {
+            submitButton.disabled = false; // Re-enable the submit button
+
+            if (status === 200 && body.success) {
                 // Show SweetAlert success message
                 Swal.fire({
                     title: 'Thank You!',
-                    text: 'You have successfully subscribed to our newsletter.',
-                    icon: 'success',
-                    timer: 7000, // Specify duration in milliseconds (7 seconds)
-                    timerProgressBar: true, // Show a progress bar
-                    toast: true, // Display as a toast (positioned at the top)
-                    position: 'top-end', // Position the toast at the top-right
-                    showConfirmButton: false // Hide the "OK" button
+                    text: body.message || 'You have successfully subscribed to our newsletter.',
+                    icon: 'success'
                 });
             } else {
                 // Handle validation errors or other issues
                 Swal.fire({
                     title: 'Error!',
-                    text: 'There was a problem with your subscription. Please try again.',
+                    text: body.message || 'There was a problem with your subscription. Please try again.',
                     icon: 'error'
-
                 });
             }
         })
         .catch(error => {
-            Swal.fire({
-                title: 'Error!',
-                text: 'There was a problem with your subscription. Please try again.',
-                icon: 'error'
+            submitButton.disabled = false; // Re-enable the submit button
 
-            });
+            if (error.body && error.body.errors) {
+                // Display validation errors
+                let errorMessages = Object.values(error.body.errors).flat().join('\n');
+                Swal.fire({
+                    title: 'Validation Error!',
+                    text: errorMessages,
+                    icon: 'error'
+                });
+            } else {
+                // Handle fetch or other errors
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'There was a problem with your subscription. Please try again.',
+                    icon: 'error'
+                });
+            }
         });
     });
+
   </script>
 </body>
 

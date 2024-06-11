@@ -49,7 +49,7 @@
             <div class="col-lg-5 col-md-6 footer-newsletter">
                 <h4>Join Our Newsletter</h4>
                 <p>For our recent updates & opportunities you can subscribe us by filling your name and mail address!</p>
-                <form action="{{ route('subscribe') }}" method="post">
+                <form id="subscribe-form" action="{{ route('subscribe') }}" method="post">
                     @csrf
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="email" name="email" placeholder="Your Email" required>
@@ -63,9 +63,6 @@
             <!-- Include SweetAlert2 JS -->
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-            <script>
-
-            </script>
 
             {{-- need to fix the dialogue box --}}
 
