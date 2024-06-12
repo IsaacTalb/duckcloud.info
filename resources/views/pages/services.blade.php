@@ -221,7 +221,7 @@
                 <li>Free Web Design</li>
                 <li>1 sub-domain</li>
                 <li>Unlimited Emails</li>
-                <li>Unlimited Bandwith</li>
+                <li>Unlimited Bandwidth</li>
                 <li>Free Custom Domain for 1 year</li>
                 <li>SSL Certificate for secure connections</li>
                 <li>Social Media Integration</li>
@@ -239,7 +239,7 @@
                 <li>Free Web Design</li>
                 <li>2 sub-domain</li>
                 <li>Unlimited Emails</li>
-                <li>Unlimited Bandwith</li>
+                <li>Unlimited Bandwidth</li>
                 <li>Free Custom Domain for 1 year</li>
                 <li>SSL Certificate for secure connections</li>
                 <li>Social Media Integration</li>
@@ -247,172 +247,192 @@
                 <li>Storage: 60GB of Cloud SSD for 1 year</li>
                 <li>7X Performance</li>
                 <li>Pro+ Features</li>
-                <li>Advance Features</li>
+                <li>Advanced Features</li>
             </ul>
         </section>
     </main>
 
-
     <section class="quotation-form-section">
-        <form id="QuotationForm">
+        <form id="QuotationForm" method="POST" action="{{ route('quotation.store') }}">
             @csrf
-            <label for="company">Company Name:</label>
-            <input type="text" id="company" name="company" required>
-            <label for="name">Customer Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Customer Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="phoneNumber">Contact Number:</label>
-            <input type="number" id="phoneNumber" name="phoneNumber" required>
-            <label for="plan">Plan:</label>
-            <label><input type="radio" name="plan" value="Foundation" required> Foundation Plan</label>
-            <label><input type="radio" name="plan" value="Standard" required> Standard Plan</label>
-            <label><input type="radio" name="plan" value="Advanced" required> Advanced Plan</label>
-            <input type="button" value="Generate Quotation" onclick="submitForm()">
+            <div>
+                <label for="company">Company:</label>
+                <input type="text" id="company" name="company" required>
+            </div>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="phone_number">Phone Number:</label>
+                <input type="text" id="phone_number" name="phone_number" required>
+            </div>
+            <div>
+                <label for="plan">Plan:</label>
+                <div>
+                    <input type="radio" id="foundation" name="plan" value="Foundation" required>
+                    <label for="foundation">Foundation</label>
+                </div>
+                <div>
+                    <input type="radio" id="standard" name="plan" value="Standard" required>
+                    <label for="standard">Standard</label>
+                </div>
+                <div>
+                    <input type="radio" id="advanced" name="plan" value="Advanced" required>
+                    <label for="advanced">Advanced</label>
+                </div>
+            </div>
+            <button type="button" onclick="submitForm()">Request Quotation</button>
         </form>
     </section>
 
+
     <div id="quotationPopup" class="quotation-popup">
         <div class="quotation-popup-content">
-            <button class="close-popup" onclick="closePopup()">×</button>
-            <div id="quotationResult"></div>
+            <button class="close-popup" onclick="closePopup()">X</button>
+            <h3>Quotation</h3>
+            <div id="QuotationResults"></div>
             <button onclick="downloadQuotation()">Download Quotation</button>
         </div>
     </div>
 
 @endsection
-
-@section('scripts')
+@push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script>
         function submitForm() {
-                const form = document.getElementById('QuotationForm');
-                const formData = new FormData(form);
+            const form = document.getElementById('QuotationForm');
+            const formData = new FormData(form);
 
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                fetch('{{ route('quotation.store') }}', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        generateQuotationForm(data);
-                    } else {
-                        alert('Error saving data. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
+            fetch('{{ route('quotation.store') }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    generateQuotationPopup(data.quotation);
+                } else {
                     alert('Error saving data. Please try again.');
-                });
-            }
-
-        function generateQuotationForm(data) {
-        const selectedPlan = data.plan;
-        let cost;
-        let features;
-
-        switch (selectedPlan) {
-            case 'Foundation':
-                cost = 299;
-                features = `
-                    <ul>
-                        <li>Single Page</li>
-                        <li>Free Web Design</li>
-                        <li>Limited Emails</li>
-                        <li>Free Custom Domain for 1 year</li>
-                        <li>SSL Certificate for secure connections</li>
-                        <li>Social Media Integration</li>
-                        <li>Storage: 5GB of Cloud SSD for 1 year</li>
-                        <li>2X Performance</li>
-                    </ul>
-                `;
-                break;
-            case 'Standard':
-                cost = 599;
-                features = `
-                    <ul>
-                        <li>Multi-Page</li>
-                        <li>Free Web Design</li>
-                        <li>1 sub-domain</li>
-                        <li>Unlimited Emails</li>
-                        <li>Unlimited Bandwidth</li>
-                        <li>Free Custom Domain for 1 year</li>
-                        <li>SSL Certificate for secure connections</li>
-                        <li>Social Media Integration</li>
-                        <li>Content Management System</li>
-                        <li>Storage: 12GB of Cloud SSD for 1 year</li>
-                        <li>4X Performance</li>
-                    </ul>
-                `;
-                break;
-            case 'Advanced':
-                cost = 899;
-                features = `
-                    <ul>
-                        <li>Multi-Page</li>
-                        <li>Free Web Design</li>
-                        <li>2 sub-domain</li>
-                        <li>Unlimited Emails</li>
-                        <li>Unlimited Bandwidth</li>
-                        <li>Free Custom Domain for 1 year</li>
-                        <li>SSL Certificate for secure connections</li>
-                        <li>Social Media Integration</li>
-                        <li>Content Management System</li>
-                        <li>Storage: 60GB of Cloud SSD for 1 year</li>
-                        <li>7X Performance</li>
-                        <li>Pro+ Features</li>
-                        <li>Advanced Features</li>
-                    </ul>
-                `;
-                break;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error saving data. Please try again.');
+            });
         }
 
-        const result = `
-            <h3>Quotation - ${selectedPlan} Plan</h3>
-            <p><strong>Customer Name:</strong> ${data.name}</p>
-            <p><strong>Customer Email:</strong> ${data.email}</p>
-            <p><strong>Contact Number:</strong> ${data.phoneNumber}</p>
-            <p><strong>Company:</strong> ${data.company}</p>
-            <p><strong>Plan Cost:</strong> $${cost}/per-project</p>
-            <p><strong>Features:</strong></p>
-            ${features}
-            <p>Thank you for choosing Duck Cloud for your web service needs!</p>
-        `;
+        function generateQuotationPopup(quotationData) {
+            const selectedPlan = quotationData.plan;
+            let cost;
+            let features;
 
-        document.getElementById('quotationResult').innerHTML = result;
-        const popup = document.getElementById('quotationPopup');
-        popup.classList.add('show');
+            switch (selectedPlan) {
+                case 'Foundation':
+                    cost = 299;
+                    features = `
+                        <ul>
+                            <li>Single Page</li>
+                            <li>Free Web Design</li>
+                            <li>Limited Emails</li>
+                            <li>Free Custom Domain for 1 year</li>
+                            <li>SSL Certificate for secure connections</li>
+                            <li>Social Media Integration</li>
+                            <li>Storage: 5GB of Cloud SSD for 1 year</li>
+                            <li>2X Performance</li>
+                        </ul>
+                    `;
+                    break;
+                case 'Standard':
+                    cost = 599;
+                    features = `
+                        <ul>
+                            <li>Multi-Page</li>
+                            <li>Free Web Design</li>
+                            <li>1 sub-domain</li>
+                            <li>Unlimited Emails</li>
+                            <li>Unlimited Bandwidth</li>
+                            <li>Free Custom Domain for 1 year</li>
+                            <li>SSL Certificate for secure connections</li>
+                            <li>Social Media Integration</li>
+                            <li>Content Management System</li>
+                            <li>Storage: 12GB of Cloud SSD for 1 year</li>
+                            <li>4X Performance</li>
+                        </ul>
+                    `;
+                    break;
+                case 'Advanced':
+                    cost = 899;
+                    features = `
+                        <ul>
+                            <li>Multi-Page</li>
+                            <li>Free Web Design</li>
+                            <li>2 sub-domain</li>
+                            <li>Unlimited Emails</li>
+                            <li>Unlimited Bandwidth</li>
+                            <li>Free Custom Domain for 1 year</li>
+                            <li>SSL Certificate for secure connections</li>
+                            <li>Social Media Integration</li>
+                            <li>Content Management System</li>
+                            <li>Storage: 60GB of Cloud SSD for 1 year</li>
+                            <li>7X Performance</li>
+                            <li>Pro+ Features</li>
+                            <li>Advanced Features</li>
+                        </ul>
+                    `;
+                    break;
+            }
 
-        document.querySelector('header').classList.add('blurred-background');
-        document.querySelector('footer').classList.add('blurred-background');
-    }
+            const result = `
+                <h3>Quotation - ${selectedPlan} Plan</h3>
+                <p><strong>Customer Name:</strong> ${quotationData.name}</p>
+                <p><strong>Customer Email:</strong> ${quotationData.email}</p>
+                <p><strong>Contact Number:</strong> ${quotationData.phone_number}</p>
+                <p><strong>Company:</strong> ${quotationData.company}</p>
+                <p><strong>Plan Cost:</strong> $${cost} per project</p>
+                <p><strong>Features:</strong></p>
+                ${features}
+                <p>Thank you for choosing Duck Cloud for your web service needs!</p>
+            `;
 
-    function closePopup() {
-        const popup = document.getElementById('quotationPopup');
-        popup.classList.remove('show');
+            document.getElementById('QuotationResults').innerHTML = result;
+            const popup = document.getElementById('quotationPopup');
+            popup.classList.add('show');
 
-        document.querySelector('header').classList.remove('blurred-background');
-        document.querySelector('footer').classList.remove('blurred-background');
-    }
+            // Optionally, blur the background
+            document.querySelector('header').classList.add('blurred-background');
+            document.querySelector('footer').classList.add('blurred-background');
+        }
 
-    function downloadQuotation() {
-        const quotationContent = document.getElementById('quotationResult').innerHTML;
-        const opt = {
-            margin: 1,
-            filename: 'quotation.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        html2pdf().from(quotationContent).set(opt).save();
-    }
+        function closePopup() {
+            const popup = document.getElementById('quotationPopup');
+            popup.classList.remove('show');
 
+            // Remove blur effect from background
+            document.querySelector('header').classList.remove('blurred-background');
+            document.querySelector('footer').classList.remove('blurred-background');
+        }
+
+        function downloadQuotation() {
+            const quotationContent = document.getElementById('QuotationResults').innerHTML;
+            const opt = {
+                margin: 1,
+                filename: 'quotation.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(quotationContent).set(opt).save();
+        }
     </script>
-@endsection
+@endpush

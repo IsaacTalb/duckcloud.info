@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateQuotationsTable extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create('quotations', function (Blueprint $table) {
@@ -13,12 +18,17 @@ class CreateQuotationsTable extends Migration
             $table->string('company');
             $table->string('name');
             $table->string('email');
-            $table->string('phone_number');
+            $table->string('phone_number'); // Ensure this field exists
             $table->string('plan');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('quotations');

@@ -93,7 +93,6 @@ Route::get('/about/delete/{id}', [AboutController::class, 'DeleteAbout']);
 Route::get('/portfolio', [AboutController::class, 'Portfolio'])->name('portfolio');
 Route::get('/contact', [ContactController::class, 'Contact'])->name('contact');
 Route::get('/about', [AboutController::class, 'About'])->name('about');
-Route::get('/services', [ServiceController::class, 'showServices'])->name('services');
 
 // Admin Contact Routes edit by Isaac
 Route::get('/admin/contact', [ContactController::class, 'AdminContact'])->name('admin.contact');
@@ -134,8 +133,14 @@ Route::get('/admin/privacy-policy/edit/{id}', [PrivacyPolicyController::class, '
 Route::post('/admin/privacy-policy/update/{id}', [PrivacyPolicyController::class, 'UpdatePrivacyPolicy']);
 Route::get('/admin/privacy-policy/delete/{id}', [PrivacyPolicyController::class, 'DeletePrivacyPolicy'])->name('delete.privacy.policy');
 
-//Quotation
-// Route::post('/submit-quotation', [QuotationController::class, 'store'])->name('submit.quotation');
-// Route::get('/admin/quotations', [QuotationController::class, 'index'])->name('admin.quotations');
+//Services Routes;
+Route::get('/services', [ServiceController::class, 'showServices'])->name('services');
+Route::post('/services/quotation', [ServiceController::class, 'storeQuotation'])->name('quotation.store');
 
-Route::post('/quotation/store', [QuotationController::class, 'store'])->name('quotation.store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/quotations', [ServiceController::class, 'showQuotations'])->name('admin.quotations');
+});
+Route::get('/admin/quotation/{id}/reply', [QuotationController::class, 'reply'])->name('admin.reply');
+Route::delete('/admin/quotation/{id}/delete', [QuotationController::class, 'destroy'])->name('admin.delete');
+
+Route::get('/admin/quotation', [QuotationController::class, 'index'])->name('admin.quotation');

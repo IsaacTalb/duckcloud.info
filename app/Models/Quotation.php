@@ -10,6 +10,11 @@ class Quotation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'company', 'name', 'email', 'phoneNumber', 'plan'
+        'company', 'name', 'email', 'phone_number', 'plan',
     ];
+
+    public function sendReply($replyMessage)
+    {
+        // Send an email to the user with the provided reply message
+    }
 }

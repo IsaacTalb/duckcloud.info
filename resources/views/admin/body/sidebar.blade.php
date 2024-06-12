@@ -66,10 +66,25 @@
               </ul>
             </li>
 
+            {{-- Quotation Sections --}}
+            <li class="has-sub">
+                <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#quotations"
+                    aria-expanded="false" aria-controls="quotations">
+                    <i class="mdi mdi-file-document-box"></i>
+                    <span class="nav-text">Quotations</span> <b class="caret"></b>
+                </a>
+                <ul class="collapse" id="quotations" data-parent="#sidebar-menu">
+                    <div class="sub-menu">
+                        <li class="active">
+                            <a class="sidenav-item-link" href="{{ route('admin.quotations') }}">
+                                <span class="nav-text">View Quotations</span>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </li>
 
-
-
-
+            {{-- Contact Page --}}
             <li  class="has-sub" >
               <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#ui-elements"
                 aria-expanded="false" aria-controls="ui-elements">
