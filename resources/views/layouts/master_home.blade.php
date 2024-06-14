@@ -11,18 +11,24 @@
   <title>Duck Cloud</title>
   <!-- Meta description for the page -->
   <meta name="description" content="What sets Duck Cloud apart is our unwavering commitment to excellence and our relentless pursuit of innovation. We believe in pushing boundaries, challenging the status quo, and consistently raising the bar for ourselves and our clients.">
+
+  <!--Google Adsense-->
+  <meta name="google-adsense-account" content="ca-pub-6435342919777395">
+
   <!-- Favicon for the website -->
-  <link rel="icon" href="{{ asset('frontend/assets/img/dc_logo.ico') }}" type="image/x-icon">
+  <link rel="icon" href="{{ asset('frontend/assets/img/favicon.ico') }}" type="image/x-icon">
+  <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+  <lik rel="image" href="{{ asset('frontend/assets/img/dc_logo.png') }}" type="image/PNG">
   <!-- Additional favicons for other devices and sizes -->
-  <link rel="icon" href="{{ asset('frontend/assets/img/dc_logo.ico') }}" sizes="16x16" type="image/x-icon">
-  <link rel="apple-touch-icon" href="{{ asset('frontend/assets/img/dc_logo.ico') }}">
-  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('frontend/assets/img/dc_logo.ico') }}">
-  <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('frontend/assets/img/dc_logo.ico') }}">
-  <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('frontend/assets/img/dc_logo.ico') }}">
+  <link rel="icon" href="{{ asset('frontend/assets/img/favicon.ico') }}" sizes="16x16" type="image/x-icon">
+  <link rel="apple-touch-icon" href="{{ asset('frontend/assets/img/favicon.ico') }}">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('frontend/assets/img/favicon.ico') }}">
+  <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('frontend/assets/img/favicon.ico') }}">
+  <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('frontend/assets/img/favicon.ico') }}">
   <!-- Open Graph Meta Tags for better sharing on social media -->
   <meta property="og:title" content="Duck Cloud">
   <meta property="og:description" content="What sets Duck Cloud apart is our unwavering commitment to excellence and our relentless pursuit of innovation. We believe in pushing boundaries, challenging the status quo, and consistently raising the bar for ourselves and our clients.">
-  <meta property="og:image" content="{{ asset('frontend/assets/img/dc_logo.ico') }}">
+  <meta property="og:image" content="{{ asset('frontend/assets/img/favicon.ico') }}">
   <meta property="og:url" content="https://duckcloud.info/">
   <meta name="twitter:card" content="summary_large_image">
    <!-- SweetAlert CSS -->

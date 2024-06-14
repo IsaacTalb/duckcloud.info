@@ -552,7 +552,11 @@ section {
     padding: 30px 0 6px 0; /* Adjusted padding to be equal on top and bottom */
     background: rgb(32, 88, 97);
     min-height: 40px;
-    margin-top: 72px;
+    /* margin-top: 72px; */
+  }
+
+  .breadcrumbs .container{
+    margin: top 2rem;
   }
 
   .breadcrumbs h2 {

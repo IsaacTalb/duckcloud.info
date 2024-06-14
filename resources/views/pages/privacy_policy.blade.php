@@ -9,8 +9,8 @@
         <div class="d-flex justify-content-between align-items-center">
           <h2>Privacy Policy</h2>
           <ol>
-            <li><a href="{{ route('home') }}">Home</a></li>
-            <li>Privacy Policy</li>
+            <li><a href="{{ url('/') }}">Home</a></li>
+            <li><a href="{{ url('/privacy-policy')}}">Privacy Policy</a></li>
           </ol>
         </div>
 
