@@ -31,10 +31,10 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('portfolio') }}">Android/IOS Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('services') }}">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('services') }}">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('services') }}">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{{ route('services') }}">Android/IOS Development</a></li>
             </ul>
           </div>
 

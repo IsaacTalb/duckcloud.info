@@ -24,3 +24,6 @@ catch (\Exception $e) {
 }
 
 storage/logs/laravel.log
+
+
+mysqldump -u root -p duckcloud.info | gzip >  D:\Duck_Cloud_Folders\Duck Cloud Website\back up folders\sql for implement (service) back up file\quotation.sql.gz
