@@ -1,0 +1,70 @@
+<?php $__env->startSection('home_content'); ?>
+
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Portfolio</h2>
+          <ol>
+            <li><a href="<?php echo e(url('/')); ?>">Home</a></li>
+            <li><a href="<?php echo e(url('/portfolio')); ?>">Portfolio</a></li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- portfolio.blade.php // portfolio section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+        <div class="row" data-aos="fade-up">
+            <div class="col-lg-12 d-flex justify-content-center"></div>
+        </div>
+        <div class="container-inside">
+            <p id="intro-text">
+            At Duck Cloud, we specialize in delivering top-tier digital solutions including Website Development, Android/iOS Development, and CMS Systems. Our team is dedicated to transforming your ideas into innovative and functional digital experiences. Explore our portfolio to see how we have helped clients achieve their digital goals with exceptional service and expertise.
+            </p>
+            <h3>Here are some of the services we offer:</h3>
+            <ul id="services-list">
+            <li>Website Development</li>
+            <li>Android/iOS Development</li>
+            <li>CMS Systems</li>
+            </ul>
+        </div>
+        <div class="row portfolio-container" data-aos="fade-up">
+            <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-item-wrapper">
+                <img src="<?php echo e(asset($img->image)); ?>" class="img-fluid" alt="">
+                <div class="portfolio-info">
+                <h4><?php echo e($img->title); ?></h4>
+                <p><?php echo e($img->description); ?></p>
+                <a href="<?php echo e(asset($img->image)); ?>" data-gall="portfolioGallery" class="venobox preview-link" title="<?php echo e($img->title); ?>">
+                    <i class="bx bx-plus"></i>
+                </a>
+                </div>
+            </div>
+            </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
+        </div>
+    </section>
+    <!-- End Portfolio Section -->
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('scripts'); ?>
+<script>
+    $(document).ready(function() {
+        $('.venobox').venobox({
+            titleattr: 'title',
+            numeratio: true,
+            infinigall: true,
+            share: ['facebook', 'twitter', 'download']
+        });
+    });
+</script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master_home', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Duck_Cloud_Folders\duckcloud.info\resources\views/pages/portfolio.blade.php ENDPATH**/ ?>

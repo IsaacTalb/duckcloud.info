@@ -1,0 +1,61 @@
+<?php $__env->startSection('admin'); ?>
+
+<?php if(session('success')): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><?php echo e(session('success')); ?></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php endif; ?>
+
+<?php if(session('error')): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><?php echo e(session('error')); ?></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php endif; ?>
+
+<div class="col-lg-12">
+    <div class="card card-default">
+        <div class="card-header card-header-border-bottom">
+            <h2>Edit Slider</h2>
+        </div>
+        <div class="card-body">
+            <form action="<?php echo e(url('slider/update/'.$slider->id)); ?>" method="POST" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
+
+                <input type="hidden" name="old_image" value="<?php echo e($slider->image); ?>">
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Slider Title</label>
+                    <input type="text" name="title" class="form-control" id="exampleFormControlInput1" value="<?php echo e($slider->title); ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Slider Description</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"><?php echo e($slider->description); ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Slider Image</label>
+                    <input type="file" name="image" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+
+                <div class="form-group">
+                    <img src="<?php echo e(asset($slider->image)); ?>" style="width:400px; height:200px;">
+                </div>
+
+                <div class="form-footer pt-4 pt-5 mt-4 border-top">
+                    <button type="submit" class="btn btn-primary btn-default">Update Slider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.admin_master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Duck_Cloud_Folders\Duck Cloud Website\duckcloud.info\resources\views/admin/slider/edit.blade.php ENDPATH**/ ?>
