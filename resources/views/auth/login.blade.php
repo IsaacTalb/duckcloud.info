@@ -32,7 +32,7 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-center mt-4">
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
@@ -44,5 +44,17 @@
                 </x-button>
             </div>
         </form>
+        <br>
+        <div class="flex justify-center space-x-4">
+            <strong class="text-gray-600 text-center font-semibold">(or)</strong>
+        </div>
+        <br>
+
+        <div class="flex justify-center space-x-4">
+            <!-- <a href="{{ route('socialite.redirect', 'facebook') }}" class="bg-blue-600 text-white py-2 px-4 rounded">Login with Facebook</a> -->
+            <a href="{{ route('socialite.redirect', 'google') }}" class="bg-red-600 text-white py-2 px-4 rounded">Login with Google</a>
+            <a href="{{ route('socialite.redirect', 'github') }}" class="bg-gray-800 text-white py-2 px-4 rounded">Login with GitHub</a>
+        </div>
+        
     </x-authentication-card>
 </x-guest-layout>
