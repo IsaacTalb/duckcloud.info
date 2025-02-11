@@ -13,15 +13,17 @@ class CreateQuotationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('quotations', function (Blueprint $table) {
-            $table->id();
-            $table->string('company');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone_number'); // Ensure this field exists
-            $table->string('plan');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('quotations')) {
+            Schema::create('quotations', function (Blueprint $table) {
+                $table->id();
+                $table->string('company');
+                $table->string('name');
+                $table->string('email');
+                $table->string('phone_number');
+                $table->string('plan');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
