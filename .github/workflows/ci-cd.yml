@@ -77,7 +77,8 @@ jobs:
           git reset --hard origin/main
 
           # Update Composer
-          composer update
+          composer update facade/ignition
+
 
           # Run database migrations
           echo "Running migrations..."
