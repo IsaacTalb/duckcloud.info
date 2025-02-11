@@ -20,21 +20,38 @@ jobs:
       - name: Update PHP 8.1 and set as default
         run: |
           sudo apt update
+          sudo add-apt-repository ppa:ondrej/php -y
+          sudo apt install -y php8.1 php8.1-cli php8.1-fpm php8.1-mbstring php8.1-bcmath php8.1-intl php8.1-gd php8.1-mysql php8.1-xml git
           php -m | grep dom # Verify the extension is installed
+        
+      # Step 3: Install Node.js and NPM
+      - name: Install Node.js and NPM
+        run: |
+          curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+          sudo apt install -y nodejs
+          node -v
+          npm -v
 
-      # Step 3: Configure SSH for VPS
+      # Step 4: Install Composer and dependencies
+      - name: Install Composer dependencies
+        run: |
+          curl -sS https://getcomposer.org/installer | php
+          sudo mv composer.phar /usr/local/bin/composer
+          composer install --prefer-dist --no-dev --optimize-autoloader
+
+      # Step 5: Configure SSH for VPS
       - name: Configure SSH private key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-      # Step 4: Add VPS to known hosts
+      # Step 6: Add VPS to known hosts
       - name: Add VPS to known hosts
         run: |
           ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
-      # Step 5: Deploy to VPS
+      # Step 7: Deploy to VPS
       - name: Deploy to VPS
         env:
           VPS_USER: ${{ secrets.VPS_USER }}
