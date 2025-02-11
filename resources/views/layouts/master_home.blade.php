@@ -51,7 +51,7 @@
   <!-- Main CSS File -->
   <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <style>
     body {
       -webkit-touch-callout: none; /* Disable long press on mobile */
