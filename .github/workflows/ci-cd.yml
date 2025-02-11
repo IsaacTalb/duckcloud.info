@@ -76,6 +76,9 @@ jobs:
           git fetch --all
           git reset --hard origin/main
 
+          # Update Composer
+          composer update
+
           # Run database migrations
           echo "Running migrations..."
           php artisan migrate --force
