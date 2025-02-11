@@ -1,0 +1,109 @@
+name: Duck Cloud Info
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        run: |
+          git clone https://github.com/${{ github.repository }} .
+          git checkout ${{ github.ref }}
+
+      # Step 2: Update PHP 8.1 and set as default
+      - name: Update PHP 8.1 and set as default
+        run: |
+          sudo apt update
+          sudo apt install -y php8.1 php8.1-cli php8.1-fpm php8.1-mbstring php8.1-bcmath php8.1-intl php8.1-gd php8.1-mysql php8.1-xml
+          sudo update-alternatives --set php /usr/bin/php8.1
+          php -m | grep dom # Verify the extension is installed
+
+      # Step 3: Configure SSH for VPS
+      - name: Configure SSH private key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      # Step 4: Add VPS to known hosts
+      - name: Add VPS to known hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      # Step 5: Deploy to VPS
+      - name: Deploy to VPS
+        env:
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_PATH: /var/www/isaac/duckcloud.info
+          NGINX_SERVICE: nginx
+          PHP_SERVICE: php8.1-fpm
+        run: |
+          echo "VPS_PATH is set to: $VPS_PATH"
+          ssh -o StrictHostKeyChecking=no -o BatchMode=yes $VPS_USER@$VPS_HOST << EOF
+          set -e
+
+          # Export variables for use in the session
+          export VPS_PATH="${{ env.VPS_PATH }}"
+          export NGINX_SERVICE="${{ env.NGINX_SERVICE }}"
+          export PHP_SERVICE="${{ env.PHP_SERVICE }}"
+
+          # Debug: Print VPS_PATH inside the session
+          echo "VPS_PATH inside SSH session: $VPS_PATH"
+
+          # Check if VPS_PATH is set
+          if [ -z "$VPS_PATH" ]; then
+              echo "Error: VPS_PATH is empty"
+              exit 1
+          fi
+
+          # Navigate to project directory
+          echo "Navigating to $VPS_PATH"
+          cd "$VPS_PATH" || { echo "Error: $VPS_PATH does not exist"; exit 1; }
+
+          # Check if the directory is a Git repository
+          if [ ! -d ".git" ]; then
+              echo "Error: $VPS_PATH is not a Git repository"
+              exit 1
+          fi
+
+          # Pull latest changes
+          echo "Pulling latest changes..."
+          git fetch --all
+          git reset --hard origin/main
+
+          # Run database migrations
+          echo "Running migrations..."
+          php artisan migrate --force
+
+          # Clear and cache configurations
+          echo "Clearing and caching configurations..."
+          php artisan config:clear
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:clear
+          php artisan view:cache
+
+          # Build assets
+          echo "Building assets..."
+          npm ci
+          npm run build
+
+          # Adjust permissions
+          echo "Adjusting permissions..."
+          chown -R www-data:www-data storage bootstrap/cache
+          chmod -R 775 storage bootstrap/cache
+
+          # Restart services
+          echo "Restarting services..."
+          sudo systemctl restart "$NGINX_SERVICE"
+          sudo systemctl restart "$PHP_SERVICE"
+
+          echo "Deployment complete!"
+          EOF

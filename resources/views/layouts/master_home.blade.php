@@ -73,6 +73,7 @@
   <main id="main">
 
   @yield('home_content')
+  @yield('content')
 
   </main><!-- End #main -->
 

@@ -93,6 +93,9 @@ Route::get('/about/delete/{id}', [AboutController::class, 'DeleteAbout']);
 Route::get('/portfolio', [AboutController::class, 'Portfolio'])->name('portfolio');
 Route::get('/contact', [ContactController::class, 'Contact'])->name('contact');
 Route::get('/about', [AboutController::class, 'About'])->name('about');
+Route::get('/blog', function () {
+    return view('pages.blog');
+})->name('blog');
 
 // Admin Contact Routes edit by Isaac
 Route::get('/admin/contact', [ContactController::class, 'AdminContact'])->name('admin.contact');
