@@ -46,6 +46,9 @@ Route::get('/about', function () {
     return view('about');
 });
 
+Route::get('/register', function () {
+    return redirect('/login'); // Redirect from register to login
+})->name('register');
 
 // Admin Routes
 // Category Controller
@@ -78,7 +81,6 @@ Route::post('/store/slider', [SliderController::class, 'StoreSlider'])->name('st
 Route::get('slider/edit/{id}', [SliderController::class, 'edit'])->name('slider.edit');
 Route::post('slider/update/{id}', [SliderController::class, 'update'])->name('slider.update');
 Route::get('slider/delete/{id}', [SliderController::class, 'delete'])->name('slider.delete');
-
 
 
 // Home About Routes
