@@ -20,7 +20,6 @@ jobs:
       - name: Update PHP 8.1 and set as default
         run: |
           sudo apt update
-          sudo update-alternatives --set php /usr/bin/php8.1
           php -m | grep dom # Verify the extension is installed
 
       # Step 3: Configure SSH for VPS
