@@ -86,7 +86,7 @@
                         </label>
 
                       </div>
-     <p><a class="text-blue" href="{{ route('password.request') }}" style="color: rgb(165, 207, 221);">Forgot Your Password?</a></p>
+     <!-- <p><a class="text-blue" href="{{ route('password.request') }}" style="color: rgb(165, 207, 221);">Forgot Your Password?</a></p> -->
                     </div>
                     <button type="submit" class="btn btn-lg btn-primary btn-block mb-4">Sign In</button>
                     {{-- <p>Don't have an account yet ?
