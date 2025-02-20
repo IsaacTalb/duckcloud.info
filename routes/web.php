@@ -25,6 +25,9 @@ Route::get('/version', function() {
 
 // Then vist here: http://your-app-url/version
 
+// Route::get('/register', function () {
+//     return redirect('/login'); // Redirect from register to login
+// })->name('register');
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
@@ -45,10 +48,6 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 });
-
-Route::get('/register', function () {
-    return redirect('/login'); // Redirect from register to login
-})->name('register');
 
 // Admin Routes
 // Category Controller
