@@ -29,9 +29,9 @@ Route::get('/version', function() {
 //     return redirect('/login'); // Redirect from register to login
 // })->name('register');
 
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware(['auth'])->name('verification.notice');
+// Route::get('/email/verify', function () {
+//     return view('auth.verify-email');
+// })->middleware(['auth'])->name('verification.notice');
 
 // Home Route
 Route::get('/', function () {
