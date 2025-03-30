@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintainence</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .maintainence-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .maintainence-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .maintainence-subtext {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .progress-bar {
+            width: 500px;
+            height: 20px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-inner {
+            width: 0;
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 2s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="maintainence-container">
+        <div class="maintainence-text">Website Under Maintainence</div>
+        <div class="maintainence-subtext">Please check back later</div>
+        <div class="progress-bar">
+            <div class="progress-bar-inner"></div>
+        </div>
+    </div>
+    <script>
+        var progressBar = document.querySelector(".progress-bar-inner");
+        var width = 0;
+        var id = setInterval(frame, 50);
+
+        function frame() {
+            if (width >= 100) {
+                clearInterval(id);
+            } else {
+                width++;
+                progressBar.style.width = width + "%";
+            }
+        }
+    </script>
+</body>
+
+</html>
