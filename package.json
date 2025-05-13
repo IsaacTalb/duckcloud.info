@@ -1,3 +1,0 @@
-"scripts": {
-  "build:css": "npx tailwindcss -i ./src/styles.css -o ./public/tailwind.css --minify"
-}
