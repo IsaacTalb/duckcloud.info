@@ -8,7 +8,7 @@ export default function NotFound() {
         <h1 className="text-7xl font-bold text-primary mb-4">404</h1>
         <h2 className="text-3xl font-bold mb-4">Page Not Found</h2>
         <p className="text-gray-400 mb-8 max-w-md mx-auto">
-          Sorry, we couldn't find the page you're looking for. It might have been removed or the
+          Sorry, we couldn&apos;t find the page you&apos;re looking for. It might have been removed or the
           URL might be incorrect.
         </p>
         <Link href="/" className="btn-primary inline-block">
