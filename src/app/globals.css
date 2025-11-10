@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Poppins:wght@400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0f172a;
+  color: #e5e7eb;
+}
+
+code,
+pre {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FFD60A;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FCA311;
+}
+
+/* Utility classes */
+.gradient-primary {
+  @apply bg-gradient-primary;
+}
+
+.gradient-dark {
+  @apply bg-gradient-dark;
+}
+
+.text-gradient {
+  @apply bg-gradient-primary bg-clip-text text-transparent;
+}
+
+.btn-primary {
+  @apply px-6 py-3 bg-primary text-dark font-bold rounded-lg hover:bg-accent transition-all duration-300 transform hover:scale-105;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 bg-secondary text-primary font-bold rounded-lg border-2 border-primary hover:bg-primary hover:text-dark transition-all duration-300;
+}
+
+.card-dark {
+  @apply bg-secondary rounded-lg border border-gray-700 hover:border-primary transition-all duration-300 p-6;
+}
+
+.card-dark:hover {
+  @apply shadow-lg shadow-primary/20;
+}
+
+.section-title {
+  @apply text-4xl md:text-5xl font-bold mb-6;
+}
+
+.section-subtitle {
+  @apply text-lg text-gray-400 mb-12;
+}
+
+/* Animations */
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(255, 214, 10, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 214, 10, 0.8);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
