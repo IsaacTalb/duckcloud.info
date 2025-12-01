@@ -6,7 +6,6 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
   },
 
-  // Security Headers
   headers: async () => {
     return [
       {
@@ -21,16 +20,18 @@ const nextConfig = {
   },
 
   // Maintenance Mode Redirect
-  async redirects() {
-    return [
-      process.env.MAINTENANCE_MODE === "1"
-        ? {
-            source: "/((?!maintenance).*)", // redirect everything except maintenance
-            destination: "/maintenance.html",
-            permanent: false,
-          }
-        : null,
-    ].filter(Boolean);
+  redirects: async () => {
+    if (process.env.MAINTENANCE_MODE === "1") {
+      return [
+        {
+          source: "/((?!maintenance\\.html).*)", // ANY route except maintenance.html
+          destination: "/maintenance.html",
+          permanent: false,
+        },
+      ];
+    }
+
+    return [];
   },
 };
 
