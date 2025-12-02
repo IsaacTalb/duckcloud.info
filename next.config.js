@@ -19,12 +19,30 @@ const nextConfig = {
     ];
   },
 
-  // Maintenance Mode Redirect
-  redirects: async () => {
+  async redirects() {
     if (process.env.MAINTENANCE_MODE === "1") {
       return [
+        // Allow the maintenance file itself
         {
-          source: "/((?!maintenance\\.html).*)", // ANY route except maintenance.html
+          source: "/maintenance.html",
+          destination: "/maintenance.html",
+          permanent: false,
+        },
+        // Redirect everything else
+        {
+          source: "/:path*",
+          has: [
+            {
+              type: "query",
+              key: "bypass-maintenance",
+              value: "(.*)",
+            },
+          ],
+          destination: "/:path*",
+          permanent: false,
+        },
+        {
+          source: "/:path*",
           destination: "/maintenance.html",
           permanent: false,
         },
