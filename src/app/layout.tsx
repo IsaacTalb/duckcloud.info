@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     description: 'Discover innovative tools and software from Duck Cloud',
     images: [
       {
-        url: 'https://duckcloud.info/og-image.png',
+        url: 'assets/duckcloud.jpg',
         width: 1200,
         height: 630,
         alt: 'Duck Cloud',
