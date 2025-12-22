@@ -23,9 +23,9 @@ const nextConfig = {
   // Maintenance Mode Redirect
   async redirects() {
     return [
-      process.env.MAINTENANCE_MODE === "1"
+      process.env.MAINTENANCE_MODE === "0"
         ? {
-            source: "/((?!maintenance).*)", // redirect everything except maintenance
+            source: "/((?!maintenance|ads\\.txt).*)", // redirect everything except maintenance and ads.txt
             destination: "/maintenance.html",
             permanent: false,
           }

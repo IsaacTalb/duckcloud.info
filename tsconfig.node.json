@@ -9,5 +9,5 @@
     "moduleResolution": "bundler",
     "strict": true
   },
-  "include": ["next.config.js"]
+  "include": ["next.config.js", "**/*.ts", "**/*.tsx", "**/*.js"]
 }
