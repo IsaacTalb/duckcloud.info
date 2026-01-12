@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { InFeedAd } from '../ads';
 
 export const BlogList = () => {
   const blogPosts = [
@@ -24,7 +23,7 @@ export const BlogList = () => {
       author: 'Product Team',
       category: 'Update',
       image: '🚀',
-      link: '/blog/tiktok-commenter-v2.0',
+      link: '/blog/tiktok-commenter-v2-release',
     },
     {
       id: 3,
@@ -96,9 +95,7 @@ export const BlogList = () => {
             </motion.div>
           ))}
         </div>
-        <InFeedAd />
       </div>
     </section>
   );
 };
-

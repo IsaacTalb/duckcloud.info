@@ -28,7 +28,7 @@ export const products: Product[] = [
       'Automate and intelligently manage your TikTok comments. Increase engagement with smart comment strategies and community management tools.',
     category: 'social',
     icon: '💬',
-    url: 'https://tiktok.duckcloud.info',
+    url: 'https://github.com/IsaacTalb/tiktok_commenters',
     image: '/products/tiktok.png',
     features: [
       'Smart commenting',

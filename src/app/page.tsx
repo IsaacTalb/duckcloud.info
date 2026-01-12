@@ -6,6 +6,7 @@ import { Features } from '@/components/sections/Features';
 import { Tools } from '@/components/sections/Tools';
 import { Community } from '@/components/sections/Community';
 import { CTA } from '@/components/sections/CTA';
+import { DisplayAd } from '@/components/ads';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero />
       <Products />
       <Features />
+      <DisplayAd />
       <Tools />
       <Community />
       <CTA />
