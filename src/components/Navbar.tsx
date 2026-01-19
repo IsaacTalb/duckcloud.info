@@ -37,7 +37,9 @@ export const Navbar = () => {
                 {item.label}
               </Link>
             ))}
-            <button className="btn-primary">Get Started</button>
+            <Link href="/products">
+              <button className="btn-primary">Get Started</button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}

@@ -42,7 +42,9 @@ export const Hero = () => {
               Explore Products
               <FiArrowRight />
             </Link>
-            <button className="btn-secondary">Watch Demo</button>
+            <Link href="/tools">
+              <button className="btn-secondary">Watch Demo</button>
+            </Link>
           </div>
         </motion.div>
 

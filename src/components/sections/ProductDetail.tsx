@@ -79,6 +79,16 @@ export const ProductDetail = () => {
                 Visit {product.name}
                 <FiExternalLink />
               </Link>
+
+              <Link 
+                href={product.sourceurl}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="ml-4 inline-flex items-center gap-2 btn-secondary"
+              >
+                View on GitHub
+                <FiExternalLink />
+              </Link>
             </motion.div>
           ))}
         </div>

@@ -10,6 +10,7 @@ export const products: Product[] = [
     category: 'news',
     icon: '📰',
     url: 'https://news.duckcloud.info',
+    sourceurl: 'https://github.com/IsaacTalb/news',
     image: '/products/news.png',
     features: [
       'Real-time news updates',
@@ -28,7 +29,8 @@ export const products: Product[] = [
       'Automate and intelligently manage your TikTok comments. Increase engagement with smart comment strategies and community management tools.',
     category: 'social',
     icon: '💬',
-    url: 'https://github.com/IsaacTalb/tiktok_commenters',
+    url: 'https://tiktok-commenters.vercel.app',
+    sourceurl: 'https://github.com/IsaacTalb/tiktok_commenters',
     image: '/products/tiktok.png',
     features: [
       'Smart commenting',
@@ -48,6 +50,7 @@ export const products: Product[] = [
     category: 'developer',
     icon: '⚙️',
     url: 'https://api.duckcloud.info',
+    sourceurl: 'https://github.com/duckcloud/api-suite',
     image: '/products/api.png',
     features: [
       'RESTful API',
@@ -67,6 +70,7 @@ export const products: Product[] = [
     category: 'utility',
     icon: '📊',
     url: 'https://analytics.duckcloud.info',
+    sourceurl: 'https://github.com/duckcloud/analytics-tool',
     image: '/products/analytics.png',
     features: [
       'Real-time analytics',
