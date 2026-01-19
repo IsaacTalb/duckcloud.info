@@ -55,6 +55,7 @@ export default function RootLayout({
         <link rel="icon" type="image/jpeg" href="/assets/duckcloud.jpg" sizes="192x192" />
         <Script src="https://kit.fontawesome.com/9f0d0c9f3e.js" crossOrigin="anonymous" />
         <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
+        <meta name="monetag" content="d0fc74943869230bb420612654623c65" />
         <Script 
           async
           strategy="afterInteractive"
