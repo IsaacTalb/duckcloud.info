@@ -63,6 +63,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
+      <script src="https://quge5.com/88/tag.min.js" data-zone="203464" async data-cfasync="false"></script>
       <body className="bg-dark text-gray-100">
         <Navbar />
         <main className="min-h-screen">{children}</main>
