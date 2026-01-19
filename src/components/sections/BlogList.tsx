@@ -10,7 +10,7 @@ export const BlogList = () => {
       title: 'Introducing Duck Cloud: The Future of Developer Tools',
       excerpt:
         'We are excited to announce the launch of Duck Cloud, a comprehensive platform for developers.',
-      date: '2025-11-10',
+      date: '2025 APR 10',
       author: 'Duck Cloud Team',
       category: 'Announcement',
       image: '📢',
@@ -20,7 +20,7 @@ export const BlogList = () => {
       id: 2,
       title: 'TikTok Commenter v2.0: New Features Released',
       excerpt: 'Our most popular tool just got even better with advanced analytics and automation.',
-      date: '2025-11-08',
+      date: '2025 APR 15',
       author: 'Product Team',
       category: 'Update',
       image: '🚀',
@@ -31,7 +31,7 @@ export const BlogList = () => {
       title: 'Best Practices for Social Media Automation',
       excerpt:
         'Learn how to efficiently automate your social media workflow without losing authenticity.',
-      date: '2025-11-05',
+      date: '2025 APR 25',
       author: 'Developer',
       category: 'Tutorial',
       image: '📚',
@@ -39,13 +39,13 @@ export const BlogList = () => {
     },
     {
       id: 4,
-      title: 'API Documentation: Getting Started Guide',
-      excerpt: 'Everything you need to know to integrate Duck Cloud APIs into your application.',
-      date: '2025-11-01',
+      title: 'API Integration: Beginner Guide',
+      excerpt: 'Everything you need to know to integrate any APIs into your application.',
+      date: '2025 MAY 05',
       author: 'Engineering Team',
       category: 'Guide',
       image: '🔧',
-      link: '/blog/api-documentation-getting-started',
+      link: '/blog/api-integration-beginner-guide',
     },
   ];
 
@@ -64,7 +64,7 @@ export const BlogList = () => {
         </motion.div>
 
         <div className="space-y-6">
-          {blogPosts.map((post, index) => (
+          {blogPosts.slice().reverse().map((post, index) => (
             <motion.div
               key={post.id}
               initial={{ opacity: 0, y: 20 }}

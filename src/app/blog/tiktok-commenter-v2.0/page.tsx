@@ -33,7 +33,8 @@ export default function BlogPage() {
 
         <InArticleAd />
 
-        ### Key Features
+        <h1><b> <span className="text-blue-300">#</span>&nbsp;Key Features</b></h1>
+        <br />
         <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700">
             <h3 className="text-2xl font-bold mb-4 text-gradient">Live Username Capture</h3>
@@ -64,7 +65,8 @@ export default function BlogPage() {
           </div>
         </section>
 
-        ### Why TikTok Commenter?
+        <h1><b> <span className="text-blue-300">#</span>&nbsp;Why TikTok Commenter?</b></h1>
+        <br />
         <section className="bg-gray-900/30 p-8 rounded-2xl border border-gray-700 mb-12">
           <h2 className="text-3xl font-bold mb-6 text-gradient">Turn Comments into Community</h2>
           <div className="grid md:grid-cols-2 gap-8">
@@ -92,7 +94,8 @@ export default function BlogPage() {
 
         <MultiplexAd />
 
-        ### What's Next: Our Roadmap
+        <h1><b> <span className="text-blue-300">#</span>&nbsp;What's Next: Our Roadmap</b></h1>
+        <br />
         <section className="space-y-6 mb-12">
           <h2 className="text-3xl font-bold text-gradient">Level Up Your Lives</h2>
           <div className="grid md:grid-cols-3 gap-6">
