@@ -124,7 +124,7 @@ export default function BlogPage() {
         </section>
 
         <section className="text-sm text-gray-500 text-center">
-          <p>Stuck? <a href="#docs" className="text-yellow-400 hover:underline">Full docs</a> or ping our <a href="#discord" className="text-yellow-400 hover:underline">Dev Discord</a>. Star the repo!</p>
+          <p>Stuck? <a href="/docs" className="text-yellow-400 hover:underline">Full docs</a> or ping our <a href="#discord" className="text-yellow-400 hover:underline">Dev Discord</a>. Star the repo!</p>
         </section>
       </article>
     </main>

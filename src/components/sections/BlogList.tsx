@@ -3,52 +3,66 @@
 import { motion } from 'framer-motion';
 import { InFeedAd } from '../ads';
 
-export const BlogList = () => {
-  const blogPosts = [
-    {
-      id: 1,
-      title: 'Introducing Duck Cloud: The Future of Developer Tools',
-      excerpt:
-        'We are excited to announce the launch of Duck Cloud, a comprehensive platform for developers.',
-      date: '2025 APR 10',
-      author: 'Duck Cloud Team',
-      category: 'Announcement',
-      image: '📢',
-      link: '/blog/introducing-duck-cloud',
-    },
-    {
-      id: 2,
-      title: 'TikTok Commenter v2.0: New Features Released',
-      excerpt: 'Our most popular tool just got even better with advanced analytics and automation.',
-      date: '2025 APR 15',
-      author: 'Product Team',
-      category: 'Update',
-      image: '🚀',
-      link: '/blog/tiktok-commenter-v2.0',
-    },
-    {
-      id: 3,
-      title: 'Best Practices for Social Media Automation',
-      excerpt:
-        'Learn how to efficiently automate your social media workflow without losing authenticity.',
-      date: '2025 APR 25',
-      author: 'Developer',
-      category: 'Tutorial',
-      image: '📚',
-      link: '/blog/social-media-automation-best-practices',
-    },
-    {
-      id: 4,
-      title: 'API Integration: Beginner Guide',
-      excerpt: 'Everything you need to know to integrate any APIs into your application.',
-      date: '2025 MAY 05',
-      author: 'Engineering Team',
-      category: 'Guide',
-      image: '🔧',
-      link: '/blog/api-integration-beginner-guide',
-    },
-  ];
+// Export the blogPosts array
+export const blogPosts = [
+  {
+    id: 1,
+    title: 'Introducing Duck Cloud: The Future of Developer Tools',
+    excerpt:
+      'We are excited to announce the launch of Duck Cloud, a comprehensive platform for developers.',
+    date: '2025 APR 10',
+    author: 'Duck Cloud Team',
+    category: 'Announcement',
+    image: '📢',
+    link: '/blog/introducing-duck-cloud',
+  },
+  {
+    id: 2,
+    title: 'TikTok Commenter v2.0: New Features Released',
+    excerpt: 'Our most popular tool just got even better with advanced analytics and automation.',
+    date: '2025 APR 15',
+    author: 'Product Team',
+    category: 'Update',
+    image: '🚀',
+    link: '/blog/tiktok-commenter-v2.0',
+  },
+  {
+    id: 3,
+    title: 'Best Practices for Social Media Automation',
+    excerpt:
+      'Learn how to efficiently automate your social media workflow without losing authenticity.',
+    date: '2025 APR 25',
+    author: 'Developer',
+    category: 'Tutorial',
+    image: '📚',
+    link: '/blog/social-media-automation-best-practices',
+  },
+  {
+    id: 4,
+    title: 'API Integration: Beginner Guide',
+    excerpt: 'Everything you need to know to integrate any APIs into your application.',
+    date: '2025 MAY 05',
+    author: 'Engineering Team',
+    category: 'Guide',
+    image: '🔧',
+    link: '/blog/api-integration-beginner-guide',
+  },
+  {
+    id: 5,
+    title: 'Python for DevOps: Writing Automation Scripts for CI/CD',
+    excerpt: 'Learn how to automate your CI/CD pipeline using Python and Duck Cloud.',
+    date: '2025 MAY 10',
+    author: 'DevOps Team',
+    category: 'Tutorial',
+    image: '🐍',
+    link: '/blog/python-devops-automation',
+  },
+];
 
+// Update BlogList to accept props
+export const BlogList = ({ blogPosts: posts }: { blogPosts?: typeof blogPosts }) => {
+  const displayedPosts = posts || blogPosts; // Use the passed posts or default to all blogPosts
+  
   return (
     <section className="py-20 bg-dark px-4">
       <div className="max-w-4xl mx-auto">

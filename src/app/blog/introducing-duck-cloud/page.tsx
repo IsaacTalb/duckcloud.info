@@ -32,7 +32,8 @@ export default function BlogPage() {
 
         <InArticleAd />
 
-        ### Key Features
+        <h1><b> <span className="text-blue-300">#</span> Key Features</b></h1>
+        <br />
         <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-700">
             <h3 className="text-2xl font-bold mb-4 text-gradient">AI Code Generation</h3>
@@ -63,7 +64,8 @@ export default function BlogPage() {
           </div>
         </section>
 
-        ### Why Choose Duck Cloud?
+        <h1><b> <span className="text-blue-300">#</span> Why Choose Duck Cloud?</b></h1>
+        <br />
         <section className="bg-gray-900/30 p-8 rounded-2xl border border-gray-700 mb-12">
           <h2 className="text-3xl font-bold mb-6 text-gradient">Built for Speed, Scale, and Simplicity</h2>
           <div className="grid md:grid-cols-2 gap-8">
@@ -88,7 +90,8 @@ export default function BlogPage() {
 
         <MultiplexAd />
 
-        ### What's Next: Our Roadmap
+        <h1><b> <span className="text-blue-300">#</span> Roadmap</b></h1>
+        <br />
         <section className="space-y-6 mb-12">
           <h2 className="text-3xl font-bold text-gradient">Join the Journey</h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -117,7 +120,7 @@ export default function BlogPage() {
         </section>
 
         <section className="text-sm text-gray-500 text-center">
-          <p>Have feedback? <a href="#contact" className="text-yellow-400 hover:underline">Email us</a> or join our <a href="#discord" className="text-yellow-400 hover:underline">Discord community</a>.</p>
+          <p>Have feedback? <a href="/contact" className="text-yellow-400 hover:underline">Email us</a> or join our <a href="#discord" className="text-yellow-400 hover:underline">Discord community</a>.</p>
         </section>
       </article>
     </main>

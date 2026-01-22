@@ -124,7 +124,7 @@ export default function BlogPage() {
         </section>
 
         <section className="text-sm text-gray-500 text-center">
-          <p>Questions? <a href="#contact" className="text-yellow-400 hover:underline">Email us</a> or join our <a href="#discord" className="text-yellow-400 hover:underline">Creator Discord</a>. Star us on GitHub!</p>
+          <p>Questions? <a href="/contact" className="text-yellow-400 hover:underline">Email us</a> or join our <a href="#discord" className="text-yellow-400 hover:underline">Creator Discord</a>. Star us on GitHub!</p>
         </section>
       </article>
     </main>
