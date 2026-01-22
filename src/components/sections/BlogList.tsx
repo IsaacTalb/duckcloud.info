@@ -60,9 +60,7 @@ export const blogPosts = [
 ];
 
 // Update BlogList to accept props
-export const BlogList = ({ blogPosts: posts }: { blogPosts?: typeof blogPosts }) => {
-  const displayedPosts = posts || blogPosts; // Use the passed posts or default to all blogPosts
-  
+export const BlogList = ({ blogPosts: posts = blogPosts }: { blogPosts?: typeof blogPosts }) => {
   return (
     <section className="py-20 bg-dark px-4">
       <div className="max-w-4xl mx-auto">
@@ -78,13 +76,13 @@ export const BlogList = ({ blogPosts: posts }: { blogPosts?: typeof blogPosts })
         </motion.div>
 
         <div className="space-y-6">
-          {blogPosts.slice().reverse().map((post, index) => (
+          {posts.slice().reverse().map((post, index) => (
             <motion.div
               key={post.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="card-dark hover:scale-102 cursor-pointer transition-transform"
+              className="card-dark hover:scale-102 transition-transform"
             >
               <div className="flex gap-4">
                 <div className="text-5xl flex-shrink-0">{post.image}</div>
@@ -101,7 +99,7 @@ export const BlogList = ({ blogPosts: posts }: { blogPosts?: typeof blogPosts })
                   <p className="text-gray-400 mb-4">{post.excerpt}</p>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-500">By {post.author}</span>
-                    <a href={post.link} className="text-primary font-bold hover:text-accent transition-colors">
+                    <a href={post.link} className="text-primary font-bold hover:text-accent cursor-pointer transition-colors">
                       Read More →
                     </a>
                   </div>
@@ -115,4 +113,5 @@ export const BlogList = ({ blogPosts: posts }: { blogPosts?: typeof blogPosts })
     </section>
   );
 };
+
 

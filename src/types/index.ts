@@ -10,6 +10,7 @@ export interface Product {
   features: string[];
   status: 'active' | 'beta' | 'coming-soon';
   tags: string[];
+  sourceurl: string;
 }
 
 export interface Tool {
