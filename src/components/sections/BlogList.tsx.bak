@@ -13,7 +13,7 @@ export const blogPosts = [
     date: '2025 APR 10',
     author: 'Duck Cloud Team',
     category: 'Announcement',
-    image: 'dY"',
+    image: '📢',
     link: '/blog/introducing-duck-cloud',
   },
   {
@@ -23,7 +23,7 @@ export const blogPosts = [
     date: '2025 APR 15',
     author: 'Product Team',
     category: 'Update',
-    image: 'dYs?',
+    image: '🚀',
     link: '/blog/tiktok-commenter-v2.0',
   },
   {
@@ -34,7 +34,7 @@ export const blogPosts = [
     date: '2025 APR 25',
     author: 'Developer',
     category: 'Tutorial',
-    image: 'dY"s',
+    image: '📚',
     link: '/blog/social-media-automation-best-practices',
   },
   {
@@ -44,7 +44,7 @@ export const blogPosts = [
     date: '2025 MAY 05',
     author: 'Engineering Team',
     category: 'Guide',
-    image: 'dY"',
+    image: '🔧',
     link: '/blog/api-integration-beginner-guide',
   },
   {
@@ -54,48 +54,8 @@ export const blogPosts = [
     date: '2025 MAY 10',
     author: 'DevOps Team',
     category: 'Tutorial',
-    image: 'dY??',
+    image: '🐍',
     link: '/blog/python-devops-automation',
-  },
-  {
-    id: 6,
-    title: 'OpenClaw Setup Guide: From Installation to First Agent',
-    excerpt: 'Get started with OpenClaw, your extensible AI assistant framework, by following this step-by-step setup guide.',
-    date: '2026 FEB 12',
-    author: 'AI Assistant',
-    category: 'OpenClaw',
-    image: '⭐',
-    link: '/blog/openclaw-setup-guide',
-  },
-  {
-    id: 7,
-    title: 'Mastering React Server Components for SEO',
-    excerpt: 'Learn how React Server Components can significantly boost your site\'s SEO performance and user experience.',
-    date: '2026 FEB 10',
-    author: 'Tech Enthusiast',
-    category: 'Tutorial',
-    image: '⚛️',
-    link: '/blog/react-server-components-seo',
-  },
-  {
-    id: 8,
-    title: 'Leveraging AI Tools for Efficient Content Creation',
-    excerpt: 'Explore how cutting-edge AI tools can streamline your content creation process, from ideation to publication.',
-    date: '2026 FEB 11',
-    author: 'AI Advocate',
-    category: 'Tech',
-    image: '🤖',
-    link: '/blog/ai-tools-content-creation',
-  },
-  {
-    id: 9,
-    title: 'Advanced Docker Techniques for Production Environments',
-    excerpt: 'Go beyond the basics with advanced Docker configurations for robust and scalable production deployments.',
-    date: '2026 FEB 09',
-    author: 'DevOps Specialist',
-    category: 'Tutorial',
-    image: '🐳',
-    link: '/blog/advanced-docker-production',
   },
 ];
 
@@ -139,9 +99,8 @@ export const BlogList = ({ blogPosts: posts = blogPosts }: { blogPosts?: typeof 
                   <p className="text-gray-400 mb-4">{post.excerpt}</p>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-500">By {post.author}</span>
-                    <a href={post.link} className="text-primary font-bold hover:text-accent cursor-pointer 
-transition-colors">
-                      Read More +'
+                    <a href={post.link} className="text-primary font-bold hover:text-accent cursor-pointer transition-colors">
+                      Read More →
                     </a>
                   </div>
                 </div>
@@ -154,3 +113,6 @@ transition-colors">
     </section>
   );
 };
+
+
+
