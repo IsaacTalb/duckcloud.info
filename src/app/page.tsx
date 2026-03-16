@@ -1,7 +1,6 @@
 'use client';
 
 import { Hero } from '@/components/sections/Hero';
-import { Products } from '@/components/sections/Products';
 import { Features } from '@/components/sections/Features';
 import { Tools } from '@/components/sections/Tools';
 import { Community } from '@/components/sections/Community';
@@ -16,7 +15,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Products />
       <Features />
       <DisplayAd />
       <Tools />
@@ -26,4 +24,3 @@ export default function HomePage() {
     </>
   );
 }
-

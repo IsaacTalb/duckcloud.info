@@ -20,6 +20,8 @@ export interface Tool {
   icon: string;
   category: string;
   isPopular: boolean;
+  url?: string;
+  sourceurl?: string;
 }
 
 export interface Feature {

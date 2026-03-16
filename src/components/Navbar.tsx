@@ -10,7 +10,6 @@ export const Navbar = () => {
 
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'Products', href: '/products' },
     { label: 'Blog', href: '/blog' },
     { label: 'Tools', href: '/tools' },
     { label: 'Docs', href: '/docs' },
@@ -37,7 +36,7 @@ export const Navbar = () => {
                 {item.label}
               </Link>
             ))}
-            <Link href="/products">
+            <Link href="/tools">
               <button className="btn-primary">Get Started</button>
             </Link>
           </div>

@@ -21,7 +21,8 @@ export const Tools = () => {
         >
           <h2 className="section-title text-gradient">Developer Tools</h2>
           <p className="section-subtitle">
-            Powerful utilities to accelerate your development workflow
+            Powerful utilities to accelerate your development workflow, including social publishing
+            and automation tools
           </p>
         </motion.div>
 
@@ -49,6 +50,29 @@ export const Tools = () => {
                 <div className="mt-4 inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold">
                   {tool.category}
                 </div>
+
+                {tool.url && (
+                  <div className="mt-4 flex gap-3">
+                    <a
+                      href={tool.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary text-sm font-semibold hover:text-accent transition-colors"
+                    >
+                      Open Tool →
+                    </a>
+                    {tool.sourceurl && (
+                      <a
+                        href={tool.sourceurl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-300 text-sm hover:text-white transition-colors"
+                      >
+                        Source
+                      </a>
+                    )}
+                  </div>
+                )}
               </motion.div>
             ))}
           </motion.div>
@@ -78,6 +102,29 @@ export const Tools = () => {
                 <div className="mt-4 inline-block px-3 py-1 rounded-full bg-gray-700 text-gray-300 text-xs font-bold">
                   {tool.category}
                 </div>
+
+                {tool.url && (
+                  <div className="mt-4 flex gap-3">
+                    <a
+                      href={tool.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary text-sm font-semibold hover:text-accent transition-colors"
+                    >
+                      Open Tool →
+                    </a>
+                    {tool.sourceurl && (
+                      <a
+                        href={tool.sourceurl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-300 text-sm hover:text-white transition-colors"
+                      >
+                        Source
+                      </a>
+                    )}
+                  </div>
+                )}
               </motion.div>
             ))}
           </motion.div>
