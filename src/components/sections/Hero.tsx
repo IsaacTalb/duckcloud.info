@@ -27,14 +27,15 @@ export const Hero = () => {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-gradient">Bold Tools</span>
+            <span className="text-gradient">Create Once,</span>
             <br />
-            <span className="text-white">for Modern Developers</span>
+            <span className="text-white">Publish Everywhere</span>
           </h1>
 
           <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
-            Discover powerful tools and software designed for developers, creators, and enterprises.
-            From social media automation to advanced analytics, we have everything you need.
+            Duck Cloud helps creators and teams manage social media faster with Multi-Post, a web-based
+            content management tool that lets you create, schedule, publish, and manage content across
+            YouTube, Facebook, TikTok, Telegram, LinkedIn, and more from one interface.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
