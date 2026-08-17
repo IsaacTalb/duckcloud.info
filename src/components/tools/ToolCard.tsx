@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { ToolDefinition } from '@/config/tools';
 
 export function ToolCard({ tool }: { tool: ToolDefinition }) {
+  if (tool.status !== 'active') return null;
   return (
     <Link
       href={`/tools/${tool.slug}`}
