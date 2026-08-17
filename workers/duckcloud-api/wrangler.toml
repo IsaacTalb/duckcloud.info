@@ -1,0 +1,7 @@
+name = "duckcloud-api"
+main = "src/index.ts"
+compatibility_date = "2026-08-14"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGINS = "https://duckcloud.info,https://www.duckcloud.info,http://localhost:3000"
