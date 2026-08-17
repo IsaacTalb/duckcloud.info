@@ -6,6 +6,8 @@ import { Base64EncoderClient } from '@/components/tools/clients/Base64EncoderCli
 import { Sha256Client } from '@/components/tools/clients/Sha256Client';
 import { UuidClient } from '@/components/tools/clients/UuidClient';
 import { TimestampClient } from '@/components/tools/clients/TimestampClient';
+import { ToolboxClient, WordCounterClient } from '@/components/tools/clients/ToolboxClient';
+import { PasswordGeneratorClient, PasswordStrengthClient } from '@/components/tools/clients/PasswordClient';
 import { RelatedTools } from '@/components/tools/RelatedTools';
 import { ToolGrid } from '@/components/tools/ToolGrid';
 import { ToolHeader } from '@/components/tools/ToolHeader';
@@ -18,6 +20,13 @@ const clients = {
   'sha256-generator': Sha256Client,
   'uuid-generator': UuidClient,
   'unix-timestamp-converter': TimestampClient,
+  'json-validator': () => <ToolboxClient tool="json-validator" />, 'json-minifier': () => <ToolboxClient tool="json-minifier" />, 'json-viewer': () => <ToolboxClient tool="json-viewer" />,
+  'base64-decoder': () => <ToolboxClient tool="base64-decoder" />, 'url-encoder': () => <ToolboxClient tool="url-encoder" />, 'url-decoder': () => <ToolboxClient tool="url-decoder" />,
+  'sha512-generator': () => <ToolboxClient tool="sha512-generator" />, 'md5-generator': () => <ToolboxClient tool="md5-generator" />,
+  'jwt-decoder': () => <ToolboxClient tool="jwt-decoder" />, 'jwt-expiry-checker': () => <ToolboxClient tool="jwt-expiry-checker" />,
+  'hex-to-rgb': () => <ToolboxClient tool="hex-to-rgb" />, 'rgb-to-hex': () => <ToolboxClient tool="rgb-to-hex" />,
+  'password-generator': PasswordGeneratorClient, 'password-strength': PasswordStrengthClient, 'word-counter': WordCounterClient,
+
 };
 const details: Record<
   string,
@@ -172,8 +181,8 @@ export default async function ToolOrCategoryPage({
     );
   }
   const Client = clients[slug as keyof typeof clients];
-  const content = details[slug];
-  if (!Client || !content) notFound();
+  const content = details[slug] ?? { intro: `${tool.name} processes your input locally in this browser. Nothing entered into this tool is sent to Duck Cloud servers.`, steps: ['Paste or type your input in the tool.', 'Select the action button or use the displayed keyboard shortcut.', 'Review the result, then copy it or clear the tool.'], example: `Use the sample already provided in ${tool.name}, or replace it with your own input.`, faq: [['Does this send my input to a server?', 'No. All processing happens client-side in your browser.'], ['What happens with malformed input?', 'The tool displays a helpful error and remains ready for corrected input.'], ['Can I paste and use a keyboard?', 'Yes. Standard paste shortcuts work, and applicable tools support Ctrl or Command plus Enter.']] as [string,string][] };
+  if (!Client) notFound();
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',

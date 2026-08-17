@@ -2,14 +2,12 @@
 import { useState } from 'react';
 import { ToolActions } from '../ToolActions';
 import { ToolShell } from '../ToolShell';
+import { digest } from '@/lib/tools/client-utils';
 export function Sha256Client() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const hash = async () => {
-    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
-    setOutput(
-      Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('')
-    );
+    setOutput(await digest(input, 'SHA-256'));
   };
   return (
     <ToolShell>

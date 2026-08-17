@@ -2,16 +2,12 @@
 import { useState } from 'react';
 import { ToolActions } from '../ToolActions';
 import { ToolShell } from '../ToolShell';
+import { utf8ToBase64 } from '@/lib/tools/client-utils';
 export function Base64EncoderClient() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const encode = () => {
-    const bytes = new TextEncoder().encode(input);
-    let binary = '';
-    bytes.forEach((byte) => {
-      binary += String.fromCharCode(byte);
-    });
-    setOutput(btoa(binary));
+    setOutput(utf8ToBase64(input));
   };
   return (
     <ToolShell>
