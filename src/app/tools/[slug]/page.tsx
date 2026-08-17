@@ -7,6 +7,7 @@ import { Sha256Client } from '@/components/tools/clients/Sha256Client';
 import { UuidClient } from '@/components/tools/clients/UuidClient';
 import { TimestampClient } from '@/components/tools/clients/TimestampClient';
 import { ToolboxClient, WordCounterClient } from '@/components/tools/clients/ToolboxClient';
+import { Phase3Client } from '@/components/tools/clients/Phase3Client';
 import { PasswordGeneratorClient, PasswordStrengthClient } from '@/components/tools/clients/PasswordClient';
 import { RelatedTools } from '@/components/tools/RelatedTools';
 import { ToolGrid } from '@/components/tools/ToolGrid';
@@ -182,7 +183,6 @@ export default async function ToolOrCategoryPage({
   }
   const Client = clients[slug as keyof typeof clients];
   const content = details[slug] ?? { intro: `${tool.name} processes your input locally in this browser. Nothing entered into this tool is sent to Duck Cloud servers.`, steps: ['Paste or type your input in the tool.', 'Select the action button or use the displayed keyboard shortcut.', 'Review the result, then copy it or clear the tool.'], example: `Use the sample already provided in ${tool.name}, or replace it with your own input.`, faq: [['Does this send my input to a server?', 'No. All processing happens client-side in your browser.'], ['What happens with malformed input?', 'The tool displays a helpful error and remains ready for corrected input.'], ['Can I paste and use a keyboard?', 'Yes. Standard paste shortcuts work, and applicable tools support Ctrl or Command plus Enter.']] as [string,string][] };
-  if (!Client) notFound();
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
@@ -210,7 +210,7 @@ export default async function ToolOrCategoryPage({
         <span aria-current="page">{tool.name}</span>
       </nav>
       <ToolHeader tool={tool} />
-      <Client />
+      {Client ? <Client /> : <Phase3Client tool={slug} />}
       <article className="mt-14 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
         <div>
           <h2 className="content-heading">About this {tool.shortName ?? tool.name} tool</h2>
