@@ -1,0 +1,2 @@
+export const words=(s:string)=>s.replace(/([a-z\d])([A-Z])/g,'$1 $2').normalize('NFKD').replace(/[^\p{L}\p{N}]+/gu,' ').trim().split(/\s+/).filter(Boolean);
+export function convertCase(s:string,type:string){const w=words(s);if(type==='upper')return s.toUpperCase();if(type==='lower')return s.toLowerCase();if(type==='title')return w.map(x=>x[0]?.toUpperCase()+x.slice(1).toLowerCase()).join(' ');if(type==='camel')return w.map((x,i)=>i?x[0].toUpperCase()+x.slice(1).toLowerCase():x.toLowerCase()).join('');return w.map(x=>x.toLowerCase()).join(type==='snake'?'_':'-')}
