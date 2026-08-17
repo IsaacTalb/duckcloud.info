@@ -22,7 +22,7 @@ export const Footer = () => {
     Legal: [
       { label: 'Privacy', href: '/privacy' },
       { label: 'Terms', href: '/terms' },
-      { label: 'License', href: '/license' },
+      { label: 'License', href: '/licence' },
       { label: 'Security', href: '/security' },
     ],
   };

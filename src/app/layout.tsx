@@ -5,9 +5,11 @@ import { Footer } from '@/components/Footer';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'Duck Cloud - Information & Tools',
+  metadataBase: new URL('https://duckcloud.info'),
+  title: { default: 'Duck Cloud — Developer, IT & Security Tools', template: '%s | Duck Cloud' },
   description:
-    'Discover innovative tools and software from Duck Cloud. Explore TikTok Commenter, News platform, and more developer-friendly solutions.',
+    'Privacy-first developer, IT, security, and data utilities that run locally in your browser.',
+  alternates: { canonical: '/' },
   keywords: ['Duck Cloud', 'tools', 'software', 'TikTok', 'news', 'developer tools'],
   authors: [{ name: 'Duck Cloud Team' }],
   icons: {
@@ -16,9 +18,8 @@ export const metadata: Metadata = {
         url: '/assets/duckcloud.jpg',
         type: 'image/jpeg',
         sizes: '192x192',
-      }
-    ]
-
+      },
+    ],
   },
   openGraph: {
     type: 'website',
@@ -44,18 +45,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
         <link rel="icon" type="image/jpeg" href="/assets/duckcloud.jpg" sizes="192x192" />
-        <Script src="https://kit.fontawesome.com/9f0d0c9f3e.js" crossOrigin="anonymous" />
-        <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
-        <Script 
+        <Script
           async
           strategy="afterInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3157572406863018"
@@ -70,4 +65,3 @@ export default function RootLayout({
     </html>
   );
 }
-

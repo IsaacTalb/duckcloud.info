@@ -1,78 +1,73 @@
 'use client';
-
 import Link from 'next/link';
 import { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { motion } from 'framer-motion';
-
+import { ToolSearch } from './tools/ToolSearch';
+import { tools } from '@/config/tools';
+const navItems = [
+  { label: 'Tools', href: '/tools' },
+  { label: 'Developers', href: '/tools/json' },
+  { label: 'Network', href: '/tools' },
+  { label: 'Security', href: '/tools/security' },
+  { label: 'Converters', href: '/tools/dates' },
+  { label: 'Blog', href: '/blog' },
+];
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const navItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Tools', href: '/tools' },
-    { label: 'Docs', href: '/docs' },
-  ];
-
   return (
-    <nav className="sticky top-0 z-50 bg-dark/95 backdrop-blur border-b border-gray-700">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="text-2xl">🦆</div>
-            <span className="text-xl font-bold text-gradient">Duck Cloud</span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-gray-300 hover:text-primary transition-colors duration-300 font-medium"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Link href="/tools">
-              <button className="btn-primary">Get Started</button>
+    <nav className="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/95 backdrop-blur">
+      <div className="page-container flex min-h-16 items-center gap-6">
+        <Link href="/" className="flex shrink-0 items-center gap-2 font-bold text-white">
+          <span className="text-2xl" aria-hidden="true">
+            🦆
+          </span>
+          <span>
+            Duck <span className="text-yellow-300">Cloud</span>
+          </span>
+        </Link>
+        <div className="hidden flex-1 items-center justify-center gap-5 lg:flex">
+          {navItems.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className="text-sm font-medium text-slate-300 hover:text-yellow-300"
+            >
+              {item.label}
             </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-primary"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-          </button>
+          ))}
         </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="md:hidden pb-4 space-y-2"
-          >
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block px-4 py-2 text-gray-300 hover:text-primary hover:bg-secondary/50 rounded transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <button className="w-full btn-primary mt-4">Get Started</button>
-          </motion.div>
-        )}
+        <div className="ml-auto hidden md:block">
+          <ToolSearch tools={tools} compact />
+        </div>
+        <button
+          type="button"
+          className="ml-auto rounded-lg p-2 text-yellow-300 md:hidden"
+          onClick={() => setIsOpen((value) => !value)}
+          aria-expanded={isOpen}
+          aria-controls="mobile-nav"
+          aria-label="Toggle navigation"
+        >
+          {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        </button>
       </div>
+      {isOpen && (
+        <div
+          id="mobile-nav"
+          className="page-container space-y-2 border-t border-slate-800 py-4 md:hidden"
+        >
+          <ToolSearch tools={tools} compact />
+          {navItems.map((item) => (
+            <Link
+              onClick={() => setIsOpen(false)}
+              key={item.label}
+              href={item.href}
+              className="block rounded-lg px-3 py-3 text-slate-200 hover:bg-slate-800 hover:text-yellow-300"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };
