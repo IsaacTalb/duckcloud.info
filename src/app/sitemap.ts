@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { toolCategories } from '@/config/tool-categories';
-import { tools } from '@/config/tools';
+import { activeTools } from '@/config/tools';
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = 'https://duckcloud.info';
   const staticRoutes = [
@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: path === '' ? ('weekly' as const) : ('monthly' as const),
       priority: path === '' ? 1 : 0.7,
     })),
-    ...tools.map((tool) => ({
+    ...activeTools.map((tool) => ({
       url: `${base}/tools/${tool.slug}`,
       changeFrequency: 'monthly' as const,
       priority: tool.featured ? 0.9 : 0.8,

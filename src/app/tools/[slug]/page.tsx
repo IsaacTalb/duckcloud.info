@@ -8,9 +8,10 @@ import { UuidClient } from '@/components/tools/clients/UuidClient';
 import { TimestampClient } from '@/components/tools/clients/TimestampClient';
 import { RelatedTools } from '@/components/tools/RelatedTools';
 import { ToolGrid } from '@/components/tools/ToolGrid';
-import { ToolPrivacyBadge } from '@/components/tools/ToolPrivacyBadge';
+import { ToolHeader } from '@/components/tools/ToolHeader';
+import { ToolFAQ } from '@/components/tools/ToolFAQ';
 import { getToolCategory, toolCategories } from '@/config/tool-categories';
-import { getRelatedTools, getTool, getToolsByCategory, tools } from '@/config/tools';
+import { activeTools, getRelatedTools, getTool, getToolsByCategory } from '@/config/tools';
 const clients = {
   'json-formatter': JsonFormatterClient,
   'base64-encoder': Base64EncoderClient,
@@ -114,7 +115,7 @@ const details: Record<
   },
 };
 export function generateStaticParams() {
-  return [...tools.map(({ slug }) => ({ slug })), ...toolCategories.map(({ slug }) => ({ slug }))];
+  return [...activeTools.map(({ slug }) => ({ slug })), ...toolCategories.map(({ slug }) => ({ slug }))];
 }
 export async function generateMetadata({
   params,
@@ -199,16 +200,7 @@ export default async function ToolOrCategoryPage({
         <span>/</span>
         <span aria-current="page">{tool.name}</span>
       </nav>
-      <header className="my-8 max-w-3xl">
-        <div className="mb-4 flex items-center gap-3">
-          <span className="flex h-12 min-w-12 items-center justify-center rounded-xl bg-yellow-400/10 px-2 font-mono font-bold text-yellow-300">
-            {tool.icon}
-          </span>
-          <ToolPrivacyBadge />
-        </div>
-        <h1 className="page-title">{tool.name}</h1>
-        <p className="page-lead">{tool.description}</p>
-      </header>
+      <ToolHeader tool={tool} />
       <Client />
       <article className="mt-14 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
         <div>
@@ -228,20 +220,7 @@ export default async function ToolOrCategoryPage({
           <h2 className="content-heading mt-9">Example</h2>
           <p className="content-copy">{content.example}</p>
         </div>
-        <aside>
-          <h2 className="content-heading">Frequently asked questions</h2>
-          <div className="mt-4 space-y-3">
-            {content.faq.map(([question, answer]) => (
-              <details
-                key={question}
-                className="rounded-lg border border-slate-700 bg-slate-900 p-4"
-              >
-                <summary className="cursor-pointer font-semibold text-white">{question}</summary>
-                <p className="mt-3 text-sm leading-6 text-slate-400">{answer}</p>
-              </details>
-            ))}
-          </div>
-        </aside>
+        <aside><ToolFAQ items={content.faq} /></aside>
       </article>
       <RelatedTools tools={getRelatedTools(tool)} />
     </div>

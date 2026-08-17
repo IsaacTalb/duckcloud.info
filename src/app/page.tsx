@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ToolGrid } from '@/components/tools/ToolGrid';
 import { ToolSearch } from '@/components/tools/ToolSearch';
 import { toolCategories } from '@/config/tool-categories';
-import { tools } from '@/config/tools';
+import { activeTools } from '@/config/tools';
 const tutorials = [
   {
     title: 'Python for DevOps: Automation Scripts',
@@ -21,8 +21,8 @@ const tutorials = [
   },
 ];
 export default function HomePage() {
-  const popular = tools.filter((tool) => tool.popular).slice(0, 3);
-  const featured = tools.filter((tool) => tool.featured);
+  const popular = activeTools.filter((tool) => tool.popular).slice(0, 3);
+  const featured = activeTools.filter((tool) => tool.featured);
   return (
     <>
       <section className="relative overflow-hidden border-b border-slate-800">
@@ -37,7 +37,7 @@ export default function HomePage() {
             in your browser.
           </p>
           <div className="mt-9">
-            <ToolSearch tools={tools} />
+            <ToolSearch tools={activeTools} />
           </div>
           <div className="mt-6 flex flex-wrap justify-center gap-2 text-sm text-slate-400">
             <span>Popular:</span>

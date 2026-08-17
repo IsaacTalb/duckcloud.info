@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { ToolSearch } from './tools/ToolSearch';
-import { tools } from '@/config/tools';
+import { activeTools } from '@/config/tools';
 const navItems = [
   { label: 'Tools', href: '/tools' },
   { label: 'Developers', href: '/tools/json' },
@@ -37,7 +37,7 @@ export const Navbar = () => {
           ))}
         </div>
         <div className="ml-auto hidden md:block">
-          <ToolSearch tools={tools} compact />
+          <ToolSearch tools={activeTools} compact />
         </div>
         <button
           type="button"
@@ -55,7 +55,7 @@ export const Navbar = () => {
           id="mobile-nav"
           className="page-container space-y-2 border-t border-slate-800 py-4 md:hidden"
         >
-          <ToolSearch tools={tools} compact />
+          <ToolSearch tools={activeTools} compact />
           {navItems.map((item) => (
             <Link
               onClick={() => setIsOpen(false)}

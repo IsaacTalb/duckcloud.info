@@ -148,6 +148,12 @@ pre {
   .tool-textarea {
     @apply min-h-56 w-full resize-y rounded-lg border border-slate-700 bg-slate-950 p-4 font-mono text-sm leading-6 text-slate-100 outline-none placeholder:text-slate-600 focus:border-yellow-400;
   }
+  .filter-chip {
+    @apply shrink-0 rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-300 transition hover:border-yellow-400 hover:text-yellow-300;
+  }
+  .filter-chip-active {
+    @apply border-yellow-400 bg-yellow-400 text-slate-950 hover:text-slate-950;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
