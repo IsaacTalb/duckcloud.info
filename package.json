@@ -6,9 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "cloudflare:build": "npx --yes @opennextjs/cloudflare@1.20.2 build",
-    "deploy": "npx --yes @opennextjs/cloudflare@1.20.2 deploy",
-    "preview": "npx --yes @opennextjs/cloudflare@1.20.2 preview",
+    "deploy": "npx wrangler deploy",
     "start": "next start",
     "lint": "eslint src --ext .ts,.tsx",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",

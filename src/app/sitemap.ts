@@ -2,6 +2,8 @@ import type { MetadataRoute } from 'next';
 import { toolCategories } from '@/config/tool-categories';
 import { activeTools } from '@/config/tools';
 
+export const dynamic = 'force-static';
+
 const baseUrl = 'https://duckcloud.info';
 
 const staticRoutes = [
