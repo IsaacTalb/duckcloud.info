@@ -199,6 +199,12 @@ npm run build
 npm start
 ```
 
+### Cloudflare
+
+The website remains hosted on Vercel, while Cloudflare provides DNS and the remote lookup API
+Worker. See [CLOUDFLARE.md](CLOUDFLARE.md) for the exact DNS, SSL/TLS, Worker custom-domain,
+environment-variable, rate-limit, and sitemap settings.
+
 ## 📖 Documentation
 
 For more information:
