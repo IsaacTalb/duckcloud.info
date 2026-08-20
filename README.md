@@ -201,8 +201,8 @@ npm start
 
 ### Cloudflare
 
-The website remains hosted on Vercel, while Cloudflare provides DNS and the remote lookup API
-Worker. See [CLOUDFLARE.md](CLOUDFLARE.md) for the exact DNS, SSL/TLS, Worker custom-domain,
+The website supports Cloudflare Workers through the OpenNext adapter, alongside a separate remote
+lookup API Worker. See [CLOUDFLARE.md](CLOUDFLARE.md) for the exact build, deploy, DNS, Worker-domain,
 environment-variable, rate-limit, and sitemap settings.
 
 ## 📖 Documentation

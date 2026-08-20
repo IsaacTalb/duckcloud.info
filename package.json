@@ -1,11 +1,14 @@
 {
-  "name": "duckcloud-official-website",
+  "name": "duckcloud-info",
   "version": "1.0.0",
   "description": "Official website for Duck Cloud - Showcasing products, tools, and software",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "cloudflare:build": "npx --yes @opennextjs/cloudflare@1.20.2 build",
+    "deploy": "npx --yes @opennextjs/cloudflare@1.20.2 deploy",
+    "preview": "npx --yes @opennextjs/cloudflare@1.20.2 preview",
     "start": "next start",
     "lint": "eslint src --ext .ts,.tsx",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
