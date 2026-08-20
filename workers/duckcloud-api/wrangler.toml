@@ -1,4 +1,4 @@
-name = "duckcloud-api"
+name = 'duckcloud-info'
 main = "src/index.ts"
 compatibility_date = "2026-08-14"
 workers_dev = false
