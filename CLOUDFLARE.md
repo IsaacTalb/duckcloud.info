@@ -86,8 +86,8 @@ during local Worker development.
 
 Next.js generates the public sitemap at `https://duckcloud.info/sitemap.xml` from
 `src/app/sitemap.ts`. `src/app/robots.ts` advertises that URL at
-`https://duckcloud.info/robots.txt`. Both endpoints remain available when the site's maintenance
-redirect is enabled.
+`https://duckcloud.info/robots.txt`. The application no longer contains a maintenance redirect, so
+Cloudflare environment variables cannot replace the website with a maintenance page.
 
 No Cloudflare setting is required to generate the sitemap. If a Cache Rule is added for XML or
 robots files, purge `sitemap.xml` and `robots.txt` after deploying URL changes. Submit
@@ -103,3 +103,10 @@ fix and complete the Worker deployment before resubmitting it.
 4. Confirm `https://duckcloud.info/sitemap.xml` contains static pages, blog posts, tool categories,
    and active tools.
 5. Confirm the apex and `www` domains target `duckcloud-info`, while `api` targets `duckcloud-api`.
+
+## Remove the old maintenance setting
+
+In **Cloudflare → duckcloud-info → Settings → Variables and Secrets**, delete
+`MAINTENANCE_MODE` and `NEXT_PUBLIC_MAINTENANCE_MODE` if either exists, then deploy again. The code
+does not read these values anymore, but removing them avoids confusion when reviewing the Worker
+configuration.

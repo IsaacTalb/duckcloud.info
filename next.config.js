@@ -18,20 +18,6 @@ const nextConfig = {
       },
     ];
   },
-
-  // Maintenance Mode Redirect
-  async redirects() {
-    return [
-      process.env.MAINTENANCE_MODE === '1'
-        ? {
-            // Keep crawler discovery files and the maintenance asset reachable.
-            source: '/((?!maintenance\\.html|maintainence\\.html|ads\\.txt|robots\\.txt|sitemap\\.xml).*)',
-            destination: '/maintenance.html',
-            permanent: false,
-          }
-        : null,
-    ].filter(Boolean);
-  },
 };
 
 module.exports = nextConfig;
