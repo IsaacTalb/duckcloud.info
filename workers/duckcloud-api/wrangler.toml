@@ -1,7 +1,18 @@
 name = "duckcloud-api"
 main = "src/index.ts"
 compatibility_date = "2026-08-14"
-workers_dev = true
+workers_dev = false
+
+[[d1_databases]]
+binding = "DB"
+database_name = "duckcloud"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "duckcloud-media"
 
 [vars]
 ALLOWED_ORIGINS = "https://duckcloud.info,https://www.duckcloud.info,http://localhost:3000"
+R2_PUBLIC_BASE_URL = "https://assets.duckcloud.info"

@@ -1,24 +1,3 @@
-'use client';
-
-import Head from 'next/head'; // Assuming Next.js for SEO head management
-
-export default function BlogLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <>
-      <Head>
-        <title>Duck Cloud Blog</title>
-        <meta name="description" content="Discover the latest updates, tutorials, and insights on Duck Cloud, OpenClaw, and tech trends." />
-        <meta property="og:title" content="Duck Cloud Blog" />
-        <meta property="og:description" content="Discover the latest updates, tutorials, and insights on Duck Cloud, OpenClaw, and tech trends." />
-        <meta property="og:url" content="https://duckcloud.info/blog" />
-        <meta property="og:type" content="website" />
-        {/* Add og:image if you have a default blog image */}
-      </Head>
-      <main className="pt-20 px-4"> {children} </main>
-    </>
-  );
-}
+import type {Metadata} from 'next';import Link from 'next/link';import {getArticles} from '@/lib/cms';
+export const metadata:Metadata={title:'Developer Articles',description:'Duck Cloud tutorials, guides, and developer articles.',alternates:{canonical:'/blog'}};
+export default async function Blog({searchParams}:{searchParams:Promise<{page?:string}>}){const p=Math.max(1,Number((await searchParams).page)||1),articles=await getArticles(p);return <main className="mx-auto max-w-6xl px-4 py-24"><h1 className="text-4xl font-bold text-gradient">Duck Cloud Blog</h1><p className="mt-3 text-gray-400">Practical guides for developers, Linux users, and security teams.</p>{articles.length===0?<div className="mt-12 rounded-xl border border-gray-700 bg-gray-900 p-8"><p>CMS articles will appear here after publication.</p><p className="mt-2 text-sm text-gray-400">Existing source-controlled article URLs remain available.</p></div>:<div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{articles.map(a=><article key={a.id} className="rounded-xl border border-gray-700 bg-gray-900/60 p-6"><p className="text-xs uppercase tracking-wide text-yellow-400">{a.category||'Article'}</p><h2 className="mt-2 text-xl font-bold"><Link href={`/blog/${a.slug}`} className="hover:text-yellow-400">{a.title}</Link></h2><p className="mt-3 text-gray-400">{a.excerpt}</p><p className="mt-5 text-sm text-gray-500">{a.published_at?new Date(a.published_at).toLocaleDateString('en-US',{dateStyle:'medium',timeZone:'UTC'}):''}</p></article>)}</div>}<nav className="mt-10 flex gap-4">{p>1&&<Link href={`/blog?page=${p-1}`}>← Newer</Link>}{articles.length===12&&<Link href={`/blog?page=${p+1}`}>Older →</Link>}</nav></main>}
