@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { toolCategories } from '@/config/tool-categories';
 import { activeTools } from '@/config/tools';
+import { getArticles, getCategories } from '@/lib/cms';
 
 export const dynamic = 'force-static';
 
@@ -28,7 +29,8 @@ const blogRoutes = [
   '/blog/tiktok-commenter-v2.0',
 ] as const;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [cmsArticles, categories] = await Promise.all([getArticles(1), getCategories()]);
   return [
     ...staticRoutes.map(({ path, changeFrequency, priority }) => ({
       url: `${baseUrl}${path}`,
@@ -40,6 +42,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
+    ...cmsArticles.map((article) => ({ url: `${baseUrl}/blog/${article.slug}`, lastModified: article.updated_at, changeFrequency: 'weekly' as const, priority: 0.7 })),
+    ...categories.map((category) => ({ url: `${baseUrl}/blog?category=${category.slug}`, changeFrequency: 'weekly' as const, priority: 0.6 })),
     ...activeTools.map((tool) => ({
       url: `${baseUrl}/tools/${tool.slug}`,
       changeFrequency: 'monthly' as const,
