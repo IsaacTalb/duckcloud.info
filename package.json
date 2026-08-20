@@ -1,11 +1,12 @@
 {
-  "name": "duckcloud-official-website",
+  "name": "duckcloud-info",
   "version": "1.0.0",
   "description": "Official website for Duck Cloud - Showcasing products, tools, and software",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "deploy": "npx wrangler deploy",
     "start": "next start",
     "lint": "eslint src --ext .ts,.tsx",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",

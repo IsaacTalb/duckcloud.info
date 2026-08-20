@@ -199,6 +199,12 @@ npm run build
 npm start
 ```
 
+### Cloudflare
+
+The statically exported website supports Cloudflare Workers Static Assets alongside a separate
+lookup API Worker. See [CLOUDFLARE.md](CLOUDFLARE.md) for the exact build, deploy, DNS, Worker-domain,
+environment-variable, rate-limit, and sitemap settings.
+
 ## 📖 Documentation
 
 For more information:
