@@ -6,7 +6,7 @@ workers_dev = false
 [[d1_databases]]
 binding = "DB"
 database_name = "duckcloud"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "e49a5931-a942-49c6-a51c-bd632112b1eb"
 migrations_dir = "migrations"
 
 [[r2_buckets]]
