@@ -26,15 +26,15 @@ export default function HomePage() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-slate-800">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,214,10,0.09),transparent_45%)]" />
-        <div className="page-container relative py-20 text-center sm:py-28">
-          <span className="eyebrow">Privacy-first developer utilities</span>
-          <h1 className="mx-auto mt-5 max-w-4xl text-5xl font-extrabold tracking-tight text-white sm:text-7xl">
-            Tools for the web<span className="text-yellow-300">.</span>
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,color-mix(in_srgb,var(--primary)_12%,transparent),transparent_48%)]" />
+        <div className="page-container relative py-16 text-center sm:py-20">
+          <span className="eyebrow">Fast. Private. Useful.</span>
+          <h1 className="mx-auto mt-5 max-w-4xl text-5xl font-extrabold tracking-tight text-white sm:text-6xl">
+            Useful tools. <span className="text-yellow-300">No unnecessary complexity.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-400">
-            Free developer, IT, security, and data utilities that work instantly. Your inputs stay
-            in your browser.
+            Free tools for developers, IT professionals, and everyday technical work. Most run
+            directly in your browser; remote lookups are always clearly identified.
           </p>
           <div className="mt-9">
             <ToolSearch tools={activeTools} />
@@ -50,6 +50,17 @@ export default function HomePage() {
         </div>
       </section>
       <div className="page-container space-y-20 py-20">
+        <section aria-labelledby="why-duck-cloud">
+          <div className="rounded-2xl border border-slate-700 bg-slate-900 p-7 sm:p-10">
+            <span className="eyebrow">Why Duck Cloud</span>
+            <h2 id="why-duck-cloud" className="home-heading">Built for the work, not the wait.</h2>
+            <div className="mt-7 grid gap-6 md:grid-cols-3">
+              <div><h3 className="font-semibold">Browser-first privacy</h3><p className="mt-2 text-sm leading-6 text-slate-400">Local tools keep your text, code, passwords, and files on your device.</p></div>
+              <div><h3 className="font-semibold">Fast by default</h3><p className="mt-2 text-sm leading-6 text-slate-400">Focused interfaces and native browser APIs avoid unnecessary uploads and waiting.</p></div>
+              <div><h3 className="font-semibold">Clear execution labels</h3><p className="mt-2 text-sm leading-6 text-slate-400">Every tool tells you whether it runs locally or needs a limited network lookup.</p></div>
+            </div>
+          </div>
+        </section>
         <section>
           <div className="section-header">
             <div>

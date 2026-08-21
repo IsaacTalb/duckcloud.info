@@ -176,7 +176,7 @@ export default async function ToolOrCategoryPage({
         </nav>
         <h1 className="page-title mt-6">{category.name} tools</h1>
         <p className="page-lead mb-9">
-          {category.description} Every utility runs locally and is available without an account.
+          {category.description} Browser-local and remote lookup tools are clearly labelled, and every utility is available without an account.
         </p>
         <ToolGrid tools={matches} />
       </div>

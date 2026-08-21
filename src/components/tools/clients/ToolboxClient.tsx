@@ -56,7 +56,7 @@ export function ToolboxClient({ tool }: Props) {
     <label htmlFor="tool-input" className="mb-2 block font-semibold">Input</label>
     <textarea id="tool-input" spellCheck={false} value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault(); void run();}}} className="tool-textarea min-h-40" placeholder="Paste or type input here" />
     <p className="mt-2 text-xs text-slate-400">Tip: press Ctrl/⌘ + Enter to run.</p>
-    <button type="button" onClick={()=>void run()} className="my-4 rounded-lg bg-yellow-400 px-4 py-2 font-bold text-slate-950">{labels[tool]}</button>
+    <button type="button" onClick={()=>void run()} className="primary-button my-4">{labels[tool]}</button>
     {error && <p role="alert" className="mb-4 rounded-lg bg-red-500/10 p-3 text-red-300">{error}</p>}
     {tool==='json-viewer' && tree !== undefined ? <div className="mb-4 max-h-96 overflow-auto rounded-lg bg-slate-950 p-4 font-mono text-sm"><JsonTree value={tree}/></div> : <textarea aria-label="Result" readOnly value={output} className="tool-textarea min-h-32" placeholder="Result appears here"/>}
     <div className="mt-4"><ToolActions value={output} onClear={()=>{setInput('');setOutput('');setError('');setTree(undefined);}} /></div>

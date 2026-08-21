@@ -3,6 +3,8 @@ import type { ToolDefinition } from '@/config/tools';
 
 export function ToolCard({ tool }: { tool: ToolDefinition }) {
   if (tool.status !== 'active') return null;
+  // A badge requires dated registry metadata; legacy editorial flags cannot leave “New” on forever.
+  const recentlyAdded = Boolean(tool.new && tool.addedAt);
   return (
     <Link
       href={`/tools/${tool.slug}`}
@@ -13,7 +15,7 @@ export function ToolCard({ tool }: { tool: ToolDefinition }) {
           {tool.icon}
         </span>
         <div className="flex gap-2">
-          {tool.new && (
+          {recentlyAdded && (
             <span className="rounded-full bg-yellow-400 px-2 py-0.5 text-xs font-bold text-slate-950">
               New
             </span>
