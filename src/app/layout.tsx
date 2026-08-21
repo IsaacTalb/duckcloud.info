@@ -4,6 +4,8 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import Script from 'next/script';
 
+const themeScript = `(function(){try{var t=localStorage.getItem('duckcloud-theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.dataset.theme=d?'dark':'light';document.documentElement.style.colorScheme=d?'dark':'light'}catch(e){}})()`;
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://duckcloud.info'),
   title: { default: 'Duck Cloud — Developer, IT & Security Tools', template: '%s | Duck Cloud' },
@@ -47,8 +49,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="icon" type="image/jpeg" href="/assets/duckcloud.jpg" sizes="192x192" />
         <Script
           async
@@ -57,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           crossOrigin="anonymous"
         />
       </head>
-      <body className="bg-dark text-gray-100">
+      <body>
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />

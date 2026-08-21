@@ -16,6 +16,8 @@ export interface ToolDefinition {
   popular?: boolean;
   new?: boolean;
   relatedTools?: string[];
+  addedAt?: string;
+  updatedAt?: string;
   seo: { title: string; description: string };
 }
 
@@ -69,6 +71,17 @@ const phase3Seeds: ToolSeed[] = [
   ['qr-code-generator','QR Code Generator','generators','QR','Create downloadable QR codes for text, URLs, Wi-Fi, email, and phone.'], ['qr-code-reader','QR Code Reader','generators','SCAN','Read QR codes from an image or camera entirely in the browser.'],
 ];
 
+const phase7TextSeeds: ToolSeed[] = [
+  ['remove-duplicate-lines', 'Remove Duplicate Lines', 'text', '≠', 'Remove repeated lines while preserving their first occurrence.'],
+  ['sort-lines', 'Sort Lines', 'text', 'A↓', 'Sort lines alphabetically with locale-aware comparison.'],
+  ['reverse-lines', 'Reverse Lines', 'text', '↕', 'Reverse the order of lines without changing their contents.'],
+  ['shuffle-lines', 'Shuffle Lines', 'text', '⇆', 'Randomize line order using secure browser randomness.'],
+  ['trim-whitespace', 'Trim Whitespace', 'text', '⌁', 'Remove leading and trailing whitespace from every line.'],
+  ['remove-empty-lines', 'Remove Empty Lines', 'text', '−', 'Remove blank and whitespace-only lines from text.'],
+  ['text-repeater', 'Text Repeater', 'text', '×', 'Repeat text a configurable number of times.'],
+  ['text-separator', 'Text Separator', 'text', '·', 'Replace line breaks with a custom separator.'],
+];
+
 const plannedTools: ToolDefinition[] = plannedSeeds.map(([slug, name, category, icon, description, keywords = []]) => ({
   slug, name, category, icon, description, keywords: [name, category, ...keywords], execution: 'client', status: 'planned',
   seo: { title: `${name} — Free Online Tool`, description },
@@ -103,6 +116,7 @@ export const tools: ToolDefinition[] = [
   { slug: 'rgb-to-hex', name: 'RGB to HEX', icon: '→#', category: 'design', execution: 'client', status: 'active', description: 'Convert RGB channels to hexadecimal color.', keywords: ['rgb to hex', 'design'], relatedTools: ['hex-to-rgb'], seo: { title: 'RGB to HEX — Free Private Online Tool', description: 'Convert RGB channels to hexadecimal color. Runs entirely in your browser.' } },
   { slug: 'word-counter', name: 'Word / Character Counter', icon: '123', category: 'text', execution: 'client', status: 'active', description: 'Count words, characters, non-space characters, and lines.', keywords: ['word / character counter', 'text'], relatedTools: ['json-formatter'], seo: { title: 'Word / Character Counter — Free Private Online Tool', description: 'Count words, characters, non-space characters, and lines. Runs entirely in your browser.' } },
   ...phase3Seeds.map(([slug,name,category,icon,description,keywords=[]]) => ({slug,name,category,icon,description,keywords:[name,category,...keywords],aliases:[name.replace(/\s+/g,' ')],execution:'client' as const,status:'active' as const,new:true,relatedTools: category==='network' ? ['cidr-calculator','subnet-calculator','ipv4-converter'].filter(x=>x!==slug) : category==='json' ? ['json-formatter','json-validator','json-diff','json-to-yaml','json-to-csv'].filter(x=>x!==slug).slice(0,4) : slug.startsWith('markdown')||slug==='html-to-markdown' ? ['markdown-preview','markdown-to-html','html-to-markdown'].filter(x=>x!==slug) : slug.startsWith('qr-') ? ['qr-code-generator','qr-code-reader'].filter(x=>x!==slug) : [],seo:{title:`${name} — Private Browser Tool`,description:`${description} Runs locally in your browser; input is never uploaded.`}})),
+  ...phase7TextSeeds.map(([slug,name,category,icon,description,keywords=[]]) => ({slug,name,category,icon,description,keywords:[name,category,...keywords],aliases:[name],execution:'client' as const,status:'active' as const,new:true,addedAt:'2026-08-21',relatedTools:phase7TextSeeds.map(([related])=>related).filter(related=>related!==slug).slice(0,4),seo:{title:`${name} — Private Text Tool`,description:`${description} Runs locally in your browser.`}})),
   ...plannedTools.filter(p => !phase3Seeds.some(([slug]) => slug === p.slug)),
 ];
 
