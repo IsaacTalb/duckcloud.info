@@ -18,6 +18,12 @@ Cloudflare Access is the authentication boundary for `/admin*` on `www.duckcloud
 6. Deploy from the Worker directory with `npm test && npm run build && npm run deploy`, then route the Worker to `api.duckcloud.info` and apply the Access policy.
 7. In Vercel set `NEXT_PUBLIC_DUCKCLOUD_API_URL=https://api.duckcloud.info`, `DUCKCLOUD_ADMIN_ALLOWED_EMAIL`, secret `DUCKCLOUD_ADMIN_API_TOKEN`, `CLOUDFLARE_ACCESS_TEAM_DOMAIN`, and `CLOUDFLARE_ACCESS_AUD`. Environment changes do not affect an existing deployment: redeploy Production after saving them.
 8. Optionally run `npm run verify:access-jwks` locally with only `CLOUDFLARE_ACCESS_TEAM_DOMAIN` set, then deploy Next.js with the existing Vercel project; no website hosting migration is required.
+
+### Fixing `ADMIN_TOKEN_REJECTED`
+
+Cloudflare Access OTP authenticates the person opening `/admin`; it does not authenticate the website when the website calls the CMS Worker. That second hop uses one shared, server-only secret. Generate one value, save that exact value as `DUCKCLOUD_ADMIN_API_TOKEN` in the website production environment and as `ADMIN_API_TOKEN` in the `duckcloud-api` Worker, and then redeploy **both** projects. Do not add either value to `NEXT_PUBLIC_*` or send it from browser code.
+
+For the Worker, run `cd workers/duckcloud-api && npx wrangler secret put ADMIN_API_TOKEN`, paste the shared value, and then run `npx wrangler deploy`. In Vercel, update `DUCKCLOUD_ADMIN_API_TOKEN` for the Production environment and trigger a new Production deployment. A secret change does not alter an already-running deployment. If the error remains, check that `NEXT_PUBLIC_DUCKCLOUD_API_URL` points to the Worker where you updated the secret rather than a preview or older Worker.
 9. Sign in through Access, open `/admin`, create a draft, confirm its preview/editor, publish it, and verify an unauthenticated request cannot call every `/v1/admin/*` operation.
 10. Verify `/blog`, the article canonical/metadata/structured data, `/feed.xml`, `/sitemap.xml`, an R2 image response, upload limits, referenced-media delete protection, and the retained source-controlled blog URLs.
 

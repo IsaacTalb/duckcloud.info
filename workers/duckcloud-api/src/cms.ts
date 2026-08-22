@@ -25,9 +25,12 @@ const text = (v: unknown, name: string, max: number, required = false) => {
   return v.trim();
 };
 const auth = (request: Request, env: Env) => {
+  // ADMIN_API_TOKEN is the documented Worker secret. Accept the website name as
+  // a migration fallback because deployments commonly share environment names.
+  const expectedToken = env.ADMIN_API_TOKEN || env.DUCKCLOUD_ADMIN_API_TOKEN;
   const suppliedToken = request.headers.get('x-duckcloud-admin-token');
   const bearerToken = request.headers.get('authorization')?.replace(/^Bearer\s+/i, '');
-  if (!env.ADMIN_API_TOKEN || (suppliedToken !== env.ADMIN_API_TOKEN && bearerToken !== env.ADMIN_API_TOKEN)) throw new CmsError(401, 'UNAUTHORIZED', 'Administrator authorization is required.');
+  if (!expectedToken || (suppliedToken !== expectedToken && bearerToken !== expectedToken)) throw new CmsError(401, 'ADMIN_TOKEN_REJECTED', 'The website and CMS API tokens do not match.');
   if (!['GET', 'HEAD'].includes(request.method)) {
     const origin = request.headers.get('origin');
     const allowed = (env.ALLOWED_ORIGINS || '').split(',');

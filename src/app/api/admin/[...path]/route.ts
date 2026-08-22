@@ -10,7 +10,10 @@ const handler = async (
     return new NextResponse(authentication.message, { status: authentication.status });
   }
 
-  const token = process.env.DUCKCLOUD_ADMIN_API_TOKEN;
+  // Prefer the website-specific name, but also support the Worker's secret name.
+  // This makes a single environment-variable convention work on Cloudflare-hosted
+  // Next deployments without weakening the Cloudflare Access check above.
+  const token = process.env.DUCKCLOUD_ADMIN_API_TOKEN || process.env.ADMIN_API_TOKEN;
   if (!token) {
     return NextResponse.json(
       { success: false, error: { code: "ADMIN_NOT_CONFIGURED", message: "Admin API is not configured." } },
@@ -35,6 +38,20 @@ const handler = async (
     body: ["GET", "HEAD"].includes(request.method) ? undefined : await request.arrayBuffer(),
     cache: "no-store",
   });
+  if (response.status === 401) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: {
+          code: "ADMIN_TOKEN_REJECTED",
+          message:
+            "The CMS API token does not match the website token. Set the same secret value as DUCKCLOUD_ADMIN_API_TOKEN on the website and ADMIN_API_TOKEN on the API Worker, then redeploy both services.",
+        },
+      },
+      { status: 502 },
+    );
+  }
+
   return new NextResponse(response.body, {
     status: response.status,
     headers: { "content-type": response.headers.get("content-type") || "application/json" },
