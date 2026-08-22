@@ -25,7 +25,9 @@ const text = (v: unknown, name: string, max: number, required = false) => {
   return v.trim();
 };
 const auth = (request: Request, env: Env) => {
-  if (!env.ADMIN_API_TOKEN || request.headers.get('authorization') !== `Bearer ${env.ADMIN_API_TOKEN}`) throw new CmsError(401, 'UNAUTHORIZED', 'Administrator authorization is required.');
+  const suppliedToken = request.headers.get('x-duckcloud-admin-token');
+  const bearerToken = request.headers.get('authorization')?.replace(/^Bearer\s+/i, '');
+  if (!env.ADMIN_API_TOKEN || (suppliedToken !== env.ADMIN_API_TOKEN && bearerToken !== env.ADMIN_API_TOKEN)) throw new CmsError(401, 'UNAUTHORIZED', 'Administrator authorization is required.');
   if (!['GET', 'HEAD'].includes(request.method)) {
     const origin = request.headers.get('origin');
     const allowed = (env.ALLOWED_ORIGINS || '').split(',');
