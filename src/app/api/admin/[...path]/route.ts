@@ -1,3 +1,44 @@
-import {NextRequest,NextResponse} from 'next/server';
-const handler=async(request:NextRequest,{params}:{params:Promise<{path:string[]}>})=>{const token=process.env.DUCKCLOUD_ADMIN_API_TOKEN;if(!token)return NextResponse.json({success:false,error:{code:'ADMIN_NOT_CONFIGURED',message:'Admin API is not configured.'}},{status:503});const base=process.env.NEXT_PUBLIC_DUCKCLOUD_API_URL||'https://api.duckcloud.info',path=(await params).path.join('/'),headers=new Headers(request.headers);headers.set('authorization',`Bearer ${token}`);headers.set('x-admin-email',request.headers.get('cf-access-authenticated-user-email')||'development');headers.delete('host');const response=await fetch(`${base}/v1/admin/${path}${request.nextUrl.search}`,{method:request.method,headers,body:['GET','HEAD'].includes(request.method)?undefined:await request.arrayBuffer(),cache:'no-store'});return new NextResponse(response.body,{status:response.status,headers:{'content-type':response.headers.get('content-type')||'application/json'}})};
-export const GET=handler;export const POST=handler;export const PATCH=handler;export const DELETE=handler;
+import { NextRequest, NextResponse } from "next/server";
+import { authenticateAdminAccess } from "@/lib/admin-access";
+
+const handler = async (
+  request: NextRequest,
+  { params }: { params: Promise<{ path: string[] }> },
+) => {
+  const authentication = await authenticateAdminAccess(request.headers);
+  if (!authentication.ok) {
+    return new NextResponse(authentication.message, { status: authentication.status });
+  }
+
+  const token = process.env.DUCKCLOUD_ADMIN_API_TOKEN;
+  if (!token) {
+    return NextResponse.json(
+      { success: false, error: { code: "ADMIN_NOT_CONFIGURED", message: "Admin API is not configured." } },
+      { status: 503 },
+    );
+  }
+
+  const base = process.env.NEXT_PUBLIC_DUCKCLOUD_API_URL || "https://api.duckcloud.info";
+  const path = (await params).path.join("/");
+  const headers = new Headers(request.headers);
+  headers.set("authorization", `Bearer ${token}`);
+  headers.set("x-admin-email", authentication.identity.email);
+  headers.delete("host");
+  headers.delete("cf-access-jwt-assertion");
+
+  const response = await fetch(`${base}/v1/admin/${path}${request.nextUrl.search}`, {
+    method: request.method,
+    headers,
+    body: ["GET", "HEAD"].includes(request.method) ? undefined : await request.arrayBuffer(),
+    cache: "no-store",
+  });
+  return new NextResponse(response.body, {
+    status: response.status,
+    headers: { "content-type": response.headers.get("content-type") || "application/json" },
+  });
+};
+
+export const GET = handler;
+export const POST = handler;
+export const PATCH = handler;
+export const DELETE = handler;
