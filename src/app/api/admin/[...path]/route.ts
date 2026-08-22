@@ -22,6 +22,9 @@ const handler = async (
   const path = (await params).path.join("/");
   const headers = new Headers(request.headers);
   headers.set("authorization", `Bearer ${token}`);
+  // A dedicated header survives Cloudflare Access configurations that consume
+  // Authorization before forwarding a request to the API Worker.
+  headers.set("x-duckcloud-admin-token", token);
   headers.set("x-admin-email", authentication.identity.email);
   headers.delete("host");
   headers.delete("cf-access-jwt-assertion");

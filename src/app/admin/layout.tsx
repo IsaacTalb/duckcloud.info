@@ -1,4 +1,41 @@
 import Link from 'next/link';
-export const metadata={robots:{index:false,follow:false}};
-const links=[['','Dashboard'],['articles','Articles'],['articles/new','New article'],['categories','Categories'],['tags','Tags'],['media','Media'],['tools','Tools'],['settings','Settings'],['import','Import & export']];
-export default function AdminLayout({children}:{children:React.ReactNode}){return <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-6 px-4 pb-12 pt-24 md:flex-row"><aside className="shrink-0 rounded-xl border border-gray-700 bg-gray-900 p-3 md:w-48"><p className="px-3 py-2 font-bold text-yellow-400">Duck CMS</p><nav aria-label="CMS navigation" className="flex gap-1 overflow-x-auto md:block">{links.map(([href,label])=><Link key={href} href={`/admin/${href}`} className="block whitespace-nowrap rounded px-3 py-2 text-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-400">{label}</Link>)}<Link href="/" className="block whitespace-nowrap px-3 py-2 text-sm text-gray-400">View site ↗</Link></nav></aside><section className="min-w-0 flex-1">{children}</section></div>}
+
+export const metadata = { robots: { index: false, follow: false } };
+
+const links = [
+  ['', 'Overview'],
+  ['articles', 'Articles'],
+  ['articles/new', 'New article'],
+  ['categories', 'Categories'],
+  ['tags', 'Tags'],
+  ['media', 'Media'],
+  ['tools', 'Tools'],
+  ['settings', 'Settings'],
+  ['import', 'Import & export'],
+];
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="admin-shell">
+      <aside className="admin-sidebar">
+        <div className="admin-brand">
+          <span className="admin-brand-mark">D</span>
+          <div>
+            <strong>Duck CMS</strong>
+            <span>Content workspace</span>
+          </div>
+        </div>
+        <details className="admin-menu" open>
+          <summary>Admin navigation</summary>
+          <nav aria-label="CMS navigation">
+            {links.map(([href, label]) => (
+              <Link key={href} href={`/admin/${href}`}>{label}</Link>
+            ))}
+            <Link href="/" className="admin-view-site">View site <span aria-hidden>↗</span></Link>
+          </nav>
+        </details>
+      </aside>
+      <main className="admin-main">{children}</main>
+    </div>
+  );
+}
