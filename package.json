@@ -9,7 +9,7 @@
     "deploy": "npx wrangler deploy",
     "start": "next start",
     "lint": "eslint src --ext .ts,.tsx",
-    "test": "node --test --experimental-strip-types src/lib/admin-access.test.ts",
+    "test": "node --test --experimental-strip-types src/lib/*.test.ts",
     "verify:access-jwks": "node scripts/verify-cloudflare-access-jwks.mjs",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "type-check": "tsc --noEmit"
