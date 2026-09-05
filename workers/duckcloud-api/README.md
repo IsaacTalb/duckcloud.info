@@ -1,6 +1,6 @@
 # Duck Cloud API Worker
 
-This package contains the only server-side tools in Duck Cloud. The Next.js site remains on Vercel; deterministic and file-based tools remain in the browser. The Worker performs bounded DNS and public HTTP lookups and stores no lookup history. It uses no D1, R2, account system, or paid datastore.
+This package contains the server-side API and CMS for Duck Cloud. The Next.js site remains on Vercel; deterministic and file-based tools remain in the browser. The Worker performs bounded DNS and public HTTP lookups and stores no lookup history. D1 stores CMS data and privacy-conscious daily page-view aggregates; R2 stores CMS media.
 
 ## Endpoints
 
@@ -13,6 +13,8 @@ All responses use the versioned success/error envelope. `GET` is the only applic
 - `GET /v1/http/redirects?url=https%3A%2F%2Fexample.com`
 - `GET /v1/robots?domain=example.com`
 - `GET /v1/ip` (never cached)
+- `POST /v1/analytics/page-view` with exactly `{ "kind": "blog" | "tool", "identifier": "canonical-slug" }` (allowed origins only; returns `202`)
+- `GET /v1/admin/analytics?days=30&limit=10` (admin token required; `days` 1–90, `limit` 1–50; returns all-time totals, recent daily totals, and top content for the selected range)
 - `GET /health`
 
 ## Local development and deployment
@@ -45,7 +47,7 @@ Use `http://localhost:8787` in `.env.local`, then redeploy the Vercel project af
 
 URL validation permits only HTTP(S), standard ports, no credentials, and at most 2,048 characters. Literal and DNS-resolved loopback, private, link-local, documentation, reserved, metadata, and internal targets are rejected before every redirect hop. DNS uses Cloudflare's DNS-over-HTTPS endpoint. HTTP requests have six-second timeouts, manual redirects (maximum ten), and prefer `HEAD`; headers uses a bounded `GET` fallback only when `HEAD` is unsupported. The API does not return website bodies. robots.txt is limited to 256 KB. Responses use JSON content type, `nosniff`, no-referrer, explicit cache policy, and an origin allowlist.
 
-DNS and robots results advertise short shared-cache lifetimes; IP and variable HTTP responses are not cached. The Worker does not intentionally log IP addresses or request inputs. Disable Worker invocation logs containing request headers if account-level observability settings would capture them.
+DNS and robots results advertise short shared-cache lifetimes; IP and variable HTTP responses are not cached. Analytics stores only UTC day, content kind, canonical identifier, and an integer count. It does not store events, cookies, IP addresses, user agents, or referrers. Ingest accepts only a small, exact JSON shape from configured origins; the Next proxy repeats validation, rejects cross-site browser requests, omits credentials and referrers, and sends one request per document/content pair. Disable Worker invocation logs containing request headers if account-level observability settings would capture them.
 
 No in-memory counter is presented as rate limiting because isolates do not share reliable state. Before production, configure a Cloudflare WAF rate-limiting rule for `api.duckcloud.info/v1/*` (for example, 30 requests per minute per source IP with a short mitigation timeout), tighter limits for `/v1/http/*`, and a managed challenge rather than a permanent block. A Cloudflare Rate Limiting binding can be added later without changing service code if available on the selected plan; Redis is not required.
 

@@ -12,11 +12,11 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeToggle({ compact = false }: { compact?: boolean }) {
-  const [theme, setTheme] = useState<Theme>('system');
+  const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
     const saved = localStorage.getItem('duckcloud-theme');
-    const initial = themes.includes(saved as Theme) ? (saved as Theme) : 'system';
+    const initial = themes.includes(saved as Theme) ? (saved as Theme) : 'light';
     const timer = window.setTimeout(() => setTheme(initial), 0);
     applyTheme(initial);
     const media = matchMedia('(prefers-color-scheme: dark)');

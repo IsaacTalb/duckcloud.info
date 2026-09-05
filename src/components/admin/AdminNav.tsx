@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -12,6 +13,7 @@ const groups = [
       ['articles/new', 'New article'],
       ['categories', 'Categories'],
       ['tags', 'Tags'],
+      ['analytics', 'Analytics'],
     ],
   },
   {
@@ -35,7 +37,7 @@ export function AdminNav() {
   return (
     <aside className="admin-sidebar">
       <Link href="/admin" className="admin-brand">
-        <span className="admin-brand-mark">DC</span>
+        <Image src="/assets/logo/favicon-32x32.png" width={32} height={32} alt="" className="admin-brand-logo" />
         <span>
           <strong>Duck CMS</strong>
           <small>Editorial operations</small>

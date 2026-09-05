@@ -1,6 +1,7 @@
 'use client';
 
 import { use, type ReactNode } from 'react';
+import { AnalyticsView } from '@/components/admin/AnalyticsView';
 import {
   ArticleEditorView,
   ArticlesView,
@@ -23,6 +24,7 @@ export default function AdminPage({ params }: { params: Promise<{ section?: stri
     articles: id ? <ArticleEditorView id={id} /> : <ArticlesView />,
     categories: <CategoriesView />,
     tags: <TagsView />,
+    analytics: <AnalyticsView />,
     media: <MediaView />,
     tools: <ToolsView />,
     settings: <SettingsView />,

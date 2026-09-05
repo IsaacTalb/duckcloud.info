@@ -47,3 +47,4 @@ resources/plugins/*
 
 # But do not ignore the resources/plugins folder itself
 !resources/plugins/
+.vercel
