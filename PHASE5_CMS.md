@@ -46,7 +46,7 @@ Uploads travel from the admin browser through the Vercel authorization proxy to 
 ## Intentionally deferred to Phase 6
 
 - Direct presigned browser-to-R2 uploads, client-side resizing, image dimension extraction, and SVG sanitization.
-- Polished category, tag, settings, media-selector, relation, tool-editor, and search-index forms (the schema and protected endpoints/lists establish the boundary now).
+- Rich media selectors, article/tag relationship editing, relation editors, advanced tool editing, and search indexing. Category and tag management, safe public-content settings, and bounded JSON import/export are now available in the protected admin workspace.
 - Authenticated draft preview, immediate tag revalidation webhook, autosave, revisions, and a richer CommonMark/highlighting pipeline.
 - Import tooling for the existing TSX articles. Their published routes are deliberately retained, so no URL or canonical is removed in Phase 5.
 - R2 cross-content reference scanning beyond article URL/body references, and full media search UI.

@@ -10,6 +10,9 @@ const IMAGE_TYPES: Record<string, { extensions: string[]; signatures: number[][]
   'image/gif': { extensions: ['gif'], signatures: [[0x47, 0x49, 0x46, 0x38]] },
   'image/avif': { extensions: ['avif'], signatures: [] },
 };
+const SAFE_SETTING_KEYS = new Set(['site_title', 'site_description', 'default_author', 'posts_per_page', 'social_image_url']);
+const IMPORT_LIMIT = 500;
+const IMPORT_BYTES = 1_000_000;
 
 export class CmsError extends Error { constructor(public status: number, public code: string, message: string) { super(message); } }
 const page = (url: URL) => Math.max(1, Math.min(10000, Number(url.searchParams.get('page')) || 1));
@@ -18,6 +21,12 @@ const now = () => new Date().toISOString();
 const body = async (request: Request): Promise<Record<string, unknown>> => {
   if (!request.headers.get('content-type')?.includes('application/json')) throw new CmsError(415, 'UNSUPPORTED_MEDIA_TYPE', 'Expected JSON.');
   try { return await request.json(); } catch { throw new CmsError(400, 'INVALID_JSON', 'Request body is not valid JSON.'); }
+};
+const importBody = async (request: Request): Promise<Record<string, unknown>> => {
+  if (!request.headers.get('content-type')?.includes('application/json')) throw new CmsError(415, 'UNSUPPORTED_MEDIA_TYPE', 'Expected JSON.');
+  const source = await request.text();
+  if (new TextEncoder().encode(source).byteLength > IMPORT_BYTES) throw new CmsError(413, 'IMPORT_TOO_LARGE', `Import payloads are limited to ${IMPORT_BYTES} bytes.`);
+  try { return record(JSON.parse(source), 'import document'); } catch (error) { if (error instanceof CmsError) throw error; throw new CmsError(400, 'INVALID_JSON', 'Request body is not valid JSON.'); }
 };
 const text = (v: unknown, name: string, max: number, required = false) => {
   if (v == null && !required) return null;
@@ -59,6 +68,65 @@ const articleInput = (b: Record<string, unknown>) => {
   return { slug, title: text(b.title, 'title', 240, true)!, excerpt: text(b.excerpt, 'excerpt', 1000), content: text(b.content, 'content', 2_000_000, true)!, status, featured: b.featured ? 1 : 0, category_id: text(b.category_id, 'category_id', 100), seo_title: text(b.seo_title, 'seo_title', 240), seo_description: text(b.seo_description, 'seo_description', 500), canonical_url: url, featured_image_url: text(b.featured_image_url, 'featured_image_url', 2048), og_image_url: text(b.og_image_url, 'og_image_url', 2048), author_name: text(b.author_name, 'author_name', 160), published_at: published };
 };
 
+const record = (value: unknown, name: string): Record<string, unknown> => {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw new CmsError(422, 'VALIDATION_ERROR', `${name} must be an object.`);
+  return value as Record<string, unknown>;
+};
+const keysOnly = (value: Record<string, unknown>, allowed: Set<string>, name: string) => {
+  const unexpected = Object.keys(value).find(key => !allowed.has(key));
+  if (unexpected) throw new CmsError(422, 'VALIDATION_ERROR', `${name} contains unsupported field ${unexpected}.`);
+};
+const safeSettings = (value: unknown) => {
+  const settings = record(value, 'settings');
+  keysOnly(settings, SAFE_SETTING_KEYS, 'settings');
+  const result: Record<string, string> = {};
+  for (const [key, raw] of Object.entries(settings)) {
+    const max = key === 'site_description' ? 1000 : key === 'social_image_url' ? 2048 : 240;
+    const normalized = key === 'posts_per_page' && typeof raw === 'number' ? String(raw) : raw;
+    const value = text(normalized, key, max, key !== 'social_image_url') ?? '';
+    if (key === 'posts_per_page' && (!/^\d+$/.test(value) || Number(value) < 1 || Number(value) > 50)) throw new CmsError(422, 'VALIDATION_ERROR', 'posts_per_page must be between 1 and 50.');
+    if (key === 'social_image_url' && value) { try { if (new URL(value).protocol !== 'https:') throw new Error(); } catch { throw new CmsError(422, 'INVALID_URL', 'social_image_url must be HTTPS.'); } }
+    result[key] = value;
+  }
+  return result;
+};
+type ImportEntity = Record<string, unknown> & { id: string };
+type ImportPlan = { conflictPolicy: 'skip' | 'update'; validateOnly: boolean; categories: ImportEntity[]; tags: ImportEntity[]; articles: (ReturnType<typeof articleInput> & { id: string })[]; settings: Record<string, string>; total: number };
+const importPlan = (value: unknown): ImportPlan => {
+  const document = record(value, 'import document');
+  keysOnly(document, new Set(['version', 'conflict_policy', 'validate_only', 'categories', 'tags', 'articles', 'settings']), 'import document');
+  if (document.version !== 1) throw new CmsError(422, 'UNSUPPORTED_IMPORT_VERSION', 'Import version must be 1.');
+  const conflictPolicy = document.conflict_policy ?? 'skip';
+  if (conflictPolicy !== 'skip' && conflictPolicy !== 'update') throw new CmsError(422, 'VALIDATION_ERROR', 'conflict_policy must be skip or update.');
+  const list = (key: string) => {
+    const items = document[key] ?? [];
+    if (!Array.isArray(items)) throw new CmsError(422, 'VALIDATION_ERROR', `${key} must be an array.`);
+    return items.map((item, index) => record(item, `${key}[${index}]`));
+  };
+  const categoryRows = list('categories'), tagRows = list('tags'), articleRows = list('articles');
+  const total = categoryRows.length + tagRows.length + articleRows.length;
+  if (total > IMPORT_LIMIT) throw new CmsError(413, 'IMPORT_LIMIT_EXCEEDED', `Imports are limited to ${IMPORT_LIMIT} records.`);
+  const seen = (rows: Record<string, unknown>[], key: string, name: string) => { const values = rows.map(row => String(row[key] ?? '')); if (new Set(values).size !== values.length) throw new CmsError(422, 'IMPORT_DUPLICATE', `${name} contains duplicate ${key} values.`); };
+  const categories = categoryRows.map((row, index) => {
+    keysOnly(row, new Set(['id', 'slug', 'name', 'description', 'sort_order']), `categories[${index}]`);
+    const slug = text(row.slug, 'category slug', 100, true)!; if (!SLUG.test(slug)) throw new CmsError(422, 'INVALID_SLUG', 'Invalid category slug.');
+    const sortOrder = row.sort_order == null ? 0 : Number(row.sort_order); if (!Number.isInteger(sortOrder) || sortOrder < 0 || sortOrder > 10000) throw new CmsError(422, 'VALIDATION_ERROR', 'sort_order must be an integer between 0 and 10000.');
+    return { id: text(row.id, 'category id', 100) || crypto.randomUUID(), slug, name: text(row.name, 'category name', 120, true)!, description: text(row.description, 'category description', 5000), sort_order: sortOrder };
+  });
+  const tags = tagRows.map((row, index) => {
+    keysOnly(row, new Set(['id', 'slug', 'name']), `tags[${index}]`);
+    const slug = text(row.slug, 'tag slug', 100, true)!; if (!SLUG.test(slug)) throw new CmsError(422, 'INVALID_SLUG', 'Invalid tag slug.');
+    return { id: text(row.id, 'tag id', 100) || crypto.randomUUID(), slug, name: text(row.name, 'tag name', 120, true)! };
+  });
+  const articles = articleRows.map((row, index) => {
+    keysOnly(row, new Set(['id', 'slug', 'title', 'excerpt', 'content', 'status', 'featured', 'category_id', 'seo_title', 'seo_description', 'canonical_url', 'featured_image_url', 'og_image_url', 'author_name', 'published_at']), `articles[${index}]`);
+    return { id: text(row.id, 'article id', 100) || crypto.randomUUID(), ...articleInput(row) };
+  });
+  seen(categories, 'slug', 'categories'); seen(tags, 'slug', 'tags'); seen(articles, 'slug', 'articles');
+  if (document.validate_only != null && typeof document.validate_only !== 'boolean') throw new CmsError(422, 'VALIDATION_ERROR', 'validate_only must be a boolean.');
+  return { conflictPolicy, validateOnly: document.validate_only === true, categories, tags, articles, settings: document.settings == null ? {} : safeSettings(document.settings), total };
+};
+
 export async function cms(request: Request, env: Env, url: URL): Promise<unknown | null> {
   const p = url.pathname;
   if (request.method === 'GET' && p === '/v1/articles') {
@@ -89,6 +157,26 @@ export async function cms(request: Request, env: Env, url: URL): Promise<unknown
   const restoreRevision=p.match(/^\/v1\/admin\/articles\/([^/]+)\/revisions\/([^/]+)\/restore$/);if(restoreRevision&&request.method==='POST'){const current=await env.DB.prepare('SELECT updated_at FROM articles WHERE id=?').bind(restoreRevision[1]).first<{updated_at:string}>(),r=await env.DB.prepare('SELECT * FROM article_revisions WHERE id=? AND article_id=?').bind(restoreRevision[2],restoreRevision[1]).first<Record<string,unknown>>();if(!current||!r)throw new CmsError(404,'NOT_FOUND','Revision not found.');await revision(env,request,restoreRevision[1]);const t=now();await env.DB.prepare('UPDATE articles SET title=?,excerpt=?,content=?,seo_title=?,seo_description=?,featured_image_url=?,og_image_url=?,status=?,updated_at=? WHERE id=?').bind(r.title,r.excerpt,r.content,r.seo_title,r.seo_description,r.featured_image_url,r.og_image_url,r.status,t,restoreRevision[1]).run();await revision(env,request,restoreRevision[1]);await audit(env,request,'article.revision_restored','article',restoreRevision[1]);return{restored:true,updated_at:t};}
   if (request.method === 'GET' && p === '/v1/admin/categories') return env.DB.prepare('SELECT * FROM article_categories ORDER BY sort_order,name').all();
   if (request.method === 'POST' && p === '/v1/admin/categories') { const b=await body(request), slug=text(b.slug,'slug',100,true)!, name=text(b.name,'name',120,true)!; if(!SLUG.test(slug))throw new CmsError(422,'INVALID_SLUG','Invalid category slug.'); const id=crypto.randomUUID(),t=now(); await env.DB.prepare('INSERT INTO article_categories VALUES(?,?,?,?,?,?,?)').bind(id,slug,name,text(b.description,'description',5000),Number(b.sort_order)||0,t,t).run(); return {id,slug,name}; }
+  if (request.method === 'GET' && p === '/v1/admin/tags') return env.DB.prepare('SELECT t.id,t.slug,t.name,t.created_at,t.updated_at,count(at.article_id) article_count FROM tags t LEFT JOIN article_tags at ON at.tag_id=t.id GROUP BY t.id ORDER BY t.name').all();
+  if (request.method === 'POST' && p === '/v1/admin/tags') { const b=await body(request);keysOnly(b,new Set(['slug','name']),'tag');const slug=text(b.slug,'slug',100,true)!,name=text(b.name,'name',120,true)!;if(!SLUG.test(slug))throw new CmsError(422,'INVALID_SLUG','Invalid tag slug.');const id=crypto.randomUUID(),t=now();try{await env.DB.prepare('INSERT INTO tags(id,slug,name,created_at,updated_at) VALUES(?,?,?,?,?)').bind(id,slug,name,t,t).run()}catch{throw new CmsError(409,'TAG_EXISTS','This tag slug is already in use.')}await audit(env,request,'tag.created','tag',id);return{id,slug,name,created_at:t,updated_at:t}; }
+  const tagId=p.match(/^\/v1\/admin\/tags\/([^/]+)$/)?.[1];
+  if (tagId&&request.method==='PATCH'){const b=await body(request);keysOnly(b,new Set(['slug','name']),'tag');const found=await env.DB.prepare('SELECT id FROM tags WHERE id=?').bind(tagId).first();if(!found)throw new CmsError(404,'NOT_FOUND','Tag not found.');const slug=text(b.slug,'slug',100,true)!,name=text(b.name,'name',120,true)!;if(!SLUG.test(slug))throw new CmsError(422,'INVALID_SLUG','Invalid tag slug.');const t=now();try{await env.DB.prepare('UPDATE tags SET slug=?,name=?,updated_at=? WHERE id=?').bind(slug,name,t,tagId).run()}catch{throw new CmsError(409,'TAG_EXISTS','This tag slug is already in use.')}await audit(env,request,'tag.updated','tag',tagId);return{id:tagId,slug,name,updated_at:t};}
+  if (tagId&&request.method==='DELETE'){const found=await env.DB.prepare('SELECT id FROM tags WHERE id=?').bind(tagId).first();if(!found)throw new CmsError(404,'NOT_FOUND','Tag not found.');const usage=await env.DB.prepare('SELECT count(*) count FROM article_tags WHERE tag_id=?').bind(tagId).first<{count:number}>();if(usage?.count)throw new CmsError(409,'TAG_IN_USE','Remove this tag from its articles before deleting it.');await env.DB.prepare('DELETE FROM tags WHERE id=?').bind(tagId).run();await audit(env,request,'tag.deleted','tag',tagId);return{deleted:true};}
+  if (request.method==='GET'&&p==='/v1/admin/settings'){const rows=await env.DB.prepare(`SELECT key,value,updated_at FROM site_settings WHERE key IN (${[...SAFE_SETTING_KEYS].map(()=>'?').join(',')}) ORDER BY key`).bind(...SAFE_SETTING_KEYS).all<{key:string;value:string;updated_at:string}>();return{settings:Object.fromEntries(rows.results.map(row=>[row.key,row.value])),updated_at:rows.results.reduce<string|null>((latest,row)=>!latest||row.updated_at>latest?row.updated_at:latest,null)};}
+  if (request.method==='PATCH'&&p==='/v1/admin/settings'){const settings=safeSettings(await body(request)),t=now(),entries=Object.entries(settings);if(entries.length)await env.DB.batch(entries.map(([key,value])=>env.DB.prepare('INSERT INTO site_settings(key,value,updated_at) VALUES(?,?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value,updated_at=excluded.updated_at').bind(key,value,t)));await audit(env,request,'settings.updated','settings',null);return{settings,updated_at:t};}
+  if (request.method==='GET'&&p==='/v1/admin/export'){const [categories,tags,articles,articleTags,settings]=await Promise.all([env.DB.prepare('SELECT * FROM article_categories ORDER BY sort_order,name').all(),env.DB.prepare('SELECT * FROM tags ORDER BY name').all(),env.DB.prepare('SELECT * FROM articles ORDER BY created_at').all(),env.DB.prepare('SELECT article_id,tag_id FROM article_tags ORDER BY article_id,tag_id').all(),env.DB.prepare(`SELECT key,value FROM site_settings WHERE key IN (${[...SAFE_SETTING_KEYS].map(()=>'?').join(',')}) ORDER BY key`).bind(...SAFE_SETTING_KEYS).all<{key:string;value:string}>()]);return{version:1,exported_at:now(),categories:categories.results,tags:tags.results,articles:articles.results,article_tags:articleTags.results,settings:Object.fromEntries(settings.results.map(row=>[row.key,row.value]))};}
+  if (request.method==='GET'&&p==='/v1/admin/import'){const [categories,tags,articles]=await Promise.all([env.DB.prepare('SELECT count(*) count FROM article_categories').first<{count:number}>(),env.DB.prepare('SELECT count(*) count FROM tags').first<{count:number}>(),env.DB.prepare('SELECT count(*) count FROM articles').first<{count:number}>()]);return{version:1,accepted_content_type:'application/json',max_records:IMPORT_LIMIT,max_bytes:IMPORT_BYTES,conflict_policies:['skip','update'],supports_validation:true,current:{categories:categories?.count||0,tags:tags?.count||0,articles:articles?.count||0}};}
+  if (request.method==='POST'&&p==='/v1/admin/import'){
+    const declared=Number(request.headers.get('content-length')||0);if(declared>IMPORT_BYTES)throw new CmsError(413,'IMPORT_TOO_LARGE',`Import payloads are limited to ${IMPORT_BYTES} bytes.`);
+    const plan=importPlan(await importBody(request)),summary={categories:plan.categories.length,tags:plan.tags.length,articles:plan.articles.length,settings:Object.keys(plan.settings).length,total:plan.total,conflict_policy:plan.conflictPolicy,validated:true,written:!plan.validateOnly};
+    if(plan.validateOnly)return summary;
+    const t=now(),statements:D1PreparedStatement[]=[];
+    for(const row of plan.categories){const values=[row.id,row.slug,row.name,row.description,row.sort_order,t,t];statements.push(plan.conflictPolicy==='skip'?env.DB.prepare('INSERT OR IGNORE INTO article_categories(id,slug,name,description,sort_order,created_at,updated_at) VALUES(?,?,?,?,?,?,?)').bind(...values):env.DB.prepare('INSERT INTO article_categories(id,slug,name,description,sort_order,created_at,updated_at) VALUES(?,?,?,?,?,?,?) ON CONFLICT(slug) DO UPDATE SET name=excluded.name,description=excluded.description,sort_order=excluded.sort_order,updated_at=excluded.updated_at').bind(...values));}
+    for(const row of plan.tags){const values=[row.id,row.slug,row.name,t,t];statements.push(plan.conflictPolicy==='skip'?env.DB.prepare('INSERT OR IGNORE INTO tags(id,slug,name,created_at,updated_at) VALUES(?,?,?,?,?)').bind(...values):env.DB.prepare('INSERT INTO tags(id,slug,name,created_at,updated_at) VALUES(?,?,?,?,?) ON CONFLICT(slug) DO UPDATE SET name=excluded.name,updated_at=excluded.updated_at').bind(...values));}
+    for(const row of plan.articles){const {id,...a}=row,values=[id,...Object.values(a),t,t];statements.push(plan.conflictPolicy==='skip'?env.DB.prepare('INSERT OR IGNORE INTO articles(id,slug,title,excerpt,content,status,featured,category_id,seo_title,seo_description,canonical_url,featured_image_url,og_image_url,author_name,published_at,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)').bind(...values):env.DB.prepare('INSERT INTO articles(id,slug,title,excerpt,content,status,featured,category_id,seo_title,seo_description,canonical_url,featured_image_url,og_image_url,author_name,published_at,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(slug) DO UPDATE SET title=excluded.title,excerpt=excluded.excerpt,content=excluded.content,status=excluded.status,featured=excluded.featured,category_id=excluded.category_id,seo_title=excluded.seo_title,seo_description=excluded.seo_description,canonical_url=excluded.canonical_url,featured_image_url=excluded.featured_image_url,og_image_url=excluded.og_image_url,author_name=excluded.author_name,published_at=excluded.published_at,updated_at=excluded.updated_at').bind(...values));}
+    for(const [key,value] of Object.entries(plan.settings))statements.push(env.DB.prepare('INSERT INTO site_settings(key,value,updated_at) VALUES(?,?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value,updated_at=excluded.updated_at').bind(key,value,t));
+    if(statements.length)await env.DB.batch(statements);await audit(env,request,'content.imported','import',null);return summary;
+  }
   if (request.method === 'GET' && p === '/v1/admin/media') {const l=limit(url),q=(url.searchParams.get('q')||'').slice(0,160),mime=url.searchParams.get('mime')||'',where: string[]=[] ,values:unknown[]=[];if(q){where.push('(filename LIKE ? OR alt_text LIKE ?)');values.push(`%${q}%`,`%${q}%`)}if(mime){where.push('mime_type LIKE ?');values.push(`${mime}%`)}const clause=where.length?` WHERE ${where.join(' AND ')}`:'';const total=await env.DB.prepare(`SELECT count(*) count FROM media${clause}`).bind(...values).first<{count:number}>();const rows=await env.DB.prepare(`SELECT * FROM media${clause} ORDER BY created_at ${url.searchParams.get('sort')==='oldest'?'ASC':'DESC'} LIMIT ? OFFSET ?`).bind(...values,l,(page(url)-1)*l).all();return{results:rows.results,page:page(url),limit:l,total:total?.count||0};}
   if (request.method === 'POST' && p === '/v1/admin/media/upload') {
     const form=await request.formData(), file=form.get('file'); if(!(file instanceof File))throw new CmsError(422,'FILE_REQUIRED','Choose an image.'); if(file.size>10*1024*1024)throw new CmsError(413,'FILE_TOO_LARGE','Images are limited to 10 MB.');
@@ -105,8 +193,12 @@ export async function cms(request: Request, env: Env, url: URL): Promise<unknown
 
 export const cmsInternals = {
   SLUG, STATUSES, IMAGE_TYPES,
+  SAFE_SETTING_KEYS, IMPORT_LIMIT, IMPORT_BYTES,
   acceptsAdminToken,
   allowedOrigins,
+  safeSettings,
+  importPlan,
+  importBody,
   isStale: (loadedUpdatedAt: unknown, currentUpdatedAt: string) => loadedUpdatedAt !== currentUpdatedAt,
   isPublic: (status: string, publishedAt: string | null, at: string) => status === 'published' && (!publishedAt || publishedAt <= at) || status === 'scheduled' && !!publishedAt && publishedAt <= at,
   autosaveCreatesRevision: (autosave: boolean) => !autosave,

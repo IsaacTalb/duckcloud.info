@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { authenticateAdminAccess } from "@/lib/admin-access";
 import { adminApiHeaders, cmsUpstreamIssue } from "@/lib/admin-api";
@@ -59,6 +60,10 @@ const handler = async (
       },
       { status: 502 },
     );
+  }
+
+  if (response.ok && !["GET", "HEAD"].includes(request.method)) {
+    revalidateTag("cms", "max");
   }
 
   return new NextResponse(response.body, {
