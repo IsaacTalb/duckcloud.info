@@ -42,7 +42,7 @@ beforeEach(() => {
 });
 
 function setNodeEnvironment(value: string) {
-  Object.defineProperty(process.env, 'NODE_ENV', { value, configurable: true, writable: true });
+  (process.env as Record<string, string | undefined>).NODE_ENV = value;
 }
 
 function headers(assertion?: string, unverifiedEmail?: string): Headers {

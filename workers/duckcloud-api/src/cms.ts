@@ -24,16 +24,17 @@ const text = (v: unknown, name: string, max: number, required = false) => {
   if (typeof v !== 'string' || (required && !v.trim()) || v.length > max) throw new CmsError(422, 'VALIDATION_ERROR', `${name} is invalid.`);
   return v.trim();
 };
+const acceptsAdminToken = (authorization: string | null, headerToken: string | null, expectedToken?: string) => {
+  if (!expectedToken) return false;
+  const bearerToken = authorization?.match(/^Bearer\s+(.+)$/i)?.[1];
+  return bearerToken === expectedToken || headerToken === expectedToken;
+};
+const allowedOrigins = (value: string | undefined) => (value || '').split(',').map(origin => origin.trim()).filter(Boolean);
 const auth = (request: Request, env: Env) => {
-  // ADMIN_API_TOKEN is the documented Worker secret. Accept the website name as
-  // a migration fallback because deployments commonly share environment names.
-  const expectedToken = env.ADMIN_API_TOKEN || env.DUCKCLOUD_ADMIN_API_TOKEN;
-  const suppliedToken = request.headers.get('x-duckcloud-admin-token');
-  const bearerToken = request.headers.get('authorization')?.replace(/^Bearer\s+/i, '');
-  if (!expectedToken || (suppliedToken !== expectedToken && bearerToken !== expectedToken)) throw new CmsError(401, 'ADMIN_TOKEN_REJECTED', 'The website and CMS API tokens do not match.');
+  if (!acceptsAdminToken(request.headers.get('authorization'), request.headers.get('x-duckcloud-admin-token'), env.ADMIN_API_TOKEN)) throw new CmsError(401, 'ADMIN_TOKEN_REJECTED', 'The website and CMS API tokens do not match.');
   if (!['GET', 'HEAD'].includes(request.method)) {
     const origin = request.headers.get('origin');
-    const allowed = (env.ALLOWED_ORIGINS || '').split(',');
+    const allowed = allowedOrigins(env.ALLOWED_ORIGINS);
     if (origin && !allowed.includes(origin)) throw new CmsError(403, 'ORIGIN_REJECTED', 'Request origin is not allowed.');
   }
 };
@@ -104,6 +105,8 @@ export async function cms(request: Request, env: Env, url: URL): Promise<unknown
 
 export const cmsInternals = {
   SLUG, STATUSES, IMAGE_TYPES,
+  acceptsAdminToken,
+  allowedOrigins,
   isStale: (loadedUpdatedAt: unknown, currentUpdatedAt: string) => loadedUpdatedAt !== currentUpdatedAt,
   isPublic: (status: string, publishedAt: string | null, at: string) => status === 'published' && (!publishedAt || publishedAt <= at) || status === 'scheduled' && !!publishedAt && publishedAt <= at,
   autosaveCreatesRevision: (autosave: boolean) => !autosave,

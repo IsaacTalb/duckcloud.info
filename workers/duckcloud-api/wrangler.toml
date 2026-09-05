@@ -1,3 +1,4 @@
+# Keep this legacy deployed Worker name unless the Cloudflare service is intentionally migrated.
 name = 'duckcloud-info'
 main = "src/index.ts"
 compatibility_date = "2026-08-14"

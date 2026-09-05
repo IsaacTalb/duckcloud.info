@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { authenticateAdminAccess } from "@/lib/admin-access";
-import { adminApiHeaders } from "@/lib/admin-api";
+import { adminApiHeaders, cmsUpstreamIssue } from "@/lib/admin-api";
 
 const handler = async (
   request: NextRequest,
@@ -21,37 +21,41 @@ const handler = async (
 
   const base = process.env.NEXT_PUBLIC_DUCKCLOUD_API_URL || "https://api.duckcloud.info";
   const path = (await params).path.join("/");
-  const response = await fetch(`${base}/v1/admin/${path}${request.nextUrl.search}`, {
-    method: request.method,
-    headers,
-    body: ["GET", "HEAD"].includes(request.method) ? undefined : await request.arrayBuffer(),
-    cache: "no-store",
-    redirect: "manual",
-  });
-  const contentType = response.headers.get("content-type") || "";
-  const isJson = contentType.toLowerCase().includes("application/json");
-  if (!isJson || (response.status >= 300 && response.status < 400)) {
+  let response: Response;
+  try {
+    response = await fetch(`${base}/v1/admin/${path}${request.nextUrl.search}`, {
+      method: request.method,
+      headers,
+      body: ["GET", "HEAD"].includes(request.method) ? undefined : await request.arrayBuffer(),
+      cache: "no-store",
+      redirect: "manual",
+    });
+  } catch (error) {
+    console.error("CMS upstream request failed", {
+      category: "CMS_UPSTREAM_UNAVAILABLE",
+      errorName: error instanceof Error ? error.name : "UnknownError",
+    });
     return NextResponse.json(
       {
         success: false,
-        error: {
-          code: "CMS_UPSTREAM_ACCESS_BLOCKED",
-          message:
-            "Cloudflare Access blocked the website-to-API request. Add a Cloudflare Access service token to the API application and configure CLOUDFLARE_ACCESS_CLIENT_ID and CLOUDFLARE_ACCESS_CLIENT_SECRET on the website, or remove the API hostname from Access and rely on its CMS token protection.",
-        },
+        error: cmsUpstreamIssue(0, "")!,
       },
       { status: 502 },
     );
   }
-  if (response.status === 401) {
+  const contentType = response.headers.get("content-type") || "";
+  const upstreamIssue = cmsUpstreamIssue(response.status, contentType);
+  if (upstreamIssue) {
+    // Log response metadata only. Access HTML and upstream headers can contain sensitive details.
+    console.error("CMS upstream request failed", {
+      category: upstreamIssue.code,
+      status: response.status,
+      isJson: contentType.toLowerCase().includes("application/json"),
+    });
     return NextResponse.json(
       {
         success: false,
-        error: {
-          code: "ADMIN_TOKEN_REJECTED",
-          message:
-            "The CMS API token does not match the website token. Set the same secret value as DUCKCLOUD_ADMIN_API_TOKEN on the website and ADMIN_API_TOKEN on the API Worker, then redeploy both services.",
-        },
+        error: upstreamIssue,
       },
       { status: 502 },
     );

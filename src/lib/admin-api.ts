@@ -1,6 +1,6 @@
 /** Build the server-only headers used for website-to-CMS requests. */
 export function adminApiHeaders(email: string, requestHeaders?: Pick<Headers, 'get'>): Headers | null {
-  const token = process.env.DUCKCLOUD_ADMIN_API_TOKEN || process.env.ADMIN_API_TOKEN;
+  const token = process.env.DUCKCLOUD_ADMIN_API_TOKEN;
   if (!token) return null;
 
   const headers = new Headers();
@@ -21,4 +21,26 @@ export function adminApiHeaders(email: string, requestHeaders?: Pick<Headers, 'g
     headers.set('cf-access-client-secret', clientSecret);
   }
   return headers;
+}
+
+export interface CmsUpstreamIssue {
+  code: 'CMS_UPSTREAM_UNAVAILABLE' | 'ADMIN_TOKEN_REJECTED';
+  message: string;
+}
+
+/** Classify only response metadata; upstream bodies may contain sensitive Access diagnostics. */
+export function cmsUpstreamIssue(status: number, contentType: string): CmsUpstreamIssue | null {
+  if (status >= 300 && status < 400 || !contentType.toLowerCase().includes('application/json')) {
+    return {
+      code: 'CMS_UPSTREAM_UNAVAILABLE',
+      message: 'The CMS API could not be reached.',
+    };
+  }
+  if (status === 401) {
+    return {
+      code: 'ADMIN_TOKEN_REJECTED',
+      message: 'The CMS API authentication failed.',
+    };
+  }
+  return null;
 }
