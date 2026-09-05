@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "conflict_policy": "update",
+  "categories": [
+    { "id": "cat-developer-workflows", "slug": "developer-workflows", "name": "Developer Workflows", "description": "Practical debugging, data handling, automation, and command-line concepts for software teams.", "sort_order": 40 },
+    { "id": "cat-web-security", "slug": "web-security", "name": "Web Security", "description": "Actionable browser, HTTP, and application security guidance.", "sort_order": 20 },
+    { "id": "cat-networking", "slug": "networking", "name": "Networking", "description": "DNS, IP addressing, and network troubleshooting.", "sort_order": 10 }
+  ],
+  "tags": [
+    { "id": "tag-json", "slug": "json", "name": "JSON" },
+    { "id": "tag-http-headers", "slug": "http-headers", "name": "HTTP Headers" },
+    { "id": "tag-dns", "slug": "dns", "name": "DNS" },
+    { "id": "tag-jwt", "slug": "jwt", "name": "JWT" },
+    { "id": "tag-cron", "slug": "cron", "name": "Cron" },
+    { "id": "tag-cidr", "slug": "cidr", "name": "CIDR" },
+    { "id": "tag-subnetting", "slug": "subnetting", "name": "Subnetting" },
+    { "id": "tag-api-debugging", "slug": "api-debugging", "name": "API Debugging" }
+  ],
+  "settings": {
+    "site_title": "Duck Cloud",
+    "site_description": "Practical browser-based tools and technical guides for developers, IT professionals, and security teams.",
+    "default_author": "Duck Cloud Editorial",
+    "posts_per_page": 12,
+    "social_image_url": ""
+  },
+  "articles": [
+    {
+      "id": "article-json-formatter-guide",
+      "slug": "how-to-format-and-validate-json-data-like-a-pro",
+      "title": "How to Format and Validate JSON Data Like a Pro",
+      "excerpt": "Learn how to format JSON, validate API responses, and debug malformed payloads with safer workflows and the right Duck Cloud tools.",
+      "content": "# How to Format and Validate JSON Data Like a Pro\n\nJSON is the backbone of modern APIs, config files, and structured data exchange. When a payload is hard to read or breaks parsing, the fastest fix is to format it, validate it, and compare it against the expected shape.\n\nIf you want a quick local workflow, start with Duck Cloud's [JSON Formatter](/tools/json-formatter) and [JSON Validator](/tools/json-validator). These tools help you inspect payloads without uploading sensitive data to another service.\n\n## Why JSON formatting matters\n\nCompact JSON is efficient for transport, but it is difficult to inspect when debugging. A formatter adds indentation and line breaks, making it easier to spot missing commas, broken strings, and incorrect nesting.\n\nFormatting also helps when you are reviewing:\n\n- API responses;\n- webhook payloads;\n- configuration files;\n- nested object structures;\n- logs that store JSON blobs.\n\n## Validate before you trust the payload\n\nA document can look correct and still fail to parse. Common JSON mistakes include:\n\n- single quotes instead of double quotes;\n- trailing commas;\n- unescaped control characters;\n- comments;\n- invalid booleans or nulls;\n- missing brackets or braces.\n\nUse the validator first so syntax errors are caught before any downstream schema checks.\n\n## Compare structure against the contract\n\nA valid payload can still be wrong for your API. Check required properties, value types, allowed enums, and nested arrays. If the server expects a number, sending a string can still break the request even if the JSON itself is valid.\n\n## SEO keywords used naturally\n\nThis guide targets search intent around JSON formatter, JSON validator, API debugging, and data formatting. It also connects directly to the tools Duck Cloud provides so the article helps both search engines and users.\n\n## Recommended workflow\n\n1. Paste the payload into the [JSON Formatter](/tools/json-formatter).\n2. Validate the output with the [JSON Validator](/tools/json-validator).\n3. Compare the shape with the expected schema.\n4. Minify the final version only after everything is correct.\n\nClean JSON saves time, reduces bugs, and makes API troubleshooting much easier.",
+      "status": "published",
+      "featured": true,
+      "category_id": "cat-developer-workflows",
+      "seo_title": "How to Format and Validate JSON Data Like a Pro",
+      "seo_description": "Learn JSON formatting, validation, and API debugging with Duck Cloud JSON tools and practical SEO-friendly workflows.",
+      "canonical_url": "https://www.duckcloud.info/blog/how-to-format-and-validate-json-data-like-a-pro",
+      "author_name": "Duck Cloud Editorial",
+      "published_at": "2026-09-06T00:00:00.000Z"
+    },
+    {
+      "id": "article-http-headers-guide",
+      "slug": "understanding-http-headers-a-complete-guide",
+      "title": "Understanding HTTP Headers: A Complete Guide",
+      "excerpt": "A practical HTTP headers guide for developers who want to inspect caching, security, and browser behavior with the right tools.",
+      "content": "# Understanding HTTP Headers: A Complete Guide\n\nHTTP headers control caching, security, content negotiation, and browser behavior. They are often the difference between a secure, fast site and one that is difficult to debug.\n\nDuck Cloud's [HTTP Header Checker](/tools/http-header-checker) helps you inspect headers from public URLs and understand what the browser actually receives.\n\n## Headers every developer should know\n\nSome of the most important headers include:\n\n- `Content-Type`\n- `Cache-Control`\n- `Strict-Transport-Security`\n- `Content-Security-Policy`\n- `X-Frame-Options`\n- `Referrer-Policy`\n- `Permissions-Policy`\n\n## Why header analysis matters for SEO and security\n\nGood headers improve page speed, browser trust, and crawl behavior. Security headers reduce the chance of clickjacking, XSS, and mixed-content issues. Caching headers can also make pages load faster, which helps user experience and search performance.\n\n## Use the tool the right way\n\n1. Check the live production URL.\n2. Review redirects and the final response.\n3. Confirm the key security headers are present.\n4. Compare cache settings for HTML and static assets.\n\nThis article naturally targets HTTP headers, header analyzer, and web security keywords while linking directly to the Duck Cloud tool that solves the problem.",
+      "status": "published",
+      "featured": false,
+      "category_id": "cat-web-security",
+      "seo_title": "Understanding HTTP Headers: A Complete Guide",
+      "seo_description": "Learn HTTP headers, security headers, and caching behavior while using Duck Cloud's HTTP Header Checker.",
+      "canonical_url": "https://www.duckcloud.info/blog/understanding-http-headers-a-complete-guide",
+      "author_name": "Duck Cloud Editorial",
+      "published_at": "2026-09-06T00:01:00.000Z"
+    },
+    {
+      "id": "article-dns-troubleshoot-guide",
+      "slug": "how-to-troubleshoot-dns-issues-like-a-pro",
+      "title": "How to Troubleshoot DNS Issues Like a Pro",
+      "excerpt": "Troubleshoot DNS propagation, nameservers, MX records, and stale caches with a repeatable process that uses Duck Cloud DNS tools.",
+      "content": "# How to Troubleshoot DNS Issues Like a Pro\n\nDNS issues can make a site look broken even when the server is healthy. The fastest way to debug them is to check authoritative DNS records, resolver cache behavior, and record consistency.\n\nStart with Duck Cloud's [DNS Lookup](/tools/dns-lookup) and [MX Lookup](/tools/mx-lookup) tools to see what the internet is actually resolving.\n\n## Common DNS problems\n\n- wrong nameservers at the registrar;\n- stale cached records;\n- incorrect A, AAAA, CNAME, or MX values;\n- TTL values that delay updates;\n- DNSSEC or delegation problems.\n\n## SEO and user impact\n\nDNS reliability affects uptime, crawlability, and user trust. If a search engine cannot consistently reach your pages, rankings suffer. That is why DNS troubleshooting belongs in any technical SEO workflow.\n\n## Practical workflow\n\n1. Check the authoritative nameserver set.\n2. Confirm A and AAAA records with [DNS Lookup](/tools/dns-lookup).\n3. Review mail routing with [MX Lookup](/tools/mx-lookup).\n4. Wait only when TTLs explain the delay.\n\nThis guide naturally targets DNS checker, DNS propagation, MX records, and troubleshooting keywords while linking to Duck Cloud's actual tools.",
+      "status": "published",
+      "featured": false,
+      "category_id": "cat-networking",
+      "seo_title": "How to Troubleshoot DNS Issues Like a Pro",
+      "seo_description": "Troubleshoot DNS propagation, nameservers, and MX records using Duck Cloud DNS Lookup and MX Lookup tools.",
+      "canonical_url": "https://www.duckcloud.info/blog/how-to-troubleshoot-dns-issues-like-a-pro",
+      "author_name": "Duck Cloud Editorial",
+      "published_at": "2026-09-06T00:02:00.000Z"
+    },
+    {
+      "id": "article-jwt-guide",
+      "slug": "how-to-secure-your-api-with-jwt-a-step-by-step-guide",
+      "title": "How to Secure Your API with JWT: A Step-by-Step Guide",
+      "excerpt": "Learn how to inspect JWT structure, verify token expiry, and debug authentication issues with practical security guidance.",
+      "content": "# How to Secure Your API with JWT: A Step-by-Step Guide\n\nJWTs are common in API authentication, but they are easy to misunderstand. A token can be readable, expired, or signed incorrectly and still look valid at first glance.\n\nUse Duck Cloud's [JWT Decoder](/tools/jwt-decoder) and [JWT Expiry Checker](/tools/jwt-expiry-checker) to inspect tokens safely in the browser.\n\n## What JWTs are good for\n\nJWTs can carry claims about a user, tenant, or session without storing every request in a database. They are useful for APIs, SPAs, and single sign-on flows.\n\n## What to check\n\n- header algorithm;\n- signature validity;\n- `exp`, `nbf`, and `iat`;\n- issuer and audience claims;\n- clock skew between systems.\n\n## SEO keywords\n\nThis article intentionally uses API security, JWT decoder, token validation, and authentication keywords while linking back to the relevant Duck Cloud tools.\n\n## Safe workflow\n\n1. Decode the token locally.\n2. Check expiry with [JWT Expiry Checker](/tools/jwt-expiry-checker).\n3. Validate claims in your backend.\n4. Never trust decoding alone as proof of authenticity.",
+      "status": "published",
+      "featured": false,
+      "category_id": "cat-web-security",
+      "seo_title": "How to Secure Your API with JWT: A Step-by-Step Guide",
+      "seo_description": "Secure APIs with JWT decoding, expiry checks, claim validation, and Duck Cloud token tools.",
+      "canonical_url": "https://www.duckcloud.info/blog/how-to-secure-your-api-with-jwt-a-step-by-step-guide",
+      "author_name": "Duck Cloud Editorial",
+      "published_at": "2026-09-06T00:03:00.000Z"
+    },
+    {
+      "id": "article-cidr-guide",
+      "slug": "how-to-calculate-cidr-notation-a-comprehensive-guide",
+      "title": "How to Calculate CIDR Notation: A Comprehensive Guide",
+      "excerpt": "Learn CIDR notation, subnet masks, host ranges, and route planning with Duck Cloud networking tools.",
+      "content": "# How to Calculate CIDR Notation: A Comprehensive Guide\n\nCIDR notation helps you represent IP networks compactly and calculate host ranges accurately. Network planning becomes much easier when you can quickly compute masks, boundaries, and usable addresses.\n\nDuck Cloud's [CIDR Calculator](/tools/cidr-calculator) and [Subnet Calculator](/tools/subnet-calculator) make this easier in the browser.\n\n## What CIDR means\n\nA CIDR block like `192.0.2.0/24` shows the network prefix length. The suffix tells you how many bits belong to the network and how many are left for hosts.\n\n## Why it matters\n\nCIDR is essential for:\n\n- cloud networking;\n- firewall rules;\n- route aggregation;\n- VPN planning;\n- subnet allocation.\n\n## Practical steps\n\n1. Enter the address in [CIDR Calculator](/tools/cidr-calculator).\n2. Confirm the subnet mask and usable host range.\n3. Compare block sizes with [Subnet Calculator](/tools/subnet-calculator).\n4. Use the result to plan routing and network capacity.\n\nThis guide targets CIDR, subnet calculator, and IP addressing search intent while linking directly to Duck Cloud utilities.",
+      "status": "published",
+      "featured": false,
+      "category_id": "cat-networking",
+      "seo_title": "How to Calculate CIDR Notation: A Comprehensive Guide",
+      "seo_description": "Calculate CIDR notation, subnet masks, and host ranges with Duck Cloud CIDR and Subnet Calculator tools.",
+      "canonical_url": "https://www.duckcloud.info/blog/how-to-calculate-cidr-notation-a-comprehensive-guide",
+      "author_name": "Duck Cloud Editorial",
+      "published_at": "2026-09-06T00:04:00.000Z"
+    },
+    {
+      "id": "article-cron-guide",
+      "slug": "how-to-debug-cron-jobs-a-complete-guide",
+      "title": "How to Debug Cron Jobs: A Complete Guide",
+      "excerpt": "Debug cron jobs, time zones, and scheduling mistakes with a practical workflow that uses Duck Cloud cron tools.",
+      "content": "# How to Debug Cron Jobs: A Complete Guide\n\nCron jobs are powerful, but a wrong expression or timezone can break automation quietly. Debugging them starts with understanding the schedule, then validating when and where it runs.\n\nUse Duck Cloud's [Cron Parser](/tools/cron-parser) and [Cron Generator](/tools/cron-generator) to inspect and build schedules safely.\n\n## Common cron problems\n\n- wrong minute or hour field;\n- timezone mismatch;\n- day-of-week confusion;\n- overlapping job runs;\n- invalid expressions.\n\n## Why this matters for SEO and reliability\n\nBroken scheduled jobs can stop content publishing, sitemap generation, and data syncs. For a website that depends on recurring updates, cron reliability supports both operations and SEO.\n\n## Workflow\n\n1. Parse the schedule with [Cron Parser](/tools/cron-parser).\n2. Generate a corrected expression with [Cron Generator](/tools/cron-generator).\n3. Check timezone assumptions before deployment.\n4. Verify the job runs on the expected day and time.\n\nThis article uses cron, job scheduler, and time zone keywords while linking to Duck Cloud's actual scheduling tools.",
+      "status": "published",
+      "featured": false,
+      "category_id": "cat-developer-workflows",
+      "seo_title": "How to Debug Cron Jobs: A Complete Guide",
+      "seo_description": "Debug cron jobs, time zones, and scheduling mistakes with Duck Cloud Cron Parser and Generator tools.",
+      "canonical_url": "https://www.duckcloud.info/blog/how-to-debug-cron-jobs-a-complete-guide",
+      "author_name": "Duck Cloud Editorial",
+      "published_at": "2026-09-06T00:05:00.000Z"
+    }
+  ]
+}

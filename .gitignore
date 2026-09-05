@@ -48,3 +48,14 @@ resources/plugins/*
 # But do not ignore the resources/plugins folder itself
 !resources/plugins/
 .vercel
+
+# Duck Cloud/OpenClaw workspace noise
+.tmp-cms-import.json
+tsconfig.tsbuildinfo
+workers/duckcloud-api/dist/
+memory/
+skills/
+AGENTS.md
+IDENTITY.md
+SOUL.md
+USER.md
