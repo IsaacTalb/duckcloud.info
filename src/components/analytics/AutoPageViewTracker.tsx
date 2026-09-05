@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { PageViewTracker } from './PageViewTracker';
+import { PageViewTracker } from './PageViewTracker.tsx';
 
 export function AutoPageViewTracker({ toolIdentifiers }: { toolIdentifiers: string[] }) {
   const pathname = usePathname();

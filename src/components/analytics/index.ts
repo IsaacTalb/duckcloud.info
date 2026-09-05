@@ -1,2 +1,2 @@
-export { PageViewTracker } from "./PageViewTracker";
-export type { PageViewTrackerProps } from "./PageViewTracker";
+export { PageViewTracker } from "./PageViewTracker.tsx";
+export type { PageViewTrackerProps } from "./PageViewTracker.tsx";
