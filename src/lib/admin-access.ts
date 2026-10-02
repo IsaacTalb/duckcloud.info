@@ -66,6 +66,20 @@ function emailFromPayload(payload: JWTPayload): string | undefined {
   return typeof payload.email === 'string' ? payload.email.trim().toLowerCase() : undefined;
 }
 
+function configuredAdminEmails(): Set<string> {
+  const configuredEmails =
+    process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAILS ||
+    process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAIL ||
+    '';
+
+  return new Set(
+    configuredEmails
+      .split(',')
+      .map((email) => email.trim().toLowerCase())
+      .filter(Boolean)
+  );
+}
+
 function errorDetails(error: unknown): { name: string; message: string; code?: string } {
   const record =
     typeof error === 'object' && error !== null ? (error as Record<string, unknown>) : undefined;
@@ -101,11 +115,13 @@ function verificationCategory(error: unknown): VerificationCategory {
 }
 
 function logConfig(category: VerificationCategory) {
+  const allowedEmails = configuredAdminEmails();
   console.error('Cloudflare Access configuration failed', {
     category,
     hasTeamDomain: Boolean(process.env.CLOUDFLARE_ACCESS_TEAM_DOMAIN?.trim()),
     hasAudience: Boolean(process.env.CLOUDFLARE_ACCESS_AUD?.trim()),
-    hasAllowedEmail: Boolean(process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAIL?.trim()),
+    hasAdminAllowlist: allowedEmails.size > 0,
+    adminCount: allowedEmails.size,
   });
 }
 
@@ -114,12 +130,11 @@ export async function authenticateAdminAccess(
   headers: Pick<Headers, 'get'>
 ): Promise<AdminAccessResult> {
   if (process.env.NODE_ENV === 'development') {
+    const [configuredEmail] = configuredAdminEmails();
     return {
       ok: true,
       identity: {
-        email:
-          process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAIL?.trim().toLowerCase() ||
-          'development@localhost',
+        email: configuredEmail || 'development@localhost',
         source: 'development',
       },
     };
@@ -135,8 +150,8 @@ export async function authenticateAdminAccess(
     .split(',')
     .map((value) => value.trim())
     .filter(Boolean);
-  const allowedEmail = process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAIL?.trim().toLowerCase();
-  if (!teamDomainValue || audiences.length === 0 || !allowedEmail) {
+  const allowedEmails = configuredAdminEmails();
+  if (!teamDomainValue || audiences.length === 0 || allowedEmails.size === 0) {
     logConfig('MISSING_CONFIG');
     return { ok: false, status: 403, message: 'Invalid administrator session.' };
   }
@@ -148,8 +163,12 @@ export async function authenticateAdminAccess(
       audience: audiences,
     });
     const email = emailFromPayload(payload);
-    if (!email || email !== allowedEmail) {
-      console.error('Cloudflare Access authorization failed', { category: 'EMAIL_MISMATCH' });
+    if (!email || !allowedEmails.has(email)) {
+      console.error('Cloudflare Access authorization failed', {
+        category: 'EMAIL_MISMATCH',
+        hasAdminAllowlist: allowedEmails.size > 0,
+        adminCount: allowedEmails.size,
+      });
       return {
         ok: false,
         status: 403,

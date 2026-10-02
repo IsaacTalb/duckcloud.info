@@ -38,6 +38,7 @@ beforeEach(() => {
   setNodeEnvironment('test');
   process.env.CLOUDFLARE_ACCESS_TEAM_DOMAIN = teamDomain;
   process.env.CLOUDFLARE_ACCESS_AUD = 'expected-audience';
+  delete process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAILS;
   process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAIL = 'admin@example.com';
 });
 
@@ -158,6 +159,70 @@ test('a valid JWT authenticates the normalized allowed email', async () => {
     ok: true,
     identity: { email: 'admin@example.com', source: 'cloudflare-access' },
   });
+});
+
+test('the first and second explicitly configured administrators are accepted', async () => {
+  process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAILS = 'first@example.com,second@example.com';
+
+  for (const email of ['first@example.com', 'second@example.com']) {
+    const result = await authenticateAdminAccess(headers(await token({ email })));
+    assert.deepEqual(result, {
+      ok: true,
+      identity: { email, source: 'cloudflare-access' },
+    });
+  }
+});
+
+test('the administrator allowlist trims, normalizes, deduplicates, and ignores empty entries', async () => {
+  process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAILS =
+    ' , FIRST@EXAMPLE.COM, second@example.com, first@example.com,,';
+
+  const first = await authenticateAdminAccess(
+    headers(await token({ email: ' First@Example.com ' }))
+  );
+  const second = await authenticateAdminAccess(
+    headers(await token({ email: 'SECOND@EXAMPLE.COM' }))
+  );
+  assert.equal(first.ok, true);
+  assert.equal(second.ok, true);
+});
+
+test('an authenticated user absent from the administrator allowlist is rejected', async () => {
+  process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAILS = 'first@example.com,second@example.com';
+  const result = await authenticateAdminAccess(headers(await token({ email: 'other@example.com' })));
+  assert.deepEqual(result, {
+    ok: false,
+    status: 403,
+    message: 'This account does not have administrator access.',
+  });
+});
+
+test('empty and malformed administrator entries do not grant access', async () => {
+  process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAILS = ' , , ';
+  delete process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAIL;
+  const result = await authenticateAdminAccess(headers(await token({ email: '' })));
+  assert.deepEqual(result, { ok: false, status: 403, message: 'Invalid administrator session.' });
+});
+
+test('the legacy singular administrator email remains a fallback', async () => {
+  delete process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAILS;
+  process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAIL = 'legacy@example.com';
+  const result = await authenticateAdminAccess(
+    headers(await token({ email: 'LEGACY@EXAMPLE.COM' }))
+  );
+  assert.equal(result.ok, true);
+});
+
+test('an invalid JWT is rejected even when its claimed email is allowlisted', async () => {
+  process.env.DUCKCLOUD_ADMIN_ALLOWED_EMAILS = 'listed@example.com';
+  const assertion = await new SignJWT({ email: 'listed@example.com' })
+    .setProtectedHeader({ alg: 'RS256', kid: keyId })
+    .setIssuer(teamDomain)
+    .setAudience('expected-audience')
+    .setExpirationTime(Math.floor(Date.now() / 1000) + 60)
+    .sign(otherPrivateKey);
+  const result = await authenticateAdminAccess(headers(assertion));
+  assert.deepEqual(result, { ok: false, status: 403, message: 'Invalid administrator session.' });
 });
 
 test('a team domain without a scheme is normalized to HTTPS', async () => {
