@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 type AdSlotProps = {
   adClient: string;
@@ -17,14 +18,20 @@ export default function AdSlot({
   fullWidthResponsive = true,
   style,
 }: AdSlotProps) {
+  const pathname = usePathname();
+  const isAdmin = pathname === "/admin" || pathname?.startsWith("/admin/");
+
   useEffect(() => {
+    if (!pathname || isAdmin) return;
     try {
       // @ts-ignore
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) {
       console.error("AdSense error", e);
     }
-  }, []);
+  }, [pathname, isAdmin]);
+
+  if (!pathname || isAdmin) return null;
 
   return (
     <ins
