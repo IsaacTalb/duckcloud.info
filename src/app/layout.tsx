@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
+import { AdSenseLoader } from '@/components/ads/AdSenseLoader';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -52,14 +52,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <Script
-          async
-          strategy="afterInteractive"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3157572406863018"
-          crossOrigin="anonymous"
-        />
+
       </head>
       <body>
+        <AdSenseLoader />
         <AutoPageViewTracker toolIdentifiers={toolIdentifiers} />
         <Navbar />
         <main className="min-h-screen">{children}</main>
