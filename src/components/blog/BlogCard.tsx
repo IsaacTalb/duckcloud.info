@@ -3,7 +3,7 @@ import type { CmsArticle } from '@/lib/cms';
 
 function formatDate(value?: string | null) {
   if (!value) return null;
-  return new Date(value).toLocaleDateString('en-US', { dateStyle: 'medium', timeZone: 'UTC' });
+  return new Date(value).toLocaleDateString('en-US', { dateStyle: 'medium', timeZone: 'Asia/Kuala_Lumpur' });
 }
 
 export function BlogCard({ article }: { article: CmsArticle }) {
