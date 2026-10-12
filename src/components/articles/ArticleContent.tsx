@@ -3,7 +3,7 @@ import { markdownToHtml, type CmsArticle } from '@/lib/cms';
 export function ArticleContent({ article, preview = false }: { article: CmsArticle; preview?: boolean }) {
   const rendered = markdownToHtml(article.content || '');
   const published = article.published_at
-    ? new Date(article.published_at).toLocaleDateString('en-US', { dateStyle: 'long', timeZone: 'UTC' })
+    ? new Date(article.published_at).toLocaleDateString('en-US', { dateStyle: 'long', timeZone: 'Asia/Kuala_Lumpur' })
     : null;
 
   return (
